@@ -1,0 +1,18 @@
+Package: rbcb
+Type: Package
+Title: Interface with series from Brazilian's Central Bank service
+Version: 0.1.0
+Author: Wilson Freitas <wilson.freitas@gmail.com>
+Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
+Description: Brazilian Central Bank has an web interface with its systems of time series management.
+    This package interfaces this systems through this web interface providing data in R's data structures.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    httr,
+    jsonlite,
+    xml2,
+    lubridate,
+    stringr
+RoxygenNote: 5.0.1
