@@ -5,7 +5,7 @@ number_of_pages <- function(doc) {
   if (length(node_pages) > 0) {
     x <- sapply(node_pages, xml2::xml_text)
     x <- suppressWarnings( as.numeric(x) )
-    max(x[ix], na.rm = TRUE)
+    max(x, na.rm = TRUE)
   } else {
     1
   }

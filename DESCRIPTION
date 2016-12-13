@@ -14,5 +14,7 @@ Imports:
     jsonlite,
     xml2,
     lubridate,
-    stringr
+    stringr,
+    tibble,
+    xts
 RoxygenNote: 5.0.1

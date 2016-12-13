@@ -8,4 +8,6 @@
 #' @import lubridate
 #' @import xml2
 #' @import stringr
+#' @import tibble
+#' @import xts
 #'
