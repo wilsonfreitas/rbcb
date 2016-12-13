@@ -7,7 +7,7 @@ An interface with [Brazilian Central Bank web services](https://www3.bcb.gov.br/
 While it's not on CRAN, the way to get it installed is through `devtools`
 
 ```r
-devtools::install_github('rbcb', username='wilsonfreitas')
+devtools::install_github('wilsonfreitas/rbcb')
 ```
 
 ## Usage
