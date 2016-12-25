@@ -25,27 +25,34 @@ search_series <- function(q, page = 1) {
   x <- lapply(nodes, function(x) {
     node <- xml2::xml_find_first(x, './/h3[@class="dataset-heading"]/a')
     a_ <- xml2::xml_attr(node, 'href')
+    url <- httr::modify_url('http://dadosabertos.bcb.gov.br', path = a_)
     code <- stringr::str_match(a_, '/dataset/(\\d+)')[,2]
     title <- xml2::xml_text(node)
     node <- xml2::xml_find_first(x, './/*[@class="dataset-content"]/div')
     desc <- xml2::xml_text(node)
-    structure(list(code = code, title = title, description = desc), class = "rbcb_search_result")
+    structure(list(code = code, title = title, description = desc, url = url), class = "rbcb_search_result")
   })
 
-  structure(x, class = "rbcb_search_results")
+  n <- number_of_pages(doc)
+
+  structure(list(results = x, number_of_pages = n, page = page), class = "rbcb_search_results")
 }
 
 #' @export
 print.rbcb_search_result <- function(x, ...) {
   cat("\n")
-  cat("Dataset: ", x$title, "\n")
-  cat("Code: ", x$code, "\n")
+  cat("Dataset:", x$title, "\n")
+  cat("Code:", x$code, "\n")
   cat(x$description, "\n")
+  cat("URL:", x$url, "\n")
   invisible(x)
 }
 
 #' @export
 print.rbcb_search_results <- function(x, ...) {
-  lapply(x, print)
+  lapply(x$results, print)
+  cat('\n')
+  cat(length(x$results), 'results', '\n')
+  cat('Pagination', x$page, '/', x$number_of_pages, '\n')
   invisible(x)
 }
