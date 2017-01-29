@@ -1,16 +1,19 @@
 
-number_of_pages <- function(doc) {
-  node_pages <- xml2::xml_find_all(doc, '//div[@class="pagination pagination-centered"]/*/li/a')
-
-  if (length(node_pages) > 0) {
-    x <- sapply(node_pages, xml2::xml_text)
-    x <- suppressWarnings( as.numeric(x) )
-    max(x, na.rm = TRUE)
-  } else {
-    1
-  }
-}
-
+#'
+#' Search for series in dadosabertos.bcb.gov.br site
+#'
+#' @param q query string
+#' @param page page number to visualize of returning search
+#'
+#' The \code{page} argument defaults to 1 which shows the first page of a returning search.
+#' The search results also show the number of pages and the other pages can be showed by changing
+#' this argument to the page to be presented.
+#'
+#' @return Display the search results on the screen
+#'
+#' @examples
+#' search_series("IPCA")
+#'
 #' @export
 search_series <- function(q, page = 1) {
   url <- search_series_url(q, page = page)
@@ -56,3 +59,16 @@ print.rbcb_search_results <- function(x, ...) {
   cat('Pagination', x$page, '/', x$number_of_pages, '\n')
   invisible(x)
 }
+
+number_of_pages <- function(doc) {
+  node_pages <- xml2::xml_find_all(doc, '//div[@class="pagination pagination-centered"]/*/li/a')
+
+  if (length(node_pages) > 0) {
+    x <- sapply(node_pages, xml2::xml_text)
+    x <- suppressWarnings( as.numeric(x) )
+    max(x, na.rm = TRUE)
+  } else {
+    1
+  }
+}
+
