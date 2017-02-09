@@ -30,29 +30,36 @@
 #' \dontrun{get_series(1)}
 #' # download a period of dates
 #' \dontrun{get_series(1, start_date = '2016-12-01')}
-#' get_series(1, start_date = '2016-12-01', end_date = '2016-12-31')
+#' x <- get_series(1, start_date = '2016-12-01', end_date = '2016-12-31')
 #' # downlaod the last register
-#' get_series(1, last = 1)
+#' x <- get_series(1, last = 1)
 #'
 #' @export
-get_series <- function(code, start_date = NULL, end_date = NULL, last = 0, name = NULL, as = c('tibble', 'xts', 'data.frame')) {
+get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
+                       name = NULL,
+                       as = c('tibble', 'xts', 'data.frame', 'text'),
+                       date_format = '%d/%m/%Y') {
+  as <- match.arg(as)
   url <- series_url(code, start_date, end_date, last)
   res <- httr::GET(url)
   if (res$status_code != 200) {
     stop("BCB API Request error, status code = ", res$status_code)
   }
   json_ <- httr::content(res, as = "text")
+
+  if (as == 'text')
+    return(json_)
+
   df_ <- jsonlite::fromJSON(json_)
   names(df_) <- c('date', 'value')
 
   df_ <- within(df_, {
-    date <- as.POSIXct(date, format = '%d/%m/%Y %H:%M:%S')
+    date <- as.POSIXct(date, format = date_format)
     value <- as.numeric(value)
   })
 
   name_ <- if (is.null(name)) code else name
 
-  as <- match.arg(as)
   if (as == 'tibble') {
     df_ <- tibble::as_tibble(df_)
     names(df_) <- c('date', name_)
