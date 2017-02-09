@@ -23,7 +23,8 @@
 #'
 #' @return
 #' \code{tibble} is the default returning class, but the argument \code{as} can be set
-#' to \code{xts} or \code{data.frame} to return these other types.
+#' to \code{xts}, \code{data.frame}, or \code{text} to return these other types.
+#' \code{text} returns the JSON data provided by the remote API.
 #'
 #' @examples
 #' # download the entire series
