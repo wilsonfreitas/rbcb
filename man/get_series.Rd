@@ -5,8 +5,7 @@
 \title{Get the series from BCB}
 \usage{
 get_series(code, start_date = NULL, end_date = NULL, last = 0,
-  name = NULL, as = c("tibble", "xts", "data.frame", "text"),
-  date_format = "\%d/\%m/\%Y")
+  name = NULL, as = c("tibble", "xts", "data.frame", "text"))
 }
 \arguments{
 \item{code}{series code}
@@ -52,4 +51,3 @@ x <- get_series(1, start_date = '2016-12-01', end_date = '2016-12-31')
 x <- get_series(1, last = 1)
 
 }
-

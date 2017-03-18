@@ -25,4 +25,3 @@ Search for series in dadosabertos.bcb.gov.br site
 search_series("IPCA")
 
 }
-

@@ -12,4 +12,3 @@ indicators and many more.
 These datasets can be accessed throught \code{rbcb} functions and can be obtained in
 different data structures commom to R (tibble, data.frame, xts, ...).
 }
-
