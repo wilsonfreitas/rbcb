@@ -18,6 +18,6 @@ Imports:
     tibble,
     xts,
     xml2,
-    stringr
-RoxygenNote: 5.0.1
+    utils
+RoxygenNote: 6.0.1
 Suggests: testthat

@@ -14,6 +14,6 @@
 #' @import tibble
 #' @import xts
 #' @import xml2
-#' @import stringr
+#' @import utils
 # '
 NULL
