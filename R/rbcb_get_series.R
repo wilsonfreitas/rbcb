@@ -38,8 +38,7 @@
 #' @export
 get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
                        name = NULL,
-                       as = c('tibble', 'xts', 'data.frame', 'text'),
-                       date_format = '%d/%m/%Y') {
+                       as = c('tibble', 'xts', 'data.frame', 'text')) {
   as <- match.arg(as)
   url <- series_url(code, start_date, end_date, last)
   res <- httr::GET(url)
@@ -55,7 +54,7 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
   names(df_) <- c('date', 'value')
 
   df_ <- within(df_, {
-    date <- as.POSIXct(date, format = date_format)
+    date <- as.POSIXct(date, format = '%d/%m/%Y')
     value <- as.numeric(value)
   })
 
