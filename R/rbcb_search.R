@@ -29,7 +29,8 @@ search_series <- function(q, page = 1) {
     node <- xml2::xml_find_first(x, './/h3[@class="dataset-heading"]/a')
     a_ <- xml2::xml_attr(node, 'href')
     url <- httr::modify_url('http://dadosabertos.bcb.gov.br', path = a_)
-    code <- stringr::str_match(a_, '/dataset/(\\d+)')[,2]
+    m <- regexec('/dataset/(\\d+)', a_)
+    code <- regmatches(a_, m)[[1]][2]
     title <- xml2::xml_text(node)
     node <- xml2::xml_find_first(x, './/*[@class="dataset-content"]/div')
     desc <- xml2::xml_text(node)
