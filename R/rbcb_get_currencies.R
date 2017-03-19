@@ -24,16 +24,21 @@ currency_url <- function(id, start_date, end_date) {
 
 clear_cache <- function() rm(list = ls(.CACHE_ENV), pos = .CACHE_ENV)
 
+get_valid_currency_list <- function(date = Sys.Date()) {
+  url2 <- sprintf("http://www4.bcb.gov.br/Download/fechamento/M%s.csv", format(date, "%Y%m%d"))
+  res <- httr::GET(url2)
+  if (res$status_code == 200)
+    return(res)
+  else
+    get_valid_currency_list(date - 1)
+}
+
 get_currency_list <- function() {
   if (exists("TEMP_FILE_CURRENCY_LIST", .CACHE_ENV)) {
     message("Retrieving all currencies file from cache")
     return(get("TEMP_FILE_CURRENCY_LIST", .CACHE_ENV))
   } else {
-    url2 <- sprintf("http://www4.bcb.gov.br/Download/fechamento/M%s.csv", format(Sys.Date()-1, "%Y%m%d"))
-    res <- httr::GET(url2)
-    if (res$status_code != 200) {
-      stop("BCB API Request error, status code = ", res$status_code)
-    }
+    res <- get_valid_currency_list()
     x <- httr::content(res, as = "raw", encoding = "UTF-8")
     x <- rawToChar(x)
 
@@ -259,3 +264,4 @@ get_currency <- function(symbol, start_date, end_date, as = c('tibble', 'xts', '
 
   df
 }
+
