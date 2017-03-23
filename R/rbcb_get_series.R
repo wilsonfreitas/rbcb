@@ -31,7 +31,7 @@
 #' \dontrun{get_series(1)}
 #' # download a period of dates
 #' \dontrun{get_series(1, start_date = '2016-12-01')}
-#' x <- get_series(1, start_date = '2016-12-01', end_date = '2016-12-31')
+#' \dontrun{x <- get_series(1, start_date = '2016-12-01', end_date = '2016-12-31')}
 #' # downlaod the last register
 #' x <- get_series(1, last = 1)
 #'

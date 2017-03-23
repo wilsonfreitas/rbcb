@@ -1,14 +1,14 @@
 Package: rbcb
 Type: Package
-Title: R interface to Brazilian Central Bank web services
+Title: R Interface to Brazilian Central Bank Web Services
 Version: 0.1.0
 Author: Wilson Freitas <wilson.freitas@gmail.com>
 Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
 Description: The Brazilian Central Bank API delivers many datasets which regard economic
   activity, regional economy, international economy, public finances, credit
-  indicators and many more.
-  These datasets can be accessed throught rbcb functions and can be obtained in
-  different data structures commom to R (tibble, data.frame, xts, ...).
+  indicators and many more. For more information please see <http://dadosabertos.bcb.gov.br/>.
+  These datasets can be accessed through 'rbcb' functions and can be obtained in
+  different data structures common to R ('tibble', 'data.frame', 'xts', ...).
 URL: https://github.com/wilsonfreitas/rbcb
 BugReports: https://github.com/wilsonfreitas/rbcb/issues
 License: MIT + file LICENSE
