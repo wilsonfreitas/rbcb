@@ -1,5 +1,8 @@
 # rbcb
 
+[![Build Status](https://travis-ci.org/wilsonfreitas/rbcb.svg?branch=master)](https://travis-ci.org/wilsonfreitas/rbcb)
+[![Downloads](http://cranlogs.r-pkg.org/badges/rbcb?color=brightgreen)]( https://cran.r-project.org/package=rbcb)
+
 An interface to information provided by the [Brazilian Centra Bank](https://www.bcb.gov.br).
 This package interfaces the [Brazilian Central Bank web services](https://www3.bcb.gov.br/sgspub) to provide data already formatted into R's data structures and download currency data 
 from [Brazilian Centra Bank](https://www.bcb.gov.br) web site.
