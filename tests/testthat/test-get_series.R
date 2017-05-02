@@ -35,3 +35,17 @@ test_that("it should get series within a date period", {
   expect_true(x$date[dim(x)[1]] == "2017-03-29")
 })
 
+test_that("it should get series within a date period specifying only start_date", {
+  start <- as.POSIXct(Sys.Date() - 10)
+  x <- get_series(1, start_date = start, name = "USD")
+  expect_is(x$date, "POSIXct")
+  expect_true(nrow(x) >= 6)
+})
+
+test_that("it should get series within a date period specifying only end_date", {
+  end <- "2017-01-02"
+  x <- get_series(1, end_date = end, name = "USD")
+  expect_is(x$date, "POSIXct")
+  expect_true(x$date[nrow(x)] == end)
+})
+

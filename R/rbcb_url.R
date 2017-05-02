@@ -2,8 +2,10 @@
 series_url <- function(code, start_date = NULL, end_date = NULL, last = 0) {
   query <- list(formato = 'json')
   url <- if (last == 0) {
-    query$dataInicial <- if (is.null(start_date)) NULL else format(as.Date(start_date), '%d/%m/%Y')
-    query$dataFinal <- if (is.null(end_date)) NULL else format(as.Date(end_date), '%d/%m/%Y')
+    if (!is.null(start_date) || !is.null(end_date)) {
+      query$dataInicial <- if (is.null(start_date)) format(as.Date("1900-01-01"), '%d/%m/%Y') else format(as.Date(start_date), '%d/%m/%Y')
+      query$dataFinal <- if (is.null(end_date)) format(Sys.Date(), '%d/%m/%Y') else format(as.Date(end_date), '%d/%m/%Y')
+    }
     sprintf('http://api.bcb.gov.br/dados/serie/bcdata.sgs.%d/dados', code)
   } else {
     if (! is.null(start_date) || ! is.null(end_date))

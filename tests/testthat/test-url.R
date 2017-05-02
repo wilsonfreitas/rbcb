@@ -3,8 +3,14 @@ context('create URL')
 
 test_that('should create urls', {
   expect_equal(series_url(1), 'http://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json')
-  expect_equal(series_url(1, start_date='2016-01-01'),
-               'http://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=01%2F01%2F2016')
+  end_date <- format(Sys.Date(), "%d%%2F%m%%2F%Y")
+
+  url <- paste0('http://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=01%2F01%2F2016&dataFinal=', end_date)
+  expect_equal(series_url(1, start_date='2016-01-01'), url)
+
+  url <- paste0('http://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=01%2F01%2F1900&dataFinal=01%2F01%2F2016')
+  expect_equal(series_url(1, end_date='2016-01-01'), url)
+
   expect_equal(series_url(1, start_date='2016-01-01', end_date='2016-12-31'),
                'http://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=01%2F01%2F2016&dataFinal=31%2F12%2F2016')
   expect_equal(series_url(1, last = 1),
