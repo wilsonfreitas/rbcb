@@ -54,7 +54,7 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
   names(df_) <- c('date', 'value')
 
   df_ <- within(df_, {
-    date <- as.POSIXct(date, format = '%d/%m/%Y')
+    date <- as.Date(date, format = '%d/%m/%Y')
     value <- as.numeric(value)
   })
 
