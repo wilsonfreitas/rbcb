@@ -5,7 +5,8 @@
 #' @param end_date series final date. Accepts ISO character formated date and \code{Date}.
 #' @param last last items of the series
 #' @param name series name to be used in the returning object
-#' @param as the returning type: \code{tibble, xts, data.frame}
+#' @param as the returning type: data objects (\code{tibble, xts, data.frame, ts}) or \code{text} for raw JSON
+#' @param ts_options options to be passed to \code{ts} function (when \code{as = 'ts'} provided)
 #'
 #' \code{code} argument can be obtained in the SGS system site. In this site searches can be executed in
 #' order to find out the desired series and use the series code in the \code{code} argument.
@@ -23,7 +24,7 @@
 #'
 #' @return
 #' \code{tibble} is the default returning class, but the argument \code{as} can be set
-#' to \code{xts}, \code{data.frame}, or \code{text} to return these other types.
+#' to \code{xts}, \code{data.frame}, \code{ts}, or \code{text} to return these other types.
 #' \code{text} returns the JSON data provided by the remote API.
 #'
 #' @examples
@@ -60,17 +61,37 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
 
   name_ <- if (is.null(name)) code else name
 
-  if (as == 'tibble') {
-    df_ <- tibble::as_tibble(df_)
-    names(df_) <- c('date', name_)
-  } else if (as == 'data.frame') {
-    names(df_) <- c('date', name_)
-  } else if (as == 'xts') {
-    df_ <- xts::xts(df_$value, df_$date)
-    names(df_) <- name_
-  } else if (as == 'ts') {
-    df_ <- do.call(stats::ts, append(list(data = df_$value), ts_options))
-  }
+  switch (as,
+    'tibble' = {
+      df_ <- tibble::as_tibble(df_)
+      names(df_) <- c('date', name_)
+      df_
+    },
+    'data.frame' = {
+      names(df_) <- c('date', name_)
+      df_
+    },
+    'xts' = {
+      df_ <- xts::xts(df_$value, df_$date)
+      names(df_) <- name_
+      df_
+    },
+    'ts' = {
+      do.call(stats::ts, append(list(data = df_$value), ts_options))
+    }
+  )
 
-  df_
+  # if (as == 'tibble') {
+  #   df_ <- tibble::as_tibble(df_)
+  #   names(df_) <- c('date', name_)
+  # } else if (as == 'data.frame') {
+  #   names(df_) <- c('date', name_)
+  # } else if (as == 'xts') {
+  #   df_ <- xts::xts(df_$value, df_$date)
+  #   names(df_) <- name_
+  # } else if (as == 'ts') {
+  #   df_ <- do.call(stats::ts, append(list(data = df_$value), ts_options))
+  # }
+  #
+  #   df_
 }

@@ -15,5 +15,6 @@
 #' @import xts
 #' @import xml2
 #' @import utils
-# '
+#' @import stats
+#'
 NULL

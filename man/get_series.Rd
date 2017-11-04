@@ -5,7 +5,8 @@
 \title{Get the series from BCB}
 \usage{
 get_series(code, start_date = NULL, end_date = NULL, last = 0,
-  name = NULL, as = c("tibble", "xts", "data.frame", "text"))
+  name = NULL, as = c("tibble", "xts", "ts", "data.frame", "text"),
+  ts_options = NULL)
 }
 \arguments{
 \item{code}{series code}
@@ -18,7 +19,9 @@ get_series(code, start_date = NULL, end_date = NULL, last = 0,
 
 \item{name}{series name to be used in the returning object}
 
-\item{as}{the returning type: \code{tibble, xts, data.frame}
+\item{as}{the returning type: data objects (\code{tibble, xts, data.frame, ts}) or \code{text} for raw JSON}
+
+\item{ts_options}{options to be passed to \code{ts} function (when \code{as = 'ts'} provided)
 
 \code{code} argument can be obtained in the SGS system site. In this site searches can be executed in
 order to find out the desired series and use the series code in the \code{code} argument.
@@ -35,7 +38,7 @@ Note that the code is \code{numeric}.}
 }
 \value{
 \code{tibble} is the default returning class, but the argument \code{as} can be set
-to \code{xts}, \code{data.frame}, or \code{text} to return these other types.
+to \code{xts}, \code{data.frame}, \code{ts}, or \code{text} to return these other types.
 \code{text} returns the JSON data provided by the remote API.
 }
 \description{
