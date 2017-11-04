@@ -28,6 +28,13 @@ test_that("it should get series as xts", {
   expect_equal(colnames(x), "USD")
 })
 
+test_that("it should get series as ts", {
+  x <- get_series(433, start_date = as.Date("2017-01-01"), name = "IPCA", as = "ts", ts_options = list(start = c(2017, 1), frequency = 12))
+  expect_equal(frequency(x), 12)
+  expect_is(x, "ts")
+  expect_equal(start(x), c(2017, 1))
+})
+
 test_that("it should get series within a date period", {
   x <- get_series(1, start_date = "2017-03-01", end_date = "2017-03-29", name = "USD")
   expect_is(x$date, "Date")

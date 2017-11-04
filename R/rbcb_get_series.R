@@ -38,7 +38,7 @@
 #' @export
 get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
                        name = NULL,
-                       as = c('tibble', 'xts', 'data.frame', 'text')) {
+                       as = c('tibble', 'xts', 'ts', 'data.frame', 'text'), ts_options = NULL) {
   as <- match.arg(as)
   url <- series_url(code, start_date, end_date, last)
   res <- httr::GET(url)
@@ -68,6 +68,8 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
   } else if (as == 'xts') {
     df_ <- xts::xts(df_$value, df_$date)
     names(df_) <- name_
+  } else if (as == 'ts') {
+    df_ <- do.call(stats::ts, append(list(data = df_$value), ts_options))
   }
 
   df_
