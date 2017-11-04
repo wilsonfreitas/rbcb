@@ -25,3 +25,7 @@ test_that('should create urls', {
 test_that('should warn for nonsense parameters', {
   expect_warning(series_url(1, start_date = '2016-01-01', last = 1))
 })
+
+test_that('should create search url', {
+  expect_equal(search_series_url('1'), 'https://dadosabertos.bcb.gov.br/dataset?res_format=JSON&q=1&page=1')
+})

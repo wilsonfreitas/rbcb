@@ -16,7 +16,7 @@ series_url <- function(code, start_date = NULL, end_date = NULL, last = 0) {
 }
 
 search_series_url <- function(q, page = 1) {
-  url <- 'http://dadosabertos.bcb.gov.br/organization/b7509736-3cae-4a87-83f2-dee493f76afa'
+  url <- 'https://dadosabertos.bcb.gov.br/dataset'
   query <- list(res_format = 'JSON', q = q, page = page)
   httr::modify_url(url, query = query)
 }
