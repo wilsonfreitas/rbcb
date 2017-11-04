@@ -1,5 +1,6 @@
 Changes in Version 0.1.2
 
+  * implemented ts return for get_series (issue #5)
   * changed search URL (issue #7)
 
 Changes in Version 0.1.1
