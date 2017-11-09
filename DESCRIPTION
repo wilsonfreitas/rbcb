@@ -20,6 +20,7 @@ Imports:
     tibble,
     xts,
     xml2,
-    utils
+    utils,
+    stats
 RoxygenNote: 6.0.1
 Suggests: testthat
