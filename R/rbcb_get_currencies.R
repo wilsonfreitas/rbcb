@@ -34,9 +34,9 @@ get_valid_currency_list <- function(date = Sys.Date()) {
 }
 
 get_currency_list <- function() {
-  if (exists("TEMP_FILE_CURRENCY_LIST", .CACHE_ENV)) {
+  if (exists("TEMP_FILE_CURRENCY_LIST", envir = .CACHE_ENV)) {
     message("Retrieving all currencies file from cache")
-    return(get("TEMP_FILE_CURRENCY_LIST", .CACHE_ENV))
+    return(get("TEMP_FILE_CURRENCY_LIST", envir = .CACHE_ENV))
   } else {
     res <- get_valid_currency_list()
     x <- httr::content(res, as = "raw", encoding = "UTF-8")
@@ -61,9 +61,9 @@ get_currency_list <- function() {
 }
 
 currency_id_list <- function() {
-  if (exists("TEMP_CURRENCY_ID_LIST", .CACHE_ENV)) {
+  if (exists("TEMP_CURRENCY_ID_LIST", envir = .CACHE_ENV)) {
     message("Retrieving currency id list from cache")
-    return(get("TEMP_CURRENCY_ID_LIST", .CACHE_ENV))
+    return(get("TEMP_CURRENCY_ID_LIST", envir = .CACHE_ENV))
   } else {
     url1 <- "https://ptax.bcb.gov.br/ptax_internet/consultaBoletim.do?method=exibeFormularioConsultaBoletim"
     res <- httr::GET(url1)
