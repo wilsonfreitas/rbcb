@@ -17,9 +17,11 @@
 #' @export
 search_series <- function(q, page = 1) {
   url <- search_series_url(q, page = page)
-  res <- httr::GET(url)
+  res <- http_getter(url)
 
-  doc <- xml2::read_html(httr::content(res, as = 'text'))
+  # x <- httr::content(res, as = 'text')
+  x <- http_gettext(res)
+  doc <- xml2::read_html(x)
 
   nodes <- xml2::xml_find_all(doc, '//*[@class="dataset-item"]')
 

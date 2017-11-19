@@ -42,11 +42,12 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
                        as = c('tibble', 'xts', 'ts', 'data.frame', 'text'), ts_options = NULL) {
   as <- match.arg(as)
   url <- series_url(code, start_date, end_date, last)
-  res <- httr::GET(url)
+  res <- http_getter(url)
   if (res$status_code != 200) {
     stop("BCB API Request error, status code = ", res$status_code)
   }
-  json_ <- httr::content(res, as = "text")
+  # json_ <- httr::content(res, as = "text")
+  json_ <- http_gettext(res)
 
   if (as == 'text')
     return(json_)
