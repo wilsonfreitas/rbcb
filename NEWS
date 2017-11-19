@@ -1,5 +1,7 @@
 Changes in Version 0.1.2
 
+  * implemented new functions to organize http requests
+    * added User-Agent header to http requests
   * implemented ts return for get_series (issue #5)
   * changed search URL (issue #7)
 
