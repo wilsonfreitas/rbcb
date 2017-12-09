@@ -60,7 +60,9 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
     value <- as.numeric(value)
   })
 
-  name_ <- if (is.null(name)) code else name
+  if (! is.null(name))
+    warning("Deprecated: name argument is deprecated, try naming the code argument. Example: get_series(c(name = code)).")
+  name_ <- if (is.null(names(code))) code else names(code)
 
   switch (as,
     'tibble' = {
