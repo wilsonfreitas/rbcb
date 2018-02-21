@@ -18,10 +18,6 @@ test_that("it should get one series as data.frame", {
   expect_is(x$`1`, "numeric")
 })
 
-test_that("it should warn if naming the series", {
-  expect_warning(get_series(1, last = 10, name = "USD"))
-})
-
 test_that("it should name the series", {
   x <- get_series(c(USD = 1), last = 10)
   expect_equal(colnames(x), c("date", "USD"))
@@ -60,3 +56,13 @@ test_that("it should get series within a date period specifying only end_date", 
   expect_true(x$date[nrow(x)] == end)
 })
 
+test_that("it should get multiple series", {
+  start <- Sys.Date() - 10
+  x <- get_series(c(USD = 1, IBOVESPA = 7), start_date = start)
+  expect_equal(length(x), 2)
+  expect_equal(names(x), c("USD", "IBOVESPA"))
+
+  x <- get_series(c(USD = 1, 7), last = 5)
+  expect_equal(length(x), 2)
+  expect_equal(names(x), c("USD", "7"))
+})

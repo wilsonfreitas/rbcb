@@ -4,7 +4,6 @@
 #' @param start_date series initial date. Accepts ISO character formated date and \code{Date}.
 #' @param end_date series final date. Accepts ISO character formated date and \code{Date}.
 #' @param last last items of the series
-#' @param name series name to be used in the returning object
 #' @param as the returning type: data objects (\code{tibble, xts, data.frame, ts}) or \code{text} for raw JSON
 #' @param ts_options options to be passed to \code{ts} function (when \code{as = 'ts'} provided)
 #'
@@ -17,9 +16,6 @@
 #' download the last \code{N} registers define the \code{last} argument to \code{N}
 #' a positive integer.
 #' Once \code{last} is provided it overrides the arguments \code{start_date} and \code{end_date}.
-#'
-#' If \code{name} argument is set the returning series is properly named, if not the code argument is used.
-#' Note that the code is \code{numeric}.
 #'
 #'
 #' @return
@@ -38,15 +34,23 @@
 #'
 #' @export
 get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
-                       name = NULL,
                        as = c('tibble', 'xts', 'ts', 'data.frame', 'text'), ts_options = NULL) {
   as <- match.arg(as)
   url <- series_url(code, start_date, end_date, last)
+  if (length(url) == 1)
+    .get_series(url, as, ts_options)
+  else {
+    series = lapply(seq_along(url), function(ix) .get_series(url[ix], as, ts_options))
+    setNames(series, names(url))
+  }
+}
+
+.get_series = function(url, as, ts_options) {
   res <- http_getter(url)
   if (res$status_code != 200) {
     stop("BCB API Request error, status code = ", res$status_code)
   }
-  # json_ <- httr::content(res, as = "text")
+
   json_ <- http_gettext(res)
 
   if (as == 'text')
@@ -60,41 +64,25 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
     value <- as.numeric(value)
   })
 
-  if (! is.null(name))
-    warning("Deprecated: name argument is deprecated, try naming the code argument. Example: get_series(c(name = code)).")
-  name_ <- if (is.null(names(code))) code else names(code)
+  name_ <- names(url)
 
   switch (as,
-    'tibble' = {
-      df_ <- tibble::as_tibble(df_)
-      names(df_) <- c('date', name_)
-      df_
-    },
-    'data.frame' = {
-      names(df_) <- c('date', name_)
-      df_
-    },
-    'xts' = {
-      df_ <- xts::xts(df_$value, df_$date)
-      names(df_) <- name_
-      df_
-    },
-    'ts' = {
-      do.call(stats::ts, append(list(data = df_$value), ts_options))
-    }
+          'tibble' = {
+            df_ <- tibble::as_tibble(df_)
+            names(df_) <- c('date', name_)
+            df_
+          },
+          'data.frame' = {
+            names(df_) <- c('date', name_)
+            df_
+          },
+          'xts' = {
+            df_ <- xts::xts(df_$value, df_$date)
+            names(df_) <- name_
+            df_
+          },
+          'ts' = {
+            do.call(stats::ts, append(list(data = df_$value), ts_options))
+          }
   )
-
-  # if (as == 'tibble') {
-  #   df_ <- tibble::as_tibble(df_)
-  #   names(df_) <- c('date', name_)
-  # } else if (as == 'data.frame') {
-  #   names(df_) <- c('date', name_)
-  # } else if (as == 'xts') {
-  #   df_ <- xts::xts(df_$value, df_$date)
-  #   names(df_) <- name_
-  # } else if (as == 'ts') {
-  #   df_ <- do.call(stats::ts, append(list(data = df_$value), ts_options))
-  # }
-  #
-  #   df_
 }
