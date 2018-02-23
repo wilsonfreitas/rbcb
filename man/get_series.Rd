@@ -5,8 +5,7 @@
 \title{Get the series from BCB}
 \usage{
 get_series(code, start_date = NULL, end_date = NULL, last = 0,
-  name = NULL, as = c("tibble", "xts", "ts", "data.frame", "text"),
-  ts_options = NULL)
+  as = c("tibble", "xts", "ts", "data.frame", "text"), ts_options = NULL)
 }
 \arguments{
 \item{code}{series code}
@@ -16,8 +15,6 @@ get_series(code, start_date = NULL, end_date = NULL, last = 0,
 \item{end_date}{series final date. Accepts ISO character formated date and \code{Date}.}
 
 \item{last}{last items of the series}
-
-\item{name}{series name to be used in the returning object}
 
 \item{as}{the returning type: data objects (\code{tibble, xts, data.frame, ts}) or \code{text} for raw JSON}
 
@@ -31,10 +28,7 @@ If none of these arguments are set, then the entire time series is downloaded.
 Define \code{start_date} and \code{end_date} to download a period of data and to
 download the last \code{N} registers define the \code{last} argument to \code{N}
 a positive integer.
-Once \code{last} is provided it overrides the arguments \code{start_date} and \code{end_date}.
-
-If \code{name} argument is set the returning series is properly named, if not the code argument is used.
-Note that the code is \code{numeric}.}
+Once \code{last} is provided it overrides the arguments \code{start_date} and \code{end_date}.}
 }
 \value{
 \code{tibble} is the default returning class, but the argument \code{as} can be set
