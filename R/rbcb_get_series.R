@@ -5,7 +5,6 @@
 #' @param end_date series final date. Accepts ISO character formated date and \code{Date}.
 #' @param last last items of the series
 #' @param as the returning type: data objects (\code{tibble, xts, data.frame, ts}) or \code{text} for raw JSON
-#' @param ts_options options to be passed to \code{ts} function (when \code{as = 'ts'} provided)
 #'
 #' \code{code} argument can be obtained in the SGS system site. In this site searches can be executed in
 #' order to find out the desired series and use the series code in the \code{code} argument.
