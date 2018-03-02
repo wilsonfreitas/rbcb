@@ -1,14 +1,10 @@
 
-series_info_url = function(x) UseMethod("series_info_url")
-
-series_info_url.series_obj = function(x) {
+series_info_url = function(x) {
   url = "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId"
   httr::modify_url(url, query = list(hdOidSeriesSelecionadas = x$code))
 }
 
-series_info = function(x) UseMethod("series_info")
-
-series_info.series_obj = function(x) {
+series_info = function(x) {
   url = series_info_url(x)
   res = httr::GET(url)
   cnt = httr::content(res, as = "text")
