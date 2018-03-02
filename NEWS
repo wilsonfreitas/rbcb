@@ -1,3 +1,9 @@
+Changes in Version 0.1.3
+
+  * implemented new naming style for get_series (issue #9)
+  * implemented the fetch of multiple series in one get_series call (issue #11)
+  * removed get_series ts_options argument, now it uses series info to define frequency and start
+
 Changes in Version 0.1.2
 
   * implemented new functions to organize http requests
