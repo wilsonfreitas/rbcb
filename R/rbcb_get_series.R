@@ -34,37 +34,49 @@
 #'
 #' @export
 get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
-                       as = c('tibble', 'xts', 'ts', 'data.frame', 'text'), ts_options = NULL) {
+                       as = c('tibble', 'xts', 'ts', 'data.frame', 'text')) {
   as <- match.arg(as)
-  url <- series_url(code, start_date, end_date, last)
-  if (length(url) == 1)
-    .get_series(url, as, ts_options)
-  else {
-    series = lapply(seq_along(url), function(ix) .get_series(url[ix], as, ts_options))
-    setNames(series, names(url))
-  }
+  objs = series_obj(code)
+
+  series = lapply(objs, function(x) .get_series(series_url(x, start_date, end_date, last)))
+
+  series = mapply(create_series, series, objs,
+                  MoreArgs = list(as = as),
+                  SIMPLIFY = FALSE,
+                  USE.NAMES = FALSE)
+
+  names_ = lapply(objs, function(x) x$name)
+  series = setNames(series, names_)
+
+  if (length(series) == 1)
+    series[[1]]
+  else
+    series
 }
 
-.get_series = function(url, as, ts_options) {
+.get_series = function(url) {
   res <- http_getter(url)
   if (res$status_code != 200) {
     stop("BCB API Request error, status code = ", res$status_code)
   }
 
-  json_ <- http_gettext(res)
+  http_gettext(res)
+}
 
+create_series = function(json_, x, as) {
   if (as == 'text')
     return(json_)
 
   df_ <- jsonlite::fromJSON(json_)
+
   names(df_) <- c('date', 'value')
 
-  df_ <- within(df_, {
+  df_ = within(df_, {
     date <- as.Date(date, format = '%d/%m/%Y')
     value <- as.numeric(value)
   })
 
-  name_ <- names(url)
+  name_ <- x$name
 
   switch (as,
           'tibble' = {
@@ -82,7 +94,31 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
             df_
           },
           'ts' = {
-            do.call(stats::ts, append(list(data = df_$value), ts_options))
+            freq = if (is.null(x$info$frequency)) 'D' else x$info$frequency
+            freq_ = switch (freq,
+                           'A' = 1,
+                           'M' = 12,
+                           'D' = 366
+            )
+            start = switch (freq,
+              'A' = {
+                as.integer(format(df_$date[1], '%Y'))
+              },
+              'M' = {
+                c(
+                  as.integer(format(df_$date[1], '%Y')),
+                  as.integer(format(df_$date[1], '%m'))
+                )
+              },
+              'D' = {
+                c(
+                  as.integer(format(df_$date[1], '%Y')),
+                  as.integer(format(df_$date[1], '%j'))
+                )
+              }
+            )
+            stats::ts(df_$value, start = start, frequency = freq_)
           }
   )
 }
+
