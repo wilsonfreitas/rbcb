@@ -15,9 +15,7 @@
   httr::modify_url(url, query = query)
 }
 
-series_url = function(x, ...) UseMethod("series_url")
-
-series_url.series_obj <- function(x, start_date = NULL, end_date = NULL, last = 0) {
+series_url <- function(x, start_date = NULL, end_date = NULL, last = 0) {
   .series_url(x$code, start_date = start_date, end_date = end_date, last = last)
 }
 
