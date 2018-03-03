@@ -68,10 +68,12 @@ create_series = function(json_, x, as) {
 
   df_ <- jsonlite::fromJSON(json_)
 
-  names(df_) <- c('date', 'value')
+  names(df_) <- resolve_names(names(df_))
 
   df_ = within(df_, {
     date <- as.Date(date, format = '%d/%m/%Y')
+    if (exists("end_date"))
+      end_date <- as.Date(end_date, format = '%d/%m/%Y')
     value <- as.numeric(value)
   })
 
@@ -80,11 +82,11 @@ create_series = function(json_, x, as) {
   switch (as,
           'tibble' = {
             df_ <- tibble::as_tibble(df_)
-            names(df_) <- c('date', name_)
+            names(df_) <- set_series_name(names(df_), name_)
             df_
           },
           'data.frame' = {
-            names(df_) <- c('date', name_)
+            names(df_) <- set_series_name(names(df_), name_)
             df_
           },
           'xts' = {
@@ -121,3 +123,23 @@ create_series = function(json_, x, as) {
   )
 }
 
+resolve_names = function(nx) {
+  ix = grep("^data$|^datafim$|^valor$", nx)
+  nm = sapply(ix, function(ix) {
+    nnx = sub("^data$", "date", nx[ix])
+    if (nnx != nx[ix]) return(nnx)
+    nnx = sub("^datafim$", "end_date", nx[ix])
+    if (nnx != nx[ix]) return(nnx)
+    nnx = sub("^valor$", "value", nx[ix])
+    if (nnx != nx[ix]) return(nnx)
+    nx[ix]
+  }, USE.NAMES = FALSE)
+  nx[ix] = nm
+  nx
+}
+
+set_series_name = function(nx, nm) {
+  ix = grep("^valor$", nx)
+  nx[ix] = nm
+  nx
+}
