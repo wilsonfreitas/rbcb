@@ -5,7 +5,7 @@
 \title{Get the series from BCB}
 \usage{
 get_series(code, start_date = NULL, end_date = NULL, last = 0,
-  as = c("tibble", "xts", "ts", "data.frame", "text"), ts_options = NULL)
+  as = c("tibble", "xts", "ts", "data.frame", "text"))
 }
 \arguments{
 \item{code}{series code}
@@ -16,9 +16,7 @@ get_series(code, start_date = NULL, end_date = NULL, last = 0,
 
 \item{last}{last items of the series}
 
-\item{as}{the returning type: data objects (\code{tibble, xts, data.frame, ts}) or \code{text} for raw JSON}
-
-\item{ts_options}{options to be passed to \code{ts} function (when \code{as = 'ts'} provided)
+\item{as}{the returning type: data objects (\code{tibble, xts, data.frame, ts}) or \code{text} for raw JSON
 
 \code{code} argument can be obtained in the SGS system site. In this site searches can be executed in
 order to find out the desired series and use the series code in the \code{code} argument.

@@ -29,10 +29,15 @@ test_that("it should get series as xts", {
 })
 
 test_that("it should get series as ts", {
-  x <- get_series(c(IPCA = 433), start_date = as.Date("2017-01-01"), as = "ts", ts_options = list(start = c(2017, 1), frequency = 12))
+  x <- get_series(c(IPCA = 433), start_date = as.Date("2017-01-01"), as = "ts")
   expect_equal(frequency(x), 12)
   expect_is(x, "ts")
   expect_equal(start(x), c(2017, 1))
+
+  x <- get_series(27569, start_date = as.Date("2012-01-01"), as = "ts")
+  expect_equal(frequency(x), 1)
+  expect_is(x, "ts")
+  expect_equal(start(x), c(2012, 1))
 })
 
 test_that("it should get series within a date period", {

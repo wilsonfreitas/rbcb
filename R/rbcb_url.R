@@ -15,14 +15,8 @@
   httr::modify_url(url, query = query)
 }
 
-series_url <- function(code, start_date = NULL, end_date = NULL, last = 0) {
-  names_ = names(code)
-  names_[names_ == ""] = as.character(code[names_ == ""])
-  x = sapply(code, .series_url, start_date = start_date, end_date = end_date, last = last, USE.NAMES = FALSE)
-  if (is.null(names_))
-    setNames(x, as.character(code))
-  else
-    setNames(x, names_)
+series_url <- function(x, start_date = NULL, end_date = NULL, last = 0) {
+  .series_url(x$code, start_date = start_date, end_date = end_date, last = last)
 }
 
 search_series_url <- function(q, page = 1) {
