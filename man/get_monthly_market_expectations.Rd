@@ -26,21 +26,20 @@ accents.
 
 The \code{...} is to be used with API's parameters. \code{$top} to specify
 the maximum number of rows to be returned, this returns the \code{$top} rows,
-in chronological order. There is also \code{skip} to ignore the first specified
-rows.}
+in chronological order. There is also \code{$skip} to ignore the first rows.}
 }
 \value{
-A \code{data.frame} with the following columns: Data, Indicador,
-DataReferencia, Media, Mediana, DesvioPadrao, CoeficienteVariacao, Minimo,
-Maximo.
+A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
+\code{refdate}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
+\code{min}, \code{max}.
 }
 \description{
-Statistics for the most relevant economic indicators: mean, median, standard
+Statistics for the monthly expectations of economic indicators: mean, median, standard
 deviate, minimum, maximum and the coefficient of variation.
-All statistics are computed based on expectations provided by many financial
+All statistics are computed based on monthly expectations provided by many financial
 institutions in Brazil: banks, funds, risk managers, so on and so forth.
-These expections and its statistics are used to build the FOCUS Report released
-weekly by the Brazilian Central Bank.
+These expections and its statistics are used to build the FOCUS Report weekly
+released by the Brazilian Central Bank.
 }
 \examples{
 indic <- c("IPCA", "Produção industrial")

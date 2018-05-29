@@ -11,24 +11,24 @@
 #           "Meta para taxa over-selic",
 #           "Taxa de câmbio")
 #
-# Data
-# Indicador
-# DataReferencia
-# Media
-# Mediana
-# DesvioPadrao
-# CoeficienteVariacao
-# Minimo
-# Maximo
+# Data - date
+# Indicador - indic
+# DataReferencia - refdate
+# Media - mean
+# Mediana - median
+# DesvioPadrao - sd
+# CoeficienteVariacao - coefvar
+# Minimo - min
+# Maximo - max
 
 #' Get monthly market expectations for the most relevant economic indicators
 #'
-#' Statistics for the most relevant economic indicators: mean, median, standard
+#' Statistics for the monthly expectations of economic indicators: mean, median, standard
 #' deviate, minimum, maximum and the coefficient of variation.
-#' All statistics are computed based on expectations provided by many financial
+#' All statistics are computed based on monthly expectations provided by many financial
 #' institutions in Brazil: banks, funds, risk managers, so on and so forth.
-#' These expections and its statistics are used to build the FOCUS Report released
-#' weekly by the Brazilian Central Bank.
+#' These expections and its statistics are used to build the FOCUS Report weekly
+#' released by the Brazilian Central Bank.
 #'
 #' @param indic a character vector with economic indicators names: IGP-DI,
 #' IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
@@ -45,13 +45,12 @@
 #'
 #' The \code{...} is to be used with API's parameters. \code{$top} to specify
 #' the maximum number of rows to be returned, this returns the \code{$top} rows,
-#' in chronological order. There is also \code{skip} to ignore the first specified
-#' rows.
+#' in chronological order. There is also \code{$skip} to ignore the first rows.
 #'
 #' @return
-#' A \code{data.frame} with the following columns: Data, Indicador,
-#' DataReferencia, Media, Mediana, DesvioPadrao, CoeficienteVariacao, Minimo,
-#' Maximo.
+#' A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
+#' \code{refdate}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
+#' \code{min}, \code{max}.
 #'
 #' @examples
 #' indic <- c("IPCA", "Produção industrial")
