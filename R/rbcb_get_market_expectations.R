@@ -84,7 +84,12 @@ get_monthly_market_expectations <- function(indic, start_date = NULL, end_date =
 
   data_ <- jsonlite::fromJSON(text_)
 
-  tibble::as_tibble(data_$value)
+  df_ <- tibble::as_tibble(data_$value)
+
+  df_$Data <- as.Date(df_$Data)
+  df_$DataReferencia <- as.Date(paste0("01", df_$DataReferencia), "%d%m/%Y")
+
+  df_
 }
 
 monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
