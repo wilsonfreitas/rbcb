@@ -14,7 +14,7 @@
 #'
 #' @param indic a character vector with economic indicators names: IGP-DI,
 #' IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
-#' Meta para taxa over-selic, Taxa de câmbio. These are case sensitive and don't forget
+#' Meta para taxa over-selic, Taxa de câmbio. They are case sensitive and don't forget
 #' the accents.
 #' @param start_date series initial date. Accepts ISO character formated date and \code{Date}.
 #' @param end_date series final date. Accepts ISO character formated date and \code{Date}.
@@ -106,7 +106,7 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' PIB Industrial, PIB Serviços, PIB Total.
 #'
 #' @param indic a character vector with economic indicators names: PIB Agropecuária,
-#' PIB Industrial, PIB Serviços, PIB Total. These are case sensitive and don't forget
+#' PIB Industrial, PIB Serviços, PIB Total. They are case sensitive and don't forget
 #' the accents.
 #' @param start_date series initial date. Accepts ISO character formated date and \code{Date}.
 #' @param end_date series final date. Accepts ISO character formated date and \code{Date}.
@@ -177,42 +177,48 @@ quarterly_market_expectations_url <- function(indic, start_date, end_date, ...) 
                                 `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
 }
 
-#' Get quarterly market expectations of economic indicators
+#' Get annual market expectations of economic indicators
 #'
-#' Statistics for the quarterly expectations of economic indicators: mean, median, standard
+#' Statistics for the annual expectations of economic indicators: mean, median, standard
 #' deviate, minimum, maximum and the coefficient of variation.
-#' All statistics are computed based on quarterly expectations provided by many financial
+#' All statistics are computed based on annual expectations provided by many financial
 #' institutions in Brazil: banks, funds, risk managers, so on and so forth.
 #' These expections and its statistics are used to build the FOCUS Report weekly
 #' released by the Brazilian Central Bank.
 #'
-#' There are quarterly expectations available for the following indicators: PIB Agropecuária,
-#' PIB Industrial, PIB Serviços, PIB Total.
+#' There are quarterly expectations available for the following indicators: Balança Comercial,
+#' Balanço de Pagamentos, Fiscal, IGP-DI, IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe,
+#' Preços administrados por contrato e monitorados, Produção industrial, PIB Agropecuária,
+#' PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
 #'
-#' @param indic a character vector with economic indicators names: PIB Agropecuária,
-#' PIB Industrial, PIB Serviços, PIB Total. These are case sensitive and don't forget
-#' the accents.
+#' @param indic a character vector with economic indicators names: Balança Comercial,
+#' Balanço de Pagamentos, Fiscal, IGP-DI, IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe,
+#' Preços administrados por contrato e monitorados, Produção industrial, PIB Agropecuária,
+#' PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
+#' They are case sensitive and don't forget the accents.
 #' @param start_date series initial date. Accepts ISO character formated date and \code{Date}.
 #' @param end_date series final date. Accepts ISO character formated date and \code{Date}.
 #' @param ... additional parameters to be passed to the API
 #'
-#' \code{indic} argumento must be one of these: PIB Agropecuária,
-#' PIB Industrial, PIB Serviços, PIB Total. Respecting the case, blank spaces and
-#' accents.
+#' \code{indic} argumento must be one of these: Balança Comercial,
+#' Balanço de Pagamentos, Fiscal, IGP-DI, IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe,
+#' Preços administrados por contrato e monitorados, Produção industrial, PIB Agropecuária,
+#' PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
+#' Respecting the case, blank spaces and accents.
 #'
 #' The \code{...} is to be used with API's parameters. \code{$top} to specify
 #' the maximum number of rows to be returned, this returns the \code{$top} rows,
 #' in chronological order. There is also \code{$skip} to ignore the first rows.
 #'
 #' @return
-#' A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
-#' \code{refdate}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
-#' \code{min}, \code{max}.
+#' A \code{data.frame} with the following ten columns: \code{date}, \code{indic},
+#' \code{indic_detail}, \code{refdate}, \code{mean}, \code{median}, \code{sd},
+#' \code{coefvar}, \code{min}, \code{max}.
 #'
 #' @examples
-#' indic <- c("PIB Agropecuária", "PIB Total")
+#' indic <- c("Balanço de Pagamentos", "Fiscal")
 #' end_date <- "2018-01-31"
-#' x <- get_quarterly_market_expectations(indic, end_date = end_date, `$top` = 10)
+#' x <- get_annual_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
 get_annual_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
@@ -269,3 +275,4 @@ annual_market_expectations_url <- function(indic, start_date, end_date, ...) {
                                 `$orderby` = "Data desc",
                                 `$select` = "Indicador,IndicadorDetalhe,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
 }
+

@@ -9,7 +9,7 @@ get_quarterly_market_expectations(indic, start_date = NULL, end_date = NULL,
 }
 \arguments{
 \item{indic}{a character vector with economic indicators names: PIB Agropecuária,
-PIB Industrial, PIB Serviços, PIB Total. These are case sensitive and don't forget
+PIB Industrial, PIB Serviços, PIB Total. They are case sensitive and don't forget
 the accents.}
 
 \item{start_date}{series initial date. Accepts ISO character formated date and \code{Date}.}

@@ -10,7 +10,7 @@ get_monthly_market_expectations(indic, start_date = NULL, end_date = NULL,
 \arguments{
 \item{indic}{a character vector with economic indicators names: IGP-DI,
 IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
-Meta para taxa over-selic, Taxa de câmbio. These are case sensitive and don't forget
+Meta para taxa over-selic, Taxa de câmbio. They are case sensitive and don't forget
 the accents.}
 
 \item{start_date}{series initial date. Accepts ISO character formated date and \code{Date}.}
