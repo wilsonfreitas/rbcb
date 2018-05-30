@@ -32,7 +32,7 @@ in chronological order. There is also \code{$skip} to ignore the first rows.}
 }
 \value{
 A \code{data.frame} with the following ten columns: \code{date}, \code{indic},
-\code{indic_detail}, \code{refdate}, \code{mean}, \code{median}, \code{sd},
+\code{indic_detail}, \code{reference_year}, \code{mean}, \code{median}, \code{sd},
 \code{coefvar}, \code{min}, \code{max}.
 }
 \description{

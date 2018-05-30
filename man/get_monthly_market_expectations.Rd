@@ -30,7 +30,7 @@ in chronological order. There is also \code{$skip} to ignore the first rows.}
 }
 \value{
 A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
-\code{refdate}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
+\code{reference_month}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
 \code{min}, \code{max}.
 }
 \description{

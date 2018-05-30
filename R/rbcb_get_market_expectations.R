@@ -31,7 +31,7 @@
 #'
 #' @return
 #' A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
-#' \code{refdate}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
+#' \code{reference_month}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
 #' \code{min}, \code{max}.
 #'
 #' @examples
@@ -122,7 +122,7 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #'
 #' @return
 #' A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
-#' \code{refdate}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
+#' \code{reference_quarter}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
 #' \code{min}, \code{max}.
 #'
 #' @examples
@@ -212,7 +212,7 @@ quarterly_market_expectations_url <- function(indic, start_date, end_date, ...) 
 #'
 #' @return
 #' A \code{data.frame} with the following ten columns: \code{date}, \code{indic},
-#' \code{indic_detail}, \code{refdate}, \code{mean}, \code{median}, \code{sd},
+#' \code{indic_detail}, \code{reference_year}, \code{mean}, \code{median}, \code{sd},
 #' \code{coefvar}, \code{min}, \code{max}.
 #'
 #' @examples
