@@ -84,9 +84,10 @@ get_monthly_market_expectations <- function(indic, start_date = NULL, end_date =
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
+  names(df_) <- c("indic", "date", "refdate", "mean", "median", "sd", "coefvar", "min", "max")
 
-  df_$Data <- as.Date(df_$Data)
-  df_$DataReferencia <- as.Date(paste0("01", df_$DataReferencia), "%d%m/%Y")
+  df_$date <- as.Date(df_$date)
+  df_$refdate <- as.Date(paste0("01", df_$refdate), "%d%m/%Y")
 
   df_
 }
@@ -103,5 +104,6 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
   httr::modify_url("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais",
                    query = list(`$filter` = filter__,
                                 `$format` = "application/json",
-                                `$orderby` = "Data desc", ...))
+                                `$orderby` = "Data desc",
+                                `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
 }
