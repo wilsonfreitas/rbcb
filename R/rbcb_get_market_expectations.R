@@ -114,3 +114,52 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
                                 `$orderby` = "Data desc",
                                 `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
 }
+
+# quarterly market expectations
+
+#' @export
+get_quarterly_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
+  valid_indic = c("PIB Agropecuária",
+                  "PIB Industrial",
+                  "PIB Serviços",
+                  "PIB Total")
+
+  check_indic <- indic %in% valid_indic
+  if (!all(check_indic))
+    stop("Invalid indic argument: ", paste(indic[!check_indic], collapse = ", "))
+
+  url <- quarterly_market_expectations_url(indic, start_date, end_date, ...)
+
+  res <- httr::GET(url)
+
+  text_ <- httr::content(res, as = "text")
+
+  data_ <- jsonlite::fromJSON(text_)
+
+  df_ <- tibble::as_tibble(data_$value)
+  names(df_) <- c("indic", "date", "refdate", "mean", "median", "sd", "coefvar", "min", "max")
+
+  df_$date <- as.Date(df_$date)
+  refdate <- as.Date(paste0("01", df_$refdate), "%d%m/%Y")
+  levels_ <- format(sort(unique(refdate)), "%Y-%m")
+  x_ <- format(refdate, "%Y-%m")
+  df_$refdate <- factor(x_, levels = levels_, ordered = TRUE)
+
+  df_
+}
+
+quarterly_market_expectations_url <- function(indic, start_date, end_date, ...) {
+  indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
+
+  sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
+
+  ed_filter <- if (!is.null(end_date)) sprintf("Data le '%s'", end_date) else NULL
+
+  filter__ <- paste(c(indic_filter, sd_filter, ed_filter), collapse = " and ")
+
+  httr::modify_url("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTrimestrais",
+                   query = list(`$filter` = filter__,
+                                `$format` = "application/json",
+                                `$orderby` = "Data desc",
+                                `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
+}
