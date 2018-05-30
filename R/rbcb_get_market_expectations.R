@@ -66,13 +66,13 @@ get_monthly_market_expectations <- function(indic, start_date = NULL, end_date =
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "date", "refdate", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "date", "reference_month", "mean", "median", "sd", "coefvar", "min", "max")
 
   df_$date <- as.Date(df_$date)
-  refdate <- as.Date(paste0("01", df_$refdate), "%d%m/%Y")
+  refdate <- as.Date(paste0("01", df_$reference_month), "%d%m/%Y")
   levels_ <- format(sort(unique(refdate)), "%Y-%m")
   x_ <- format(refdate, "%Y-%m")
-  df_$refdate <- factor(x_, levels = levels_, ordered = TRUE)
+  df_$reference_month <- factor(x_, levels = levels_, ordered = TRUE)
 
   df_
 }
@@ -150,13 +150,13 @@ get_quarterly_market_expectations <- function(indic, start_date = NULL, end_date
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "date", "refdate", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "date", "reference_quarter", "mean", "median", "sd", "coefvar", "min", "max")
 
   df_$date <- as.Date(df_$date)
-  refdate <- as.Date(paste0("01", df_$refdate), "%d%m/%Y")
+  refdate <- as.Date(paste0("01", df_$reference_quarter), "%d%m/%Y")
   levels_ <- format(sort(unique(refdate)), "%Y-%m")
   x_ <- format(refdate, "%Y-%m")
-  df_$refdate <- factor(x_, levels = levels_, ordered = TRUE)
+  df_$reference_quarter <- factor(x_, levels = levels_, ordered = TRUE)
 
   df_
 }
@@ -255,7 +255,7 @@ get_annual_market_expectations <- function(indic, start_date = NULL, end_date = 
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "indic_detail", "date", "refdate", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "indic_detail", "date", "reference_year", "mean", "median", "sd", "coefvar", "min", "max")
   df_$date <- as.Date(df_$date)
   df_
 }
