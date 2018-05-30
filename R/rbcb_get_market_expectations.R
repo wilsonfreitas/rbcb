@@ -1,27 +1,5 @@
 
-# indic = c("IGP-DI",
-#           "IGP-M",
-#           "INPC",
-#           "IPA-DI",
-#           "IPA-M",
-#           "IPCA",
-#           "IPCA-15",
-#           "IPC-Fipe",
-#           "Produção industrial",
-#           "Meta para taxa over-selic",
-#           "Taxa de câmbio")
-#
-# Data - date
-# Indicador - indic
-# DataReferencia - refdate
-# Media - mean
-# Mediana - median
-# DesvioPadrao - sd
-# CoeficienteVariacao - coefvar
-# Minimo - min
-# Maximo - max
-
-#' Get monthly market expectations for the most relevant economic indicators
+#' Get monthly market expectations of economic indicators
 #'
 #' Statistics for the monthly expectations of economic indicators: mean, median, standard
 #' deviate, minimum, maximum and the coefficient of variation.
@@ -36,7 +14,7 @@
 #'
 #' @param indic a character vector with economic indicators names: IGP-DI,
 #' IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
-#' Meta para taxa over-selic, Taxa de câmbio. It's case sensitive and don't forget
+#' Meta para taxa over-selic, Taxa de câmbio. These are case sensitive and don't forget
 #' the accents.
 #' @param start_date series initial date. Accepts ISO character formated date and \code{Date}.
 #' @param end_date series final date. Accepts ISO character formated date and \code{Date}.
@@ -115,8 +93,43 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
                                 `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
 }
 
-# quarterly market expectations
-
+#' Get quarterly market expectations of economic indicators
+#'
+#' Statistics for the quarterly expectations of economic indicators: mean, median, standard
+#' deviate, minimum, maximum and the coefficient of variation.
+#' All statistics are computed based on quarterly expectations provided by many financial
+#' institutions in Brazil: banks, funds, risk managers, so on and so forth.
+#' These expections and its statistics are used to build the FOCUS Report weekly
+#' released by the Brazilian Central Bank.
+#'
+#' There are quarterly expectations available for the following indicators: PIB Agropecuária,
+#' PIB Industrial, PIB Serviços, PIB Total.
+#'
+#' @param indic a character vector with economic indicators names: PIB Agropecuária,
+#' PIB Industrial, PIB Serviços, PIB Total. These are case sensitive and don't forget
+#' the accents.
+#' @param start_date series initial date. Accepts ISO character formated date and \code{Date}.
+#' @param end_date series final date. Accepts ISO character formated date and \code{Date}.
+#' @param ... additional parameters to be passed to the API
+#'
+#' \code{indic} argumento must be one of these: PIB Agropecuária,
+#' PIB Industrial, PIB Serviços, PIB Total. Respecting the case, blank spaces and
+#' accents.
+#'
+#' The \code{...} is to be used with API's parameters. \code{$top} to specify
+#' the maximum number of rows to be returned, this returns the \code{$top} rows,
+#' in chronological order. There is also \code{$skip} to ignore the first rows.
+#'
+#' @return
+#' A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
+#' \code{refdate}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
+#' \code{min}, \code{max}.
+#'
+#' @examples
+#' indic <- c("PIB Agropecuária", "PIB Total")
+#' end_date <- "2018-01-31"
+#' x <- get_quarterly_market_expectations(indic, end_date = end_date, `$top` = 10)
+#'
 #' @export
 get_quarterly_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
   valid_indic = c("PIB Agropecuária",

@@ -2,7 +2,7 @@
 % Please edit documentation in R/rbcb_get_market_expectations.R
 \name{get_monthly_market_expectations}
 \alias{get_monthly_market_expectations}
-\title{Get monthly market expectations for the most relevant economic indicators}
+\title{Get monthly market expectations of economic indicators}
 \usage{
 get_monthly_market_expectations(indic, start_date = NULL, end_date = NULL,
   ...)
@@ -10,7 +10,7 @@ get_monthly_market_expectations(indic, start_date = NULL, end_date = NULL,
 \arguments{
 \item{indic}{a character vector with economic indicators names: IGP-DI,
 IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
-Meta para taxa over-selic, Taxa de câmbio. It's case sensitive and don't forget
+Meta para taxa over-selic, Taxa de câmbio. These are case sensitive and don't forget
 the accents.}
 
 \item{start_date}{series initial date. Accepts ISO character formated date and \code{Date}.}
