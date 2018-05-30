@@ -87,7 +87,10 @@ get_monthly_market_expectations <- function(indic, start_date = NULL, end_date =
   names(df_) <- c("indic", "date", "refdate", "mean", "median", "sd", "coefvar", "min", "max")
 
   df_$date <- as.Date(df_$date)
-  df_$refdate <- as.Date(paste0("01", df_$refdate), "%d%m/%Y")
+  refdate <- as.Date(paste0("01", df_$refdate), "%d%m/%Y")
+  levels_ <- format(sort(unique(refdate)), "%Y-%m")
+  x_ <- format(refdate, "%Y-%m")
+  df_$refdate <- factor(x_, levels = levels_, ordered = TRUE)
 
   df_
 }
