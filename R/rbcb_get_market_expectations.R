@@ -30,6 +30,10 @@
 #' These expections and its statistics are used to build the FOCUS Report weekly
 #' released by the Brazilian Central Bank.
 #'
+#' There are monthly expectations available for the following indicators: IGP-DI,
+#' IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
+#' Meta para taxa over-selic, Taxa de câmbio.
+#'
 #' @param indic a character vector with economic indicators names: IGP-DI,
 #' IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
 #' Meta para taxa over-selic, Taxa de câmbio. It's case sensitive and don't forget

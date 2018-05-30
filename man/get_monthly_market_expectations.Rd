@@ -41,6 +41,11 @@ institutions in Brazil: banks, funds, risk managers, so on and so forth.
 These expections and its statistics are used to build the FOCUS Report weekly
 released by the Brazilian Central Bank.
 }
+\details{
+There are monthly expectations available for the following indicators: IGP-DI,
+IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
+Meta para taxa over-selic, Taxa de câmbio.
+}
 \examples{
 indic <- c("IPCA", "Produção industrial")
 end_date <- "2018-01-31"
