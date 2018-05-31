@@ -90,7 +90,7 @@ get_currency_id <- function(symbol) {
   id_list <- suppressMessages(currency_id_list())
   all_currencies <- suppressMessages(get_currency_list())
   x <- merge(id_list, all_currencies)
-  x[x$symbol == symbol,]$id[1]
+  max(x[x$symbol == symbol,]$id)
 }
 
 #' Get currency matrix from BCB

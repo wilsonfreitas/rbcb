@@ -20,3 +20,12 @@ test_that("it should get currency code", {
   x <- get_currency_id("BRL")
   expect_equal(x, 177)
 })
+
+test_that("it should get MXN and ARS data", {
+  x <- get_currency("MXN", "2018-05-28", "2018-05-30")
+  expect_is(x, "data.frame")
+  expect_equal(dim(x), c(3, 3))
+  x <- get_currency("ARS", "2018-05-28", "2018-05-30")
+  expect_is(x, "data.frame")
+  expect_equal(dim(x), c(3, 3))
+})
