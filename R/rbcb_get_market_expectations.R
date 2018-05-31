@@ -49,9 +49,9 @@ get_monthly_market_expectations <- function(indic, start_date = NULL, end_date =
                   "IPCA",
                   "IPCA-15",
                   "IPC-Fipe",
-                  "Produção industrial",
+                  "Produ\u00e7\u00e3o industrial",
                   "Meta para taxa over-selic",
-                  "Taxa de câmbio")
+                  "Taxa de c\u00e2mbio")
 
   check_indic <- indic %in% valid_indic
   if (!all(check_indic))
@@ -132,9 +132,9 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #'
 #' @export
 get_quarterly_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
-  valid_indic = c("PIB Agropecuária",
+  valid_indic = c("PIB Agropecu\u00e1ria",
                   "PIB Industrial",
-                  "PIB Serviços",
+                  "PIB Servi\u00e7os",
                   "PIB Total")
 
   check_indic <- indic %in% valid_indic
@@ -222,8 +222,8 @@ quarterly_market_expectations_url <- function(indic, start_date, end_date, ...) 
 #'
 #' @export
 get_annual_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
-  valid_indic = c("Balança Comercial",
-                  "Balanço de Pagamentos",
+  valid_indic = c("Balan\u00e7a Comercial",
+                  "Balan\u00e7o de Pagamentos",
                   "Fiscal",
                   "IGP-DI",
                   "IGP-M",
@@ -233,14 +233,14 @@ get_annual_market_expectations <- function(indic, start_date = NULL, end_date = 
                   "IPCA",
                   "IPCA-15",
                   "IPC-Fipe",
-                  "Preços administrados por contrato e monitorados",
-                  "Produção industrial",
-                  "PIB Agropecuária",
+                  "Pre\u00e7os administrados por contrato e monitorados",
+                  "Produ\u00e7\u00e3o industrial",
+                  "PIB Agropecu\u00e1ria",
                   "PIB Industrial",
-                  "PIB Serviços",
+                  "PIB Servi\u00e7os",
                   "PIB Total",
                   "Meta para taxa over-selic",
-                  "Taxa de câmbio")
+                  "Taxa de c\u00e2mbio")
 
   check_indic <- indic %in% valid_indic
   if (!all(check_indic))
