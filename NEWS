@@ -2,6 +2,7 @@ Changes in Version 0.1.4
 
   * implemented functions to get market expectations data: get_monthly_market_expectations,
     get_quarterly_market_expectations, get_annual_market_expectations
+  * implemented a workaround to solve the BUG of duplicated currencies in the PTAX form (issue #19)
 
 Changes in Version 0.1.3
 
