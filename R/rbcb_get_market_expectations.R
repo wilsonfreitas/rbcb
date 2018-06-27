@@ -79,6 +79,7 @@ get_monthly_market_expectations <- function(indic, start_date = NULL, end_date =
 
 monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
+  indic_filter <- paste0("(", indic_filter, ")")
 
   sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
 
@@ -163,6 +164,7 @@ get_quarterly_market_expectations <- function(indic, start_date = NULL, end_date
 
 quarterly_market_expectations_url <- function(indic, start_date, end_date, ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
+  indic_filter <- paste0("(", indic_filter, ")")
 
   sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
 
@@ -186,7 +188,7 @@ quarterly_market_expectations_url <- function(indic, start_date, end_date, ...) 
 #' These expections and its statistics are used to build the FOCUS Report weekly
 #' released by the Brazilian Central Bank.
 #'
-#' There are quarterly expectations available for the following indicators: Balança Comercial,
+#' There are annual expectations available for the following indicators: Balança Comercial,
 #' Balanço de Pagamentos, Fiscal, IGP-DI, IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe,
 #' Preços administrados por contrato e monitorados, Produção industrial, PIB Agropecuária,
 #' PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
@@ -262,6 +264,7 @@ get_annual_market_expectations <- function(indic, start_date = NULL, end_date = 
 
 annual_market_expectations_url <- function(indic, start_date, end_date, ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
+  indic_filter <- paste0("(", indic_filter, ")")
 
   sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
 
