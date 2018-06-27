@@ -44,7 +44,7 @@ These expections and its statistics are used to build the FOCUS Report weekly
 released by the Brazilian Central Bank.
 }
 \details{
-There are quarterly expectations available for the following indicators: Balança Comercial,
+There are annual expectations available for the following indicators: Balança Comercial,
 Balanço de Pagamentos, Fiscal, IGP-DI, IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe,
 Preços administrados por contrato e monitorados, Produção industrial, PIB Agropecuária,
 PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
