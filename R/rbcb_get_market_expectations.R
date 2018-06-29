@@ -40,22 +40,24 @@
 #' x <- get_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_monthly_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
-  valid_indic = c("IGP-DI",
-                  "IGP-M",
-                  "INPC",
-                  "IPA-DI",
-                  "IPA-M",
-                  "IPCA",
-                  "IPCA-15",
-                  "IPC-Fipe",
-                  "Produ\u00e7\u00e3o industrial",
-                  "Meta para taxa over-selic",
-                  "Taxa de c\u00e2mbio")
+get_monthly_market_expectations <- function(indic, start_date = NULL,
+                                            end_date = NULL, ...) {
+  valid_indic <- c("IGP-DI",
+                   "IGP-M",
+                   "INPC",
+                   "IPA-DI",
+                   "IPA-M",
+                   "IPCA",
+                   "IPCA-15",
+                   "IPC-Fipe",
+                   "Produ\u00e7\u00e3o industrial",
+                   "Meta para taxa over-selic",
+                   "Taxa de c\u00e2mbio")
 
   check_indic <- indic %in% valid_indic
   if (!all(check_indic))
-    stop("Invalid indic argument: ", paste(indic[!check_indic], collapse = ", "))
+    stop("Invalid indic argument: ",
+         paste(indic[!check_indic], collapse = ", "))
 
   url <- monthly_market_expectations_url(indic, start_date, end_date, ...)
 
@@ -66,7 +68,8 @@ get_monthly_market_expectations <- function(indic, start_date = NULL, end_date =
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "date", "reference_month", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "date", "reference_month", "mean", "median", "sd",
+                  "coefvar", "min", "max")
 
   df_$date <- as.Date(df_$date)
   refdate <- as.Date(paste0("01", df_$reference_month), "%d%m/%Y")
@@ -81,17 +84,23 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
   indic_filter <- paste0("(", indic_filter, ")")
 
-  sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
+  sd_filter <- if (!is.null(start_date))
+    sprintf("Data ge '%s'", start_date) else NULL
 
-  ed_filter <- if (!is.null(end_date)) sprintf("Data le '%s'", end_date) else NULL
+  ed_filter <- if (!is.null(end_date))
+    sprintf("Data le '%s'", end_date) else NULL
 
   filter__ <- paste(c(indic_filter, sd_filter, ed_filter), collapse = " and ")
 
-  httr::modify_url("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais",
-                   query = list(`$filter` = filter__,
-                                `$format` = "application/json",
-                                `$orderby` = "Data desc",
-                                `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
+  httr::modify_url(
+    "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais",
+    query = list(
+      `$filter` = filter__,
+      `$format` = "application/json",
+      `$orderby` = "Data desc",
+      `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      ...)
+  )
 }
 
 #' Get quarterly market expectations of economic indicators
@@ -132,15 +141,17 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' x <- get_quarterly_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_quarterly_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
-  valid_indic = c("PIB Agropecu\u00e1ria",
-                  "PIB Industrial",
-                  "PIB Servi\u00e7os",
-                  "PIB Total")
+get_quarterly_market_expectations <- function(indic, start_date = NULL,
+                                              end_date = NULL, ...) {
+  valid_indic <- c("PIB Agropecu\u00e1ria",
+                   "PIB Industrial",
+                   "PIB Servi\u00e7os",
+                   "PIB Total")
 
   check_indic <- indic %in% valid_indic
   if (!all(check_indic))
-    stop("Invalid indic argument: ", paste(indic[!check_indic], collapse = ", "))
+    stop("Invalid indic argument: ",
+         paste(indic[!check_indic], collapse = ", "))
 
   url <- quarterly_market_expectations_url(indic, start_date, end_date, ...)
 
@@ -151,7 +162,8 @@ get_quarterly_market_expectations <- function(indic, start_date = NULL, end_date
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "date", "reference_quarter", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "date", "reference_quarter", "mean", "median", "sd",
+                  "coefvar", "min", "max")
 
   df_$date <- as.Date(df_$date)
   refdate <- as.Date(paste0("01", df_$reference_quarter), "%d%m/%Y")
@@ -162,21 +174,28 @@ get_quarterly_market_expectations <- function(indic, start_date = NULL, end_date
   df_
 }
 
-quarterly_market_expectations_url <- function(indic, start_date, end_date, ...) {
+quarterly_market_expectations_url <- function(indic, start_date, end_date,
+                                              ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
   indic_filter <- paste0("(", indic_filter, ")")
 
-  sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
+  sd_filter <- if (!is.null(start_date))
+    sprintf("Data ge '%s'", start_date) else NULL
 
-  ed_filter <- if (!is.null(end_date)) sprintf("Data le '%s'", end_date) else NULL
+  ed_filter <- if (!is.null(end_date))
+    sprintf("Data le '%s'", end_date) else NULL
 
   filter__ <- paste(c(indic_filter, sd_filter, ed_filter), collapse = " and ")
 
-  httr::modify_url("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTrimestrais",
-                   query = list(`$filter` = filter__,
-                                `$format` = "application/json",
-                                `$orderby` = "Data desc",
-                                `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
+  httr::modify_url(
+    "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTrimestrais",
+    query = list(
+      `$filter` = filter__,
+      `$format` = "application/json",
+      `$orderby` = "Data desc",
+      `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      ...)
+  )
 }
 
 #' Get annual market expectations of economic indicators
@@ -223,30 +242,32 @@ quarterly_market_expectations_url <- function(indic, start_date, end_date, ...) 
 #' x <- get_annual_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_annual_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
-  valid_indic = c("Balan\u00e7a Comercial",
-                  "Balan\u00e7o de Pagamentos",
-                  "Fiscal",
-                  "IGP-DI",
-                  "IGP-M",
-                  "INPC",
-                  "IPA-DI",
-                  "IPA-M",
-                  "IPCA",
-                  "IPCA-15",
-                  "IPC-Fipe",
-                  "Pre\u00e7os administrados por contrato e monitorados",
-                  "Produ\u00e7\u00e3o industrial",
-                  "PIB Agropecu\u00e1ria",
-                  "PIB Industrial",
-                  "PIB Servi\u00e7os",
-                  "PIB Total",
-                  "Meta para taxa over-selic",
-                  "Taxa de c\u00e2mbio")
+get_annual_market_expectations <- function(indic, start_date = NULL,
+                                           end_date = NULL, ...) {
+  valid_indic <- c("Balan\u00e7a Comercial",
+                   "Balan\u00e7o de Pagamentos",
+                   "Fiscal",
+                   "IGP-DI",
+                   "IGP-M",
+                   "INPC",
+                   "IPA-DI",
+                   "IPA-M",
+                   "IPCA",
+                   "IPCA-15",
+                   "IPC-Fipe",
+                   "Pre\u00e7os administrados por contrato e monitorados",
+                   "Produ\u00e7\u00e3o industrial",
+                   "PIB Agropecu\u00e1ria",
+                   "PIB Industrial",
+                   "PIB Servi\u00e7os",
+                   "PIB Total",
+                   "Meta para taxa over-selic",
+                   "Taxa de c\u00e2mbio")
 
   check_indic <- indic %in% valid_indic
   if (!all(check_indic))
-    stop("Invalid indic argument: ", paste(indic[!check_indic], collapse = ", "))
+    stop("Invalid indic argument: ",
+         paste(indic[!check_indic], collapse = ", "))
 
   url <- annual_market_expectations_url(indic, start_date, end_date, ...)
 
@@ -257,7 +278,8 @@ get_annual_market_expectations <- function(indic, start_date = NULL, end_date = 
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "indic_detail", "date", "reference_year", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "indic_detail", "date", "reference_year", "mean",
+                  "median", "sd", "coefvar", "min", "max")
   df_$date <- as.Date(df_$date)
   df_
 }
@@ -266,17 +288,23 @@ annual_market_expectations_url <- function(indic, start_date, end_date, ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
   indic_filter <- paste0("(", indic_filter, ")")
 
-  sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
+  sd_filter <- if (!is.null(start_date))
+    sprintf("Data ge '%s'", start_date) else NULL
 
-  ed_filter <- if (!is.null(end_date)) sprintf("Data le '%s'", end_date) else NULL
+  ed_filter <- if (!is.null(end_date))
+    sprintf("Data le '%s'", end_date) else NULL
 
   filter__ <- paste(c(indic_filter, sd_filter, ed_filter), collapse = " and ")
 
-  httr::modify_url("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais",
-                   query = list(`$filter` = filter__,
-                                `$format` = "application/json",
-                                `$orderby` = "Data desc",
-                                `$select` = "Indicador,IndicadorDetalhe,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
+  httr::modify_url(
+    "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais",
+    query = list(
+      `$filter` = filter__,
+      `$format` = "application/json",
+      `$orderby` = "Data desc",
+      `$select` = "Indicador,IndicadorDetalhe,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      ...)
+  )
 }
 
 #' Get inflation's market expectations for the next 12 months
@@ -319,21 +347,24 @@ annual_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' x <- get_12_months_inflation_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_12_months_inflation_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
-  valid_indic = c("IGP-DI",
-                  "IGP-M",
-                  "INPC",
-                  "IPA-DI",
-                  "IPA-M",
-                  "IPCA",
-                  "IPCA-15",
-                  "IPC-Fipe")
+get_12_months_inflation_expectations <- function(indic, start_date = NULL,
+                                                 end_date = NULL, ...) {
+  valid_indic <- c("IGP-DI",
+                   "IGP-M",
+                   "INPC",
+                   "IPA-DI",
+                   "IPA-M",
+                   "IPCA",
+                   "IPCA-15",
+                   "IPC-Fipe")
 
   check_indic <- indic %in% valid_indic
   if (!all(check_indic))
-    stop("Invalid indic argument: ", paste(indic[!check_indic], collapse = ", "))
+    stop("Invalid indic argument: ",
+         paste(indic[!check_indic], collapse = ", "))
 
-  url <- twelve_months_inflation_expectations_url(indic, start_date, end_date, ...)
+  url <- twelve_months_inflation_expectations_url(indic, start_date, end_date,
+                                                  ...)
 
   res <- httr::GET(url)
 
@@ -342,26 +373,33 @@ get_12_months_inflation_expectations <- function(indic, start_date = NULL, end_d
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "date", "smoothed", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "date", "smoothed", "mean", "median", "sd",
+                  "coefvar", "min", "max")
   df_$date <- as.Date(df_$date)
   df_
 }
 
-twelve_months_inflation_expectations_url <- function(indic, start_date, end_date, ...) {
+twelve_months_inflation_expectations_url <- function(indic, start_date,
+                                                     end_date, ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
   indic_filter <- paste0("(", indic_filter, ")")
 
-  sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
+  sd_filter <- if (!is.null(start_date))
+    sprintf("Data ge '%s'", start_date) else NULL
 
-  ed_filter <- if (!is.null(end_date)) sprintf("Data le '%s'", end_date) else NULL
+  ed_filter <- if (!is.null(end_date))
+    sprintf("Data le '%s'", end_date) else NULL
 
   filter__ <- paste(c(indic_filter, sd_filter, ed_filter), collapse = " and ")
 
-  httr::modify_url("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses",
-                   query = list(`$filter` = filter__,
-                                `$format` = "application/json",
-                                `$orderby` = "Data desc",
-                                `$select` = "Indicador,Data,Suavizada,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
+  httr::modify_url(
+    "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses",
+    query = list(
+      `$filter` = filter__,
+      `$format` = "application/json",
+      `$orderby` = "Data desc",
+      `$select` = "Indicador,Data,Suavizada,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      ...))
 }
 
 #' Get monthly market expectations from top 5 providers
@@ -405,16 +443,18 @@ twelve_months_inflation_expectations_url <- function(indic, start_date, end_date
 #' x <- get_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_monthly_top5_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
-  valid_indic = c("IGP-DI",
-                  "IGP-M",
-                  "IPCA",
-                  "Meta para taxa over-selic",
-                  "Taxa de c\u00e2mbio")
+get_monthly_top5_market_expectations <- function(indic, start_date = NULL,
+                                                 end_date = NULL, ...) {
+  valid_indic <- c("IGP-DI",
+                   "IGP-M",
+                   "IPCA",
+                   "Meta para taxa over-selic",
+                   "Taxa de c\u00e2mbio")
 
   check_indic <- indic %in% valid_indic
   if (!all(check_indic))
-    stop("Invalid indic argument: ", paste(indic[!check_indic], collapse = ", "))
+    stop("Invalid indic argument: ",
+         paste(indic[!check_indic], collapse = ", "))
 
   url <- monthly_top5_market_expectations_url(indic, start_date, end_date, ...)
 
@@ -425,26 +465,33 @@ get_monthly_top5_market_expectations <- function(indic, start_date = NULL, end_d
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "date", "reference_month", "type", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "date", "reference_month", "type", "mean", "median",
+                  "sd", "coefvar", "min", "max")
   df_$date <- as.Date(df_$date)
   df_
 }
 
-monthly_top5_market_expectations_url <- function(indic, start_date, end_date, ...) {
+monthly_top5_market_expectations_url <- function(indic, start_date,
+                                                 end_date, ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
   indic_filter <- paste0("(", indic_filter, ")")
 
-  sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
+  sd_filter <- if (!is.null(start_date))
+    sprintf("Data ge '%s'", start_date) else NULL
 
-  ed_filter <- if (!is.null(end_date)) sprintf("Data le '%s'", end_date) else NULL
+  ed_filter <- if (!is.null(end_date))
+    sprintf("Data le '%s'", end_date) else NULL
 
   filter__ <- paste(c(indic_filter, sd_filter, ed_filter), collapse = " and ")
 
-  httr::modify_url("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais",
-                   query = list(`$filter` = filter__,
-                                `$format` = "application/json",
-                                `$orderby` = "Data desc",
-                                `$select` = "Indicador,Data,DataReferencia,tipoCalculo,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
+  httr::modify_url(
+    "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais",
+    query = list(
+      `$filter` = filter__,
+      `$format` = "application/json",
+      `$orderby` = "Data desc",
+      `$select` = "Indicador,Data,DataReferencia,tipoCalculo,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      ...))
 }
 
 
@@ -491,16 +538,18 @@ monthly_top5_market_expectations_url <- function(indic, start_date, end_date, ..
 #' x <- get_annual_top5_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_annual_top5_market_expectations <- function(indic, start_date = NULL, end_date = NULL, ...) {
-  valid_indic = c("IGP-DI",
-                  "IGP-M",
-                  "IPCA",
-                  "Meta para taxa over-selic",
-                  "Taxa de c\u00e2mbio")
+get_annual_top5_market_expectations <- function(indic, start_date = NULL,
+                                                end_date = NULL, ...) {
+  valid_indic <- c("IGP-DI",
+                   "IGP-M",
+                   "IPCA",
+                   "Meta para taxa over-selic",
+                   "Taxa de c\u00e2mbio")
 
   check_indic <- indic %in% valid_indic
   if (!all(check_indic))
-    stop("Invalid indic argument: ", paste(indic[!check_indic], collapse = ", "))
+    stop("Invalid indic argument: ",
+         paste(indic[!check_indic], collapse = ", "))
 
   url <- annual_top5_market_expectations_url(indic, start_date, end_date, ...)
 
@@ -511,26 +560,31 @@ get_annual_top5_market_expectations <- function(indic, start_date = NULL, end_da
   data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
-  names(df_) <- c("indic", "indic_detail", "date", "reference_year", "type", "mean", "median", "sd", "coefvar", "min", "max")
+  names(df_) <- c("indic", "indic_detail", "date", "reference_year", "type",
+                  "mean", "median", "sd", "coefvar", "min", "max")
   df_$date <- as.Date(df_$date)
   df_
 }
 
-annual_top5_market_expectations_url <- function(indic, start_date, end_date, ...) {
+annual_top5_market_expectations_url <- function(indic, start_date,
+                                                end_date, ...) {
   indic_filter <- paste(sprintf("Indicador eq '%s'", indic), collapse = " or ")
   indic_filter <- paste0("(", indic_filter, ")")
 
-  sd_filter <- if (!is.null(start_date)) sprintf("Data ge '%s'", start_date) else NULL
+  sd_filter <- if (!is.null(start_date))
+    sprintf("Data ge '%s'", start_date) else NULL
 
-  ed_filter <- if (!is.null(end_date)) sprintf("Data le '%s'", end_date) else NULL
+  ed_filter <- if (!is.null(end_date))
+    sprintf("Data le '%s'", end_date) else NULL
 
   filter__ <- paste(c(indic_filter, sd_filter, ed_filter), collapse = " and ")
 
-  httr::modify_url("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais",
-                   query = list(`$filter` = filter__,
-                                `$format` = "application/json",
-                                `$orderby` = "Data desc",
-                                `$select` = "Indicador,IndicadorDetalhe,Data,DataReferencia,tipoCalculo,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo", ...))
+  httr::modify_url(
+    "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais",
+    query = list(
+      `$filter` = filter__,
+      `$format` = "application/json",
+      `$orderby` = "Data desc",
+      `$select` = "Indicador,IndicadorDetalhe,Data,DataReferencia,tipoCalculo,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      ...))
 }
-
-
