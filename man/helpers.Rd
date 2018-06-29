@@ -12,18 +12,20 @@
 \usage{
 Bid(x, ...)
 
-\method{Bid}{data.frame}(x)
+\method{Bid}{data.frame}(x, ...)
 
-\method{Bid}{xts}(x)
+\method{Bid}{xts}(x, ...)
 
 Ask(x, ...)
 
-\method{Ask}{data.frame}(x)
+\method{Ask}{data.frame}(x, ...)
 
-\method{Ask}{xts}(x)
+\method{Ask}{xts}(x, ...)
 }
 \arguments{
 \item{x}{time series objects containing data to be extracted}
+
+\item{...}{additional arguments}
 }
 \description{
 Extraxt bid and ask data from time series objects.
