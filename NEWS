@@ -1,3 +1,9 @@
+Changes in Version 0.1.5
+
+  * implemented functions to get market expectations data: get_twelve_months_inflation_expectations,
+    get_top5s_annual_market_expectations, get_top5s_monthly_market_expectations
+  * implemented helpers to extract data from bid and ask columns of currency time series (issue #21)
+
 Changes in Version 0.1.4
 
   * implemented functions to get market expectations data: get_monthly_market_expectations,

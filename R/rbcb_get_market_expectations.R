@@ -344,10 +344,10 @@ annual_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' @examples
 #' indic <- c("IPCA", "IGP-M")
 #' end_date <- "2018-06-22"
-#' x <- get_12_months_inflation_expectations(indic, end_date = end_date, `$top` = 10)
+#' x <- get_twelve_months_inflation_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_12_months_inflation_expectations <- function(indic, start_date = NULL,
+get_twelve_months_inflation_expectations <- function(indic, start_date = NULL,
                                                  end_date = NULL, ...) {
   valid_indic <- c("IGP-DI",
                    "IGP-M",
@@ -440,10 +440,10 @@ twelve_months_inflation_expectations_url <- function(indic, start_date,
 #' @examples
 #' indic <- "Taxa de câmbio"
 #' end_date <- "2018-06-22"
-#' x <- get_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
+#' x <- get_top5s_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_monthly_top5_market_expectations <- function(indic, start_date = NULL,
+get_top5s_monthly_market_expectations <- function(indic, start_date = NULL,
                                                  end_date = NULL, ...) {
   valid_indic <- c("IGP-DI",
                    "IGP-M",
@@ -535,10 +535,10 @@ monthly_top5_market_expectations_url <- function(indic, start_date,
 #' @examples
 #' indic <- "Taxa de câmbio"
 #' end_date <- "2018-06-22"
-#' x <- get_annual_top5_market_expectations(indic, end_date = end_date, `$top` = 10)
+#' x <- get_top5s_annual_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
 #' @export
-get_annual_top5_market_expectations <- function(indic, start_date = NULL,
+get_top5s_annual_market_expectations <- function(indic, start_date = NULL,
                                                 end_date = NULL, ...) {
   valid_indic <- c("IGP-DI",
                    "IGP-M",
