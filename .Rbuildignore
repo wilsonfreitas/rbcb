@@ -6,3 +6,4 @@ x.txt
 x.html
 .travis.yml
 legacy
+^appveyor\.yml$
