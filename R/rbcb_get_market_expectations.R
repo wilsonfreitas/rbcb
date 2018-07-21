@@ -61,11 +61,7 @@ get_monthly_market_expectations <- function(indic, start_date = NULL,
 
   url <- monthly_market_expectations_url(indic, start_date, end_date, ...)
 
-  res <- httr::GET(url)
-
-  text_ <- httr::content(res, as = "text")
-
-  data_ <- jsonlite::fromJSON(text_)
+  data_ <- jsonlite::fromJSON(url)
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "date", "reference_month", "mean", "median", "sd",
@@ -155,11 +151,7 @@ get_quarterly_market_expectations <- function(indic, start_date = NULL,
 
   url <- quarterly_market_expectations_url(indic, start_date, end_date, ...)
 
-  res <- httr::GET(url)
-
-  text_ <- httr::content(res, as = "text")
-
-  data_ <- jsonlite::fromJSON(text_)
+  data_ <- jsonlite::fromJSON(url)
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "date", "reference_quarter", "mean", "median", "sd",
@@ -271,11 +263,7 @@ get_annual_market_expectations <- function(indic, start_date = NULL,
 
   url <- annual_market_expectations_url(indic, start_date, end_date, ...)
 
-  res <- httr::GET(url)
-
-  text_ <- httr::content(res, as = "text")
-
-  data_ <- jsonlite::fromJSON(text_)
+  data_ <- jsonlite::fromJSON(url)
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "indic_detail", "date", "reference_year", "mean",
@@ -365,12 +353,7 @@ get_twelve_months_inflation_expectations <- function(indic, start_date = NULL,
 
   url <- twelve_months_inflation_expectations_url(indic, start_date, end_date,
                                                   ...)
-
-  res <- httr::GET(url)
-
-  text_ <- httr::content(res, as = "text")
-
-  data_ <- jsonlite::fromJSON(text_)
+  data_ <- jsonlite::fromJSON(url)
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "date", "smoothed", "mean", "median", "sd",
@@ -458,11 +441,7 @@ get_top5s_monthly_market_expectations <- function(indic, start_date = NULL,
 
   url <- monthly_top5_market_expectations_url(indic, start_date, end_date, ...)
 
-  res <- httr::GET(url)
-
-  text_ <- httr::content(res, as = "text")
-
-  data_ <- jsonlite::fromJSON(text_)
+  data_ <- jsonlite::fromJSON(url)
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "date", "reference_month", "type", "mean", "median",
@@ -553,11 +532,7 @@ get_top5s_annual_market_expectations <- function(indic, start_date = NULL,
 
   url <- annual_top5_market_expectations_url(indic, start_date, end_date, ...)
 
-  res <- httr::GET(url)
-
-  text_ <- httr::content(res, as = "text")
-
-  data_ <- jsonlite::fromJSON(text_)
+  data_ <- jsonlite::fromJSON(url)
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "indic_detail", "date", "reference_year", "type",
