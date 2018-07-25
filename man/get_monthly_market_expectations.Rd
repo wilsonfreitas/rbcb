@@ -47,7 +47,7 @@ IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe, Produção industrial,
 Meta para taxa over-selic, Taxa de câmbio.
 }
 \examples{
-indic <- c("IPCA", "Produção industrial")
+indic <- c("IPCA", "IPC-Fipe")
 end_date <- "2018-01-31"
 x <- get_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
 

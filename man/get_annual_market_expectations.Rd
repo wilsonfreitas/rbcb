@@ -50,7 +50,7 @@ Preços administrados por contrato e monitorados, Produção industrial, PIB Agr
 PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
 }
 \examples{
-indic <- c("Balanço de Pagamentos", "Fiscal")
+indic <- c("PIB Total", "Fiscal")
 end_date <- "2018-01-31"
 x <- get_annual_market_expectations(indic, end_date = end_date, `$top` = 10)
 

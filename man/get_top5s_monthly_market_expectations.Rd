@@ -47,7 +47,7 @@ There are inflation's expectations available for the following indicators:
 IGP-DI, IGP-M, IPCA, Meta para taxa over-selic, Taxa de câmbio
 }
 \examples{
-indic <- "Taxa de câmbio"
+indic <- "IPCA"
 end_date <- "2018-06-22"
 x <- get_top5s_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
 

@@ -44,7 +44,7 @@ There are quarterly expectations available for the following indicators: PIB Agr
 PIB Industrial, PIB Serviços, PIB Total.
 }
 \examples{
-indic <- c("PIB Agropecuária", "PIB Total")
+indic <- c("PIB Industrial", "PIB Total")
 end_date <- "2018-01-31"
 x <- get_quarterly_market_expectations(indic, end_date = end_date, `$top` = 10)
 

@@ -35,7 +35,7 @@
 #' \code{min}, \code{max}.
 #'
 #' @examples
-#' indic <- c("IPCA", "Produção industrial")
+#' indic <- c("IPCA", "IPC-Fipe")
 #' end_date <- "2018-01-31"
 #' x <- get_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
@@ -132,7 +132,7 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' \code{min}, \code{max}.
 #'
 #' @examples
-#' indic <- c("PIB Agropecuária", "PIB Total")
+#' indic <- c("PIB Industrial", "PIB Total")
 #' end_date <- "2018-01-31"
 #' x <- get_quarterly_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
@@ -229,7 +229,7 @@ quarterly_market_expectations_url <- function(indic, start_date, end_date,
 #' \code{coefvar}, \code{min}, \code{max}.
 #'
 #' @examples
-#' indic <- c("Balanço de Pagamentos", "Fiscal")
+#' indic <- c("PIB Total", "Fiscal")
 #' end_date <- "2018-01-31"
 #' x <- get_annual_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
@@ -421,7 +421,7 @@ twelve_months_inflation_expectations_url <- function(indic, start_date,
 #' \code{min}, \code{max}.
 #'
 #' @examples
-#' indic <- "Taxa de câmbio"
+#' indic <- "IPCA"
 #' end_date <- "2018-06-22"
 #' x <- get_top5s_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
@@ -512,7 +512,7 @@ monthly_top5_market_expectations_url <- function(indic, start_date,
 #' \code{min}, \code{max}.
 #'
 #' @examples
-#' indic <- "Taxa de câmbio"
+#' indic <- "IPCA"
 #' end_date <- "2018-06-22"
 #' x <- get_top5s_annual_market_expectations(indic, end_date = end_date, `$top` = 10)
 #'
