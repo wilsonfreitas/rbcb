@@ -60,8 +60,8 @@ get_monthly_market_expectations <- function(indic, start_date = NULL,
          paste(indic[!check_indic], collapse = ", "))
 
   url <- monthly_market_expectations_url(indic, start_date, end_date, ...)
-
-  data_ <- jsonlite::fromJSON(url)
+  text_ <- .get_series(url)
+  data_ <- jsonlite::fromJSON(text_)
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "date", "reference_month", "mean", "median", "sd",
