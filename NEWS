@@ -1,3 +1,7 @@
+Changes in Version 0.1.6
+  * solved bug when downloading market expectations (issue #28)
+  * added new columns to market expectations API calls (issue #26)
+
 Changes in Version 0.1.5
 
   * implemented functions to get market expectations data: get_twelve_months_inflation_expectations,
