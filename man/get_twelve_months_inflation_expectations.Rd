@@ -30,7 +30,7 @@ in chronological order. There is also \code{$skip} to ignore the first rows.}
 \value{
 A \code{data.frame} with the following ten columns: \code{date}, \code{indic},
 \code{smoothed}, \code{mean}, \code{median}, \code{sd},
-\code{coefvar}, \code{min}, \code{max}.
+\code{coefvar}, \code{min}, \code{max}, \code{respondents}, \code{base}.
 }
 \description{
 Statistics of inflation's market expectations for the next 12 months:

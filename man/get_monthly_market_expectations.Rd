@@ -31,7 +31,7 @@ in chronological order. There is also \code{$skip} to ignore the first rows.}
 \value{
 A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
 \code{reference_month}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
-\code{min}, \code{max}.
+\code{min}, \code{max}, \code{respondents}, \code{base}.
 }
 \description{
 Statistics for the monthly expectations of economic indicators: mean, median, standard
