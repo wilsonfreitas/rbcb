@@ -4,8 +4,8 @@
 \alias{get_annual_market_expectations}
 \title{Get annual market expectations of economic indicators}
 \usage{
-get_annual_market_expectations(indic, start_date = NULL, end_date = NULL,
-  ...)
+get_annual_market_expectations(indic, start_date = NULL,
+  end_date = NULL, ...)
 }
 \arguments{
 \item{indic}{a character vector with economic indicators names: Balança Comercial,

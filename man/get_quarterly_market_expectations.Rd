@@ -4,8 +4,8 @@
 \alias{get_quarterly_market_expectations}
 \title{Get quarterly market expectations of economic indicators}
 \usage{
-get_quarterly_market_expectations(indic, start_date = NULL, end_date = NULL,
-  ...)
+get_quarterly_market_expectations(indic, start_date = NULL,
+  end_date = NULL, ...)
 }
 \arguments{
 \item{indic}{a character vector with economic indicators names: PIB Agropecuária,
