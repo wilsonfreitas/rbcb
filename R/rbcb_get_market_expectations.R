@@ -32,7 +32,7 @@
 #' @return
 #' A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
 #' \code{reference_month}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
-#' \code{min}, \code{max}.
+#' \code{min}, \code{max}, \code{respondents}, \code{base}.
 #'
 #' @examples
 #' indic <- c("IPCA", "IPC-Fipe")
@@ -65,7 +65,7 @@ get_monthly_market_expectations <- function(indic, start_date = NULL,
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "date", "reference_month", "mean", "median", "sd",
-                  "coefvar", "min", "max")
+                  "coefvar", "min", "max", "respondents", "base")
 
   df_$date <- as.Date(df_$date)
   refdate <- as.Date(paste0("01", df_$reference_month), "%d%m/%Y")
@@ -94,7 +94,7 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
       `$filter` = filter__,
       `$format` = "application/json",
       `$orderby` = "Data desc",
-      `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo,numeroRespondentes,baseCalculo",
       ...)
   )
 }
@@ -129,7 +129,7 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' @return
 #' A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
 #' \code{reference_quarter}, \code{mean}, \code{median}, \code{sd}, \code{coefvar},
-#' \code{min}, \code{max}.
+#' \code{min}, \code{max}, \code{respondents}.
 #'
 #' @examples
 #' indic <- c("PIB Industrial", "PIB Total")
@@ -156,7 +156,7 @@ get_quarterly_market_expectations <- function(indic, start_date = NULL,
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "date", "reference_quarter", "mean", "median", "sd",
-                  "coefvar", "min", "max")
+                  "coefvar", "min", "max", "respondents")
 
   df_$date <- as.Date(df_$date)
   refdate <- as.Date(paste0("01", df_$reference_quarter), "%d%m/%Y")
@@ -186,7 +186,7 @@ quarterly_market_expectations_url <- function(indic, start_date, end_date,
       `$filter` = filter__,
       `$format` = "application/json",
       `$orderby` = "Data desc",
-      `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      `$select` = "Indicador,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo,numeroRespondentes",
       ...)
   )
 }
@@ -227,7 +227,7 @@ quarterly_market_expectations_url <- function(indic, start_date, end_date,
 #' @return
 #' A \code{data.frame} with the following ten columns: \code{date}, \code{indic},
 #' \code{indic_detail}, \code{reference_year}, \code{mean}, \code{median}, \code{sd},
-#' \code{coefvar}, \code{min}, \code{max}.
+#' \code{coefvar}, \code{min}, \code{max}, \code{respondents}, \code{base}.
 #'
 #' @examples
 #' indic <- c("PIB Total", "Fiscal")
@@ -269,7 +269,7 @@ get_annual_market_expectations <- function(indic, start_date = NULL,
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "indic_detail", "date", "reference_year", "mean",
-                  "median", "sd", "coefvar", "min", "max")
+                  "median", "sd", "coefvar", "min", "max", "respondents", "base")
   df_$date <- as.Date(df_$date)
   df_
 }
@@ -292,7 +292,7 @@ annual_market_expectations_url <- function(indic, start_date, end_date, ...) {
       `$filter` = filter__,
       `$format` = "application/json",
       `$orderby` = "Data desc",
-      `$select` = "Indicador,IndicadorDetalhe,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      `$select` = "Indicador,IndicadorDetalhe,Data,DataReferencia,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo,numeroRespondentes,baseCalculo",
       ...)
   )
 }
@@ -329,7 +329,7 @@ annual_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' @return
 #' A \code{data.frame} with the following ten columns: \code{date}, \code{indic},
 #' \code{smoothed}, \code{mean}, \code{median}, \code{sd},
-#' \code{coefvar}, \code{min}, \code{max}.
+#' \code{coefvar}, \code{min}, \code{max}, \code{respondents}, \code{base}.
 #'
 #' @examples
 #' indic <- c("IPCA", "IGP-M")
@@ -360,7 +360,7 @@ get_twelve_months_inflation_expectations <- function(indic, start_date = NULL,
 
   df_ <- tibble::as_tibble(data_$value)
   names(df_) <- c("indic", "date", "smoothed", "mean", "median", "sd",
-                  "coefvar", "min", "max")
+                  "coefvar", "min", "max", "respondents", "base")
   df_$date <- as.Date(df_$date)
   df_
 }
@@ -384,7 +384,7 @@ twelve_months_inflation_expectations_url <- function(indic, start_date,
       `$filter` = filter__,
       `$format` = "application/json",
       `$orderby` = "Data desc",
-      `$select` = "Indicador,Data,Suavizada,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo",
+      `$select` = "Indicador,Data,Suavizada,Media,Mediana,DesvioPadrao,CoeficienteVariacao,Minimo,Maximo,numeroRespondentes,baseCalculo",
       ...))
 }
 
