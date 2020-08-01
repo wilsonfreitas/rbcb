@@ -10,13 +10,7 @@ from [Brazilian Centra Bank](https://www.bcb.gov.br) web site.
 
 ## Install
 
-You can download it from CRAN
-
-```r
-install.packages('rbcb')
-```
-
-or use devtools:
+This package is only available to install from github using devtools:
 
 ```r
 devtools::install_github('wilsonfreitas/rbcb')
