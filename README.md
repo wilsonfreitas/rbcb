@@ -155,6 +155,15 @@ rbcb::get_currency("USD", "2017-03-01", "2017-03-10")
 ```
 
 The rates come quoted in BRL, so 3.0970 is worth 1 USD in BRL.
+
+All currency time series have an attribute called `symbol` that stores its own
+currency name.
+
+``` r
+attr(rbcb::get_currency("USD", "2017-03-01", "2017-03-10"), "symbol")
+#> [1] "USD"
+```
+
 Trying another currency.
 
 ``` r
@@ -162,7 +171,7 @@ library(rbcb)
 library(magrittr)
 get_currency("JPY", "2017-03-01", "2017-03-10") %>% Ask()
 #> # A tibble: 8 x 2
-#>   date          ask
+#>   date          JPY
 #>   <date>      <dbl>
 #> 1 2017-03-01 0.0273
 #> 2 2017-03-02 0.0272
