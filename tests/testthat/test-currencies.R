@@ -29,3 +29,26 @@ test_that("it should get MXN and ARS data", {
   expect_is(x, "data.frame")
   expect_equal(dim(x), c(3, 3))
 })
+
+test_that("it should get a time series with a symbol attribute", {
+  x <- get_currency("USD", "2017-03-01", "2017-03-14")
+  expect_is(x, "data.frame")
+  expect_equal(attr(x, "symbol"), "USD")
+  x <- get_currency("USD", "2017-03-01", "2017-03-14", as = "xts")
+  expect_is(x, "xts")
+  expect_equal(attr(x, "symbol"), "USD")
+})
+
+test_that("it should get ask/bid time series named with symbol", {
+  x <- get_currency("USD", "2017-03-01", "2017-03-14")
+  x_ask <- Ask(x)
+  expect_equal(colnames(x_ask), c("date", "USD"))
+  x_bid <- Bid(x)
+  expect_equal(colnames(x_bid), c("date", "USD"))
+  x <- get_currency("USD", "2017-03-01", "2017-03-14", as = "xts")
+  x_ask <- Ask(x)
+  expect_equal(colnames(x_ask), "USD")
+  x_bid <- Bid(x)
+  expect_equal(colnames(x_bid), "USD")
+})
+

@@ -264,6 +264,8 @@ get_currency <- function(symbol, start_date, end_date, as = c('tibble', 'xts', '
     df <- xts::xts(df[,-1], df$date)
   }
 
+  attr(df, "symbol") <- symbol
+
   df
 }
 
