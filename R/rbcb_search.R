@@ -18,9 +18,7 @@
 search_series <- function(q, page = 1) {
   url <- search_series_url(q, page = page)
   res <- http_getter(url)
-
-  # x <- httr::content(res, as = 'text')
-  x <- http_gettext(res)
+  x <- httr::content(res, as = 'text', encoding = "UTF-8")
   doc <- xml2::read_html(x)
 
   nodes <- xml2::xml_find_all(doc, '//*[@class="dataset-item"]')
