@@ -54,7 +54,7 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
 }
 
 .get_series = function(url) {
-  res <- try(suppressWarnings(readLines(url)), silent = TRUE)
+  res <- try(suppressWarnings(readLines(url, encoding = "UTF-8")), silent = TRUE)
   if (class(res) == "try-error") {
     stop("BCB API Request error ", conditionMessage(attr(res, "condition")))
   }
