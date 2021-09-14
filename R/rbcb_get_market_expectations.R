@@ -42,22 +42,22 @@
 #' @export
 get_monthly_market_expectations <- function(indic, start_date = NULL,
                                             end_date = NULL, ...) {
-  valid_indic <- c("IGP-DI",
-                   "IGP-M",
-                   "INPC",
-                   "IPA-DI",
-                   "IPA-M",
-                   "IPCA",
-                   "IPCA-15",
-                   "IPC-Fipe",
-                   "Produ\u00e7\u00e3o industrial",
-                   "Meta para taxa over-selic",
-                   "Taxa de c\u00e2mbio")
-
-  check_indic <- indic %in% valid_indic
-  if (!all(check_indic))
-    stop("Invalid indic argument: ",
-         paste(indic[!check_indic], collapse = ", "))
+  # valid_indic <- c("IGP-DI",
+  #                  "IGP-M",
+  #                  "INPC",
+  #                  "IPA-DI",
+  #                  "IPA-M",
+  #                  "IPCA",
+  #                  "IPCA-15",
+  #                  "IPC-Fipe",
+  #                  "Produ\u00e7\u00e3o industrial",
+  #                  "Meta para taxa over-selic",
+  #                  "Taxa de c\u00e2mbio")
+  #
+  # check_indic <- indic %in% valid_indic
+  # if (!all(check_indic))
+  #   stop("Invalid indic argument: ",
+  #        paste(indic[!check_indic], collapse = ", "))
 
   url <- monthly_market_expectations_url(indic, start_date, end_date, ...)
   text_ <- .get_series(url)
@@ -139,15 +139,15 @@ monthly_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' @export
 get_quarterly_market_expectations <- function(indic, start_date = NULL,
                                               end_date = NULL, ...) {
-  valid_indic <- c("PIB Agropecu\u00e1ria",
-                   "PIB Industrial",
-                   "PIB Servi\u00e7os",
-                   "PIB Total")
-
-  check_indic <- indic %in% valid_indic
-  if (!all(check_indic))
-    stop("Invalid indic argument: ",
-         paste(indic[!check_indic], collapse = ", "))
+  # valid_indic <- c("PIB Agropecu\u00e1ria",
+  #                  "PIB Industrial",
+  #                  "PIB Servi\u00e7os",
+  #                  "PIB Total")
+  #
+  # check_indic <- indic %in% valid_indic
+  # if (!all(check_indic))
+  #   stop("Invalid indic argument: ",
+  #        paste(indic[!check_indic], collapse = ", "))
 
   url <- quarterly_market_expectations_url(indic, start_date, end_date, ...)
 
@@ -339,19 +339,19 @@ annual_market_expectations_url <- function(indic, start_date, end_date, ...) {
 #' @export
 get_twelve_months_inflation_expectations <- function(indic, start_date = NULL,
                                                  end_date = NULL, ...) {
-  valid_indic <- c("IGP-DI",
-                   "IGP-M",
-                   "INPC",
-                   "IPA-DI",
-                   "IPA-M",
-                   "IPCA",
-                   "IPCA-15",
-                   "IPC-Fipe")
-
-  check_indic <- indic %in% valid_indic
-  if (!all(check_indic))
-    stop("Invalid indic argument: ",
-         paste(indic[!check_indic], collapse = ", "))
+  # valid_indic <- c("IGP-DI",
+  #                  "IGP-M",
+  #                  "INPC",
+  #                  "IPA-DI",
+  #                  "IPA-M",
+  #                  "IPCA",
+  #                  "IPCA-15",
+  #                  "IPC-Fipe")
+  #
+  # check_indic <- indic %in% valid_indic
+  # if (!all(check_indic))
+  #   stop("Invalid indic argument: ",
+  #        paste(indic[!check_indic], collapse = ", "))
 
   url <- twelve_months_inflation_expectations_url(indic, start_date, end_date,
                                                   ...)
@@ -431,16 +431,16 @@ twelve_months_inflation_expectations_url <- function(indic, start_date,
 #' @export
 get_top5s_monthly_market_expectations <- function(indic, start_date = NULL,
                                                  end_date = NULL, ...) {
-  valid_indic <- c("IGP-DI",
-                   "IGP-M",
-                   "IPCA",
-                   "Meta para taxa over-selic",
-                   "Taxa de c\u00e2mbio")
-
-  check_indic <- indic %in% valid_indic
-  if (!all(check_indic))
-    stop("Invalid indic argument: ",
-         paste(indic[!check_indic], collapse = ", "))
+  # valid_indic <- c("IGP-DI",
+  #                  "IGP-M",
+  #                  "IPCA",
+  #                  "Meta para taxa over-selic",
+  #                  "Taxa de c\u00e2mbio")
+  #
+  # check_indic <- indic %in% valid_indic
+  # if (!all(check_indic))
+  #   stop("Invalid indic argument: ",
+  #        paste(indic[!check_indic], collapse = ", "))
 
   url <- monthly_top5_market_expectations_url(indic, start_date, end_date, ...)
 
@@ -523,16 +523,16 @@ monthly_top5_market_expectations_url <- function(indic, start_date,
 #' @export
 get_top5s_annual_market_expectations <- function(indic, start_date = NULL,
                                                 end_date = NULL, ...) {
-  valid_indic <- c("IGP-DI",
-                   "IGP-M",
-                   "IPCA",
-                   "Meta para taxa over-selic",
-                   "Taxa de c\u00e2mbio")
-
-  check_indic <- indic %in% valid_indic
-  if (!all(check_indic))
-    stop("Invalid indic argument: ",
-         paste(indic[!check_indic], collapse = ", "))
+  # valid_indic <- c("IGP-DI",
+  #                  "IGP-M",
+  #                  "IPCA",
+  #                  "Meta para taxa over-selic",
+  #                  "Taxa de c\u00e2mbio")
+  #
+  # check_indic <- indic %in% valid_indic
+  # if (!all(check_indic))
+  #   stop("Invalid indic argument: ",
+  #        paste(indic[!check_indic], collapse = ", "))
 
   url <- annual_top5_market_expectations_url(indic, start_date, end_date, ...)
 
