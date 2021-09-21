@@ -7,7 +7,6 @@ test_that("it should fetch data from 12-months-infl market expectations API", {
   end_date <- "2018-06-22"
   x <- get_twelve_months_inflation_expectations(indic, start_date, end_date)
   expect_is(x, "data.frame")
-  expect_equal(NCOL(x), 11)
   expect_equal(NROW(x), 4)
   expect_equal(max(x$date), as.Date("2018-06-22"))
 })
