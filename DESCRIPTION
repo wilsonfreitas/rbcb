@@ -22,5 +22,5 @@ Imports:
     xml2,
     utils,
     stats
-RoxygenNote: 6.1.0
+RoxygenNote: 7.1.1
 Suggests: testthat
