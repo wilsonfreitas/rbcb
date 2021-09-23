@@ -4,14 +4,15 @@
 \alias{get_annual_market_expectations}
 \title{Get annual market expectations of economic indicators}
 \usage{
-get_annual_market_expectations(indic, start_date = NULL,
-  end_date = NULL, ...)
+get_annual_market_expectations(
+  indic = NULL,
+  start_date = NULL,
+  end_date = NULL,
+  ...
+)
 }
 \arguments{
-\item{indic}{a character vector with economic indicators names: Balança Comercial,
-Balanço de Pagamentos, Fiscal, IGP-DI, IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe,
-Preços administrados por contrato e monitorados, Produção industrial, PIB Agropecuária,
-PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
+\item{indic}{a character vector with economic indicators names.
 They are case sensitive and don't forget the accents.}
 
 \item{start_date}{series initial date. Accepts ISO character formated date and \code{Date}.}
@@ -20,10 +21,7 @@ They are case sensitive and don't forget the accents.}
 
 \item{...}{additional parameters to be passed to the API
 
-\code{indic} argumento must be one of these: Balança Comercial,
-Balanço de Pagamentos, Fiscal, IGP-DI, IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe,
-Preços administrados por contrato e monitorados, Produção industrial, PIB Agropecuária,
-PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
+\code{indic} argument must be one of indicators listed in Details.
 Respecting the case, blank spaces and accents.
 
 The \code{...} is to be used with API's parameters. \code{$top} to specify
@@ -31,27 +29,66 @@ the maximum number of rows to be returned, this returns the \code{$top} rows,
 in chronological order. There is also \code{$skip} to ignore the first rows.}
 }
 \value{
-A \code{data.frame} with the following ten columns: \code{date}, \code{indic},
-\code{indic_detail}, \code{reference_year}, \code{mean}, \code{median}, \code{sd},
-\code{coefvar}, \code{min}, \code{max}, \code{respondents}, \code{base}.
+A \code{data.frame} with the requested data.
 }
 \description{
-Statistics for the annual expectations of economic indicators: mean, median, standard
-deviate, minimum, maximum and the coefficient of variation.
+Statistics for the annual expectations of economic indicators.
 All statistics are computed based on annual expectations provided by many financial
 institutions in Brazil: banks, funds, risk managers, so on and so forth.
 These expections and its statistics are used to build the FOCUS Report weekly
 released by the Brazilian Central Bank.
 }
 \details{
-There are annual expectations available for the following indicators: Balança Comercial,
-Balanço de Pagamentos, Fiscal, IGP-DI, IGP-M, INPC, IPA-DI, IPA-M, IPCA, IPCA-15, IPC-Fipe,
-Preços administrados por contrato e monitorados, Produção industrial, PIB Agropecuária,
-PIB Industrial, PIB Serviços, PIB Total, Meta para taxa over-selic, Taxa de câmbio.
+There are annual expectations available for the following indicators:
+
+\itemize{
+\item Balança Comercial
+\item Câmbio
+\item Conta corrente
+\item Dívida bruta do governo geral
+\item Dívida líquida do setor público
+\item IGP-DI
+\item IGP-M
+\item INPC
+\item Investimento direto no país
+\item IPA-DI
+\item IPA-M
+\item IPCA
+\item IPCA Administrados
+\item IPCA Alimentação no domicílio
+\item IPCA Bens industrializados
+\item IPCA Livres
+\item IPCA Serviços
+\item IPCA-15
+\item IPC-FIPE
+\item PIB Agropecuária
+\item PIB Despesa de consumo da administração pública
+\item PIB despesa de consumo das famílias
+\item PIB Exportação de bens e serviços
+\item PIB Formação Bruta de Capital Fixo
+\item PIB Importação de bens e serviços
+\item PIB Indústria
+\item PIB Serviços
+\item PIB Total
+\item Produção industrial
+\item Resultado nominal
+\item Resultado primário
+\item Selic
+\item Taxa de desocupação
+}
+
+Check <https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/documentacao#ExpectativasMercadoAnuais>
+for more details
 }
 \examples{
+\dontrun{
 indic <- c("PIB Total", "Fiscal")
 end_date <- "2018-01-31"
 x <- get_annual_market_expectations(indic, end_date = end_date, `$top` = 10)
+
+# return all indicators for the specified date range
+start_date <- "2021-01-01"
+x <- get_annual_market_expectations(start_date = start_date, `$top` = 20)
+}
 
 }

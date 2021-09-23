@@ -4,8 +4,13 @@
 \alias{get_series}
 \title{Get the series from BCB}
 \usage{
-get_series(code, start_date = NULL, end_date = NULL, last = 0,
-  as = c("tibble", "xts", "ts", "data.frame", "text"))
+get_series(
+  code,
+  start_date = NULL,
+  end_date = NULL,
+  last = 0,
+  as = c("tibble", "xts", "ts", "data.frame", "text")
+)
 }
 \arguments{
 \item{code}{series code}

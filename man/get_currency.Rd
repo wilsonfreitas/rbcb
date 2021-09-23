@@ -4,8 +4,12 @@
 \alias{get_currency}
 \title{Get currency values for a given period}
 \usage{
-get_currency(symbol, start_date, end_date, as = c("tibble", "xts",
-  "data.frame", "text"))
+get_currency(
+  symbol,
+  start_date,
+  end_date,
+  as = c("tibble", "xts", "data.frame", "text")
+)
 }
 \arguments{
 \item{symbol}{currency symbol}

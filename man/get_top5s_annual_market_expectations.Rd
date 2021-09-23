@@ -4,12 +4,16 @@
 \alias{get_top5s_annual_market_expectations}
 \title{Get annual market expectations from top 5 providers}
 \usage{
-get_top5s_annual_market_expectations(indic, start_date = NULL,
-  end_date = NULL, ...)
+get_top5s_annual_market_expectations(
+  indic = NULL,
+  start_date = NULL,
+  end_date = NULL,
+  ...
+)
 }
 \arguments{
-\item{indic}{a character vector with economic indicators names:
-IGP-DI, IGP-M, IPCA, Meta para taxa over-selic, Taxa de câmbio.}
+\item{indic}{a character vector with economic indicators names.
+They are case sensitive and don't forget the accents.}
 
 \item{start_date}{series initial date.
 Accepts ISO character formated date and \code{Date}.}
@@ -19,8 +23,7 @@ Accepts ISO character formated date and \code{Date}.}
 
 \item{...}{additional parameters to be passed to the API
 
-\code{indic} argumento must be one of these:
-IGP-DI, IGP-M, IPCA, Meta para taxa over-selic, Taxa de câmbio.
+\code{indic} argument must be one of indicators listed in Details.
 Respecting the case, blank spaces and accents.
 
 The \code{...} is to be used with API's parameters. \code{$top} to specify
@@ -28,17 +31,10 @@ the maximum number of rows to be returned, this returns the \code{$top} rows,
 in chronological order. There is also \code{$skip} to ignore the first rows.}
 }
 \value{
-A \code{data.frame} with the following nine columns: \code{date}, \code{indic},
-\code{indic_detail},
-\code{reference_year}, \code{type}, \code{mean}, \code{median},
-\code{sd},
-\code{coefvar},
-\code{min}, \code{max}.
+A \code{data.frame} with the requested data.
 }
 \description{
-Statistics of top 5's annual market expectations:
-mean, median, standard
-deviate, minimum, maximum and the coefficient of variation.
+Statistics of annual expectations for top 5 indicators.
 All statistics are computed based on expectations provided by many financial
 institutions in Brazil: banks, funds, risk managers, so on and so forth.
 These expections and its statistics are used to build the FOCUS Report weekly
@@ -46,11 +42,27 @@ released by the Brazilian Central Bank.
 }
 \details{
 There are inflation's expectations available for the following indicators:
-IGP-DI, IGP-M, IPCA, Meta para taxa over-selic, Taxa de câmbio
+
+\itemize{
+\item Câmbio
+\item IGP-DI
+\item IGP-M
+\item IPCA
+\item Selic
+}
+
+Check <https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/documentacao#ExpectativasMercadoTop5Anuais>
+for more details
 }
 \examples{
+\dontrun{
 indic <- "IPCA"
 end_date <- "2018-06-22"
 x <- get_top5s_annual_market_expectations(indic, end_date = end_date, `$top` = 10)
+
+# return all indicators for the specified date range
+start_date <- "2021-01-01"
+x <- get_top5s_annual_market_expectations(start_date = start_date, `$top` = 20)
+}
 
 }

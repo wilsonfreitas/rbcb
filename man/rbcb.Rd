@@ -3,7 +3,6 @@
 \docType{package}
 \name{rbcb}
 \alias{rbcb}
-\alias{rbcb-package}
 \title{R interface to Brazilian Central Bank RESTful API}
 \description{
 The Brazilian Central Bank API delivers many datasets which regard economic
