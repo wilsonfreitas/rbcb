@@ -23,4 +23,4 @@ Imports:
     utils,
     stats
 RoxygenNote: 7.1.1
-Suggests: testthat
+Suggests: testthat, miniUI, shiny
