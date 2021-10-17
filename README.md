@@ -24,9 +24,10 @@ devtools::install_github('wilsonfreitas/rbcb')
 - [Download `tibble` objects](#tibble-objects)
 - [Download `xts` objects](#xts-objects)
 - [Download `ts` objects](#ts-objects)
+- [Download market expectations](#market-expectations)
+- [Download currency rates from OLINDA API](#olinda-currency-rates)
 - [Download currency rates](#currency-rates)
 - [Download cross currency rates](#cross-currency-rates)
-- [Download market expectations](#market-expectations)
 
 ### Usage
 
@@ -134,6 +135,125 @@ rbcb::get_series(c(IPCA = 433, IGPM = 189), last = 12, as = "ts")
 #> 2018
 ```
 
+
+#### Market expectations
+
+<a name="market-expectations"></a>
+The function `get_market_expectations` returns market expectations discussed in the Focus Report that summarizes the statistics calculated from expectations collected from market practitioners.
+
+The first argument `type` accepts the following values:
+
+- `annual`: annual expectations
+- `quarterly`: quarterly expectations
+- `monthly`: monthly expectations
+- `top5s-monthly`: monthly expectations for top 5 indicators
+- `top5s-annual`: annual expectations for top 5 indicators
+- `inflation-12-months`: inflation expectations for the next 12 months
+- `institutions`: market expectations informed by financial institutions
+
+The example below shows how to download IPCA's monthly expectations.
+
+``` r
+rbcb::get_market_expectations("monthly", "IPCA", end_date = "2018-01-31", `$top` = 5)
+#>   Indicador Data       DataReferencia Media Mediana DesvioPadrao Minimo Maximo numeroRespondentes baseCalculo
+#>   <chr>     <date>     <chr>          <dbl>   <dbl>        <dbl>  <dbl>  <dbl>              <int>       <int>
+#> 1 IPCA      2018-01-31 01/2019         0.48    0.47         0.07   0.33   0.6                  20           1
+#> 2 IPCA      2018-01-31 08/2018         0.21    0.22         0.09   0.05   0.47                 34           1
+#> 3 IPCA      2018-01-31 04/2019         0.38    0.39         0.1    0.16   0.61                 20           1
+#> 4 IPCA      2018-01-31 09/2018         0.29    0.28         0.07   0.19   0.45                 34           1
+#> 5 IPCA      2018-01-31 02/2019         0.45    0.45         0.06   0.34   0.55                 20           1
+```
+
+
+#### OLINDA API for currency rates
+
+<a name="olinda-currency-rates"></a>
+Use currency functions to download currency rates from the BCB OLINDA API.
+
+```r
+olinda_list_currencies()
+#>    symbol                     name currency_type
+#> 1     AUD        Dólar australiano             B
+#> 2     CAD          Dólar canadense             A
+#> 3     CHF             Franco suíço             A
+#> 4     DKK       Coroa dinamarquesa             A
+#> 5     EUR                     Euro             B
+#> 6     GBP          Libra Esterlina             B
+#> 7     JPY                     Iene             A
+#> 8     NOK         Coroa norueguesa             A
+#> 9     SEK              Coroa sueca             A
+#> 10    USD Dólar dos Estados Unidos             A
+```
+
+Use `olinda_get_currency` function to download data from specific currency by
+the currency symbol.
+
+```r
+olinda_get_currency("USD", "2017-03-01", "2017-03-03")
+#> # A tibble: 13 x 3
+#>    datetime              bid   ask
+#>    <dttm>              <dbl> <dbl>
+#>  1 2017-03-01 14:37:41  3.10  3.10
+#>  2 2017-03-01 15:37:01  3.10  3.10
+#>  3 2017-03-01 15:37:01  3.10  3.10
+#>  4 2017-03-02 10:04:33  3.11  3.11
+#>  5 2017-03-02 11:07:36  3.10  3.10
+#>  6 2017-03-02 12:10:41  3.12  3.12
+#>  7 2017-03-02 13:06:27  3.12  3.12
+#>  8 2017-03-02 13:06:27  3.11  3.11
+#>  9 2017-03-03 10:10:38  3.13  3.13
+#> 10 2017-03-03 11:10:48  3.13  3.13
+#> 11 2017-03-03 12:07:35  3.14  3.14
+#> 12 2017-03-03 13:07:10  3.14  3.14
+#> 13 2017-03-03 13:07:10  3.14  3.14
+```
+
+The rates come quoted in BRL, so 3.10 is worth 1 USD in BRL.
+
+**Parity values**
+
+Type A currencies have parity values quoted in USD (1 CURRENCY in USD).
+
+```r
+olinda_get_currency("CAD", "2017-03-01", "2017-03-01")
+#> # A tibble: 3 x 3
+#>   datetime              bid   ask
+#>   <dttm>              <dbl> <dbl>
+#> 1 2017-03-01 14:37:41  2.32  2.32
+#> 2 2017-03-01 15:37:01  2.32  2.32
+#> 3 2017-03-01 15:37:01  2.32  2.32
+
+olinda_get_currency("CAD", "2017-03-01", "2017-03-01", parity = TRUE)
+#> # A tibble: 3 x 3
+#>   datetime              bid   ask
+#>   <dttm>              <dbl> <dbl>
+#> 1 2017-03-01 14:37:41  1.33  1.33
+#> 2 2017-03-01 15:37:01  1.33  1.33
+#> 3 2017-03-01 15:37:01  1.33  1.33
+```
+
+Type B currencies have parity values as 1 USD in CURRENCY, see AUD, for
+example.
+
+```r
+olinda_get_currency("AUD", "2017-03-01", "2017-03-01")
+#> # A tibble: 3 x 3
+#>   datetime              bid   ask
+#>   <dttm>              <dbl> <dbl>
+#> 1 2017-03-01 14:37:41  2.38  2.38
+#> 2 2017-03-01 15:37:01  2.38  2.38
+#> 3 2017-03-01 15:37:01  2.38  2.38
+
+olinda_get_currency("AUD", "2017-03-01", "2017-03-01", parity = TRUE)
+#> # A tibble: 3 x 3
+#>   datetime              bid   ask
+#>   <dttm>              <dbl> <dbl>
+#> 1 2017-03-01 14:37:41 0.768 0.768
+#> 2 2017-03-01 15:37:01 0.767 0.768
+#> 3 2017-03-01 15:37:01 0.767 0.768
+```
+
+
 #### Currency rates
 
 <a name="currency-rates"></a>
@@ -230,26 +350,3 @@ x[cr, cr]
 The rates are quoted by its columns labels, so the numbers in the BRL column are worth one currency unit in BRL.
 
 
-#### Market expectations
-
-<a name="market-expectations"></a>
-There are six functions to get market expectations data.
-
-- `get_monthly_market_expectations`
-- `get_quarterly_market_expectations`
-- `get_annual_market_expectations` 
-- `get_top5s_monthly_market_expectations`
-- `get_top5s_annual_market_expectations`
-- `get_twelve_months_inflation_expectations`
-
-``` r
-rbcb::get_monthly_market_expectations("IPCA", end_date = "2018-01-31", `$top` = 5)
-#> # A tibble: 5 x 9
-#>   indic date       reference_month  mean median    sd coefvar   min   max
-#> * <chr> <date>     <ord>           <dbl>  <dbl> <dbl>   <dbl> <dbl> <dbl>
-#> 1 IPCA  2018-01-31 2019-01         0.48    0.5   0.07    14.6  0.33  0.65
-#> 2 IPCA  2018-01-31 2019-02         0.46    0.46  0.07    15.2  0.26  0.68
-#> 3 IPCA  2018-01-31 2018-09         0.290   0.28  0.06    20.7  0.14  0.45
-#> 4 IPCA  2018-01-31 2019-04         0.38    0.4   0.08    21.0  0.16  0.61
-#> 5 IPCA  2018-01-31 2018-08         0.19    0.2   0.08    42.1  0.05  0.47
-```
