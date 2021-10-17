@@ -31,16 +31,13 @@ rbcb_search <- function() {
       url <- parse_url("https://dadosabertos.bcb.gov.br/api/search/dataset")
       url$query <- list(q = input$q, offset = input$offset, all_fields = 1)
       res <- GET(url)
-      data <- res |>
-        content(as = "text") |>
-        jsonlite::fromJSON()
+      data <- jsonlite::fromJSON(content(res, as = "text"))
       page_count(data$count)
       data$results
     })
 
     query_codes <- shiny::reactive({
       x <- query_result()
-      # x$results$res_name
       sapply(x$res_name, function(.x) {
         ix <- which(grepl("json_serie-sgs-\\d+", .x))
         if (length(ix)) {
