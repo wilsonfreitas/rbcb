@@ -34,7 +34,15 @@ Bid.xts <- function(x, ...) {
 
 #' @rdname helpers
 #' @export
-Ask <- function(x, ...) UseMethod("Ask")
+Bid.olinda_df <- function(x, ...) {
+  x_ <- subset(x, select = c("datetime", "bid"))
+  colnames(x_) <- c("datetime", attr(x, "symbol"))
+  x_
+}
+
+#' @rdname helpers
+#' @export
+Ask <- function(x, ...) UseMethod("Ask", x)
 
 #' @rdname helpers
 #' @export
@@ -49,5 +57,13 @@ Ask.data.frame <- function(x, ...) {
 Ask.xts <- function(x, ...) {
   x_ <- x[,"ask"]
   colnames(x_) <- c(attr(x, "symbol"))
+  x_
+}
+
+#' @rdname helpers
+#' @export
+Ask.olinda_df <- function(x, ...) {
+  x_ <- subset(x, select = c("datetime", "ask"))
+  colnames(x_) <- c("datetime", attr(x, "symbol"))
   x_
 }
