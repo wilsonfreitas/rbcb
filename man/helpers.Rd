@@ -5,9 +5,11 @@
 \alias{Bid}
 \alias{Bid.data.frame}
 \alias{Bid.xts}
+\alias{Bid.olinda_df}
 \alias{Ask}
 \alias{Ask.data.frame}
 \alias{Ask.xts}
+\alias{Ask.olinda_df}
 \title{Helpers to access time series columns}
 \usage{
 Bid(x, ...)
@@ -16,11 +18,15 @@ Bid(x, ...)
 
 \method{Bid}{xts}(x, ...)
 
+\method{Bid}{olinda_df}(x, ...)
+
 Ask(x, ...)
 
 \method{Ask}{data.frame}(x, ...)
 
 \method{Ask}{xts}(x, ...)
+
+\method{Ask}{olinda_df}(x, ...)
 }
 \arguments{
 \item{x}{time series objects containing data to be extracted}
