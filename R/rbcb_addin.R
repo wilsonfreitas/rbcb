@@ -12,11 +12,11 @@
 #'   desired data.
 #'
 #' @export
-rbcb_search <- function() {
+rbcb_search <- function(text = "") {
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("rbcb search"),
     miniUI::miniContentPanel(
-      shiny::textInput("q", "Search:"),
+      shiny::textInput("q", "Search:", text),
       shiny::numericInput("offset", "Offset:", value = 0, min = 0, step = 10),
       shiny::htmlOutput("page_count"),
       shiny::tags$hr(),
@@ -63,6 +63,11 @@ rbcb_search <- function() {
       })
       data.frame(`Result Title` = df$title, Command = cmds, check.names = FALSE)
     })
+
+    observeEvent(input$done, {
+      shiny::stopApp(TRUE)
+    })
+
   }
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
