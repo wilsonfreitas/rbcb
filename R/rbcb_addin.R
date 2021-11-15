@@ -61,7 +61,9 @@ rbcb_search <- function(text = "") {
           "NA"
         }
       })
-      data.frame(`Result Title` = df$title, Command = cmds, check.names = FALSE)
+      data.frame(`Result Title` = df$title,
+                 Name = df$name,
+                 Command = cmds, check.names = FALSE)
     })
 
     observeEvent(input$done, {
@@ -72,5 +74,89 @@ rbcb_search <- function(text = "") {
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
   shiny::runGadget(app, viewer = shiny::dialogViewer("rbcb search"))
+}
+
+
+#' rbcb dataset
+#'
+#' @description `rbcb_dataset()` opens an [RStudio
+#'   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
+#'   [addin](http://rstudio.github.io/rstudioaddins/) that allows you to view
+#'   a few attributes that help to explain the desired data.
+#'
+#' @export
+rbcb_dataset <- function(name) {
+
+  ui <- miniUI::miniPage(
+    miniUI::gadgetTitleBar("rbcb dataset"),
+    miniUI::miniContentPanel(
+      shiny::htmlOutput("title"),
+      shiny::tags$br(),
+      shiny::htmlOutput("name"),
+      shiny::tags$br(),
+      shiny::htmlOutput("author"),
+      shiny::tags$br(),
+      shiny::htmlOutput("url"),
+      shiny::tags$br(),
+      shiny::htmlOutput("notes"),
+    )
+  )
+
+  server <- function(input, output, session) {
+    query_result <- shiny::reactive({
+      url <- paste0("https://dadosabertos.bcb.gov.br/api/rest/dataset/", name)
+      res <- GET(url)
+      content(res, as = "text") |> jsonlite::fromJSON()
+    })
+
+    output$title <- shiny::renderUI({
+      data <- query_result()
+      shiny::tags$div(
+        shiny::tags$strong("Title: "),
+        data$title
+      )
+    })
+
+    output$name <- shiny::renderUI({
+      data <- query_result()
+      shiny::tags$div(
+        shiny::tags$strong("Name: "),
+        name
+      )
+    })
+
+    output$author <- shiny::renderUI({
+      data <- query_result()
+      shiny::tags$div(
+        shiny::tags$strong("Author: "),
+        data$author
+      )
+    })
+
+    output$url <- shiny::renderUI({
+      data <- query_result()
+      shiny::tags$div(
+        shiny::tags$strong("URL: "),
+        shiny::tags$a(data$ckan_url)
+      )
+    })
+
+    output$notes <- shiny::renderUI({
+      data <- query_result()
+      shiny::tags$div(
+        shiny::tags$strong("Description: "),
+        shiny::tags$br(),
+        shiny::HTML(data$notes_rendered)
+      )
+    })
+
+    observeEvent(input$done, {
+      shiny::stopApp(TRUE)
+    })
+
+  }
+
+  app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
+  shiny::runGadget(app, viewer = shiny::dialogViewer("rbcb dataset"))
 }
 
