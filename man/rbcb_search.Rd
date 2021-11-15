@@ -4,7 +4,7 @@
 \alias{rbcb_search}
 \title{rbcb Search}
 \usage{
-rbcb_search()
+rbcb_search(text = "")
 }
 \description{
 `rbcb_search()` opens an [RStudio

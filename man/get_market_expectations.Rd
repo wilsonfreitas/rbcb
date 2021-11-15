@@ -102,7 +102,7 @@ for more details
 }
 \examples{
 \dontrun{
-indic <- c("IPCA", "CÃ¢mbio")
+indic <- c("IPCA", "Câmbio")
 x <- get_market_expectations("annual", indic, `$top` = 10)
 
 x <- get_market_expectations("monthly", "Selic", `$top` = 20)
