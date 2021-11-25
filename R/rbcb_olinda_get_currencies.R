@@ -103,6 +103,12 @@ olinda_get_currency <- function(symbol, start_date, end_date = NULL,
   data_ <- jsonlite::fromJSON(text_)
   df_ <- data_$value
 
+  if (length(df_) == 0) {
+    stop("The selected range returned no results: start_date = ",
+         format(start_date),
+         ", end_date = ", format(end_date))
+  }
+
   names(df_) <- c("bid_parity", "ask_parity", "bid", "ask", "datetime", "type")
   df <- within(df_, {
     datetime <- as.POSIXct(datetime, tz = "America/Sao_Paulo")
