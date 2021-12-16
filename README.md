@@ -10,7 +10,7 @@ from [Brazilian Centra Bank](https://www.bcb.gov.br) web site.
 
 ## Install
 
-This package is only available to install from github using devtools:
+This package is available to install from github using devtools:
 
 ```r
 devtools::install_github('wilsonfreitas/rbcb')
@@ -18,16 +18,15 @@ devtools::install_github('wilsonfreitas/rbcb')
 
 ## Features
 
-- [Download single series](#single-series)
-- [Download multiple series](#multiple-series)
-- [Different download types](#download-types)
-- [Download `tibble` objects](#tibble-objects)
-- [Download `xts` objects](#xts-objects)
-- [Download `ts` objects](#ts-objects)
-- [Download market expectations](#market-expectations)
-- [Download currency rates from OLINDA API](#olinda-currency-rates)
-- [Download currency rates](#currency-rates)
-- [Download cross currency rates](#cross-currency-rates)
+- [rbcb](#rbcb)
+  - [Install](#install)
+  - [Features](#features)
+    - [Usage](#usage)
+      - [The `get_series` function](#the-get_series-function)
+      - [Market expectations](#market-expectations)
+      - [OLINDA API for currency rates](#olinda-api-for-currency-rates)
+      - [Currency rates](#currency-rates)
+      - [Cross currency rates](#cross-currency-rates)
 
 ### Usage
 
