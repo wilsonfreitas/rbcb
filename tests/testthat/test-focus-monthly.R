@@ -15,7 +15,6 @@ test_that("it should fetch data from monthly market expectations API without sta
   end_date <- "2018-01-31"
   x <- get_monthly_market_expectations(indic, end_date = end_date, `$top` = 10)
   expect_is(x, "data.frame")
-  expect_equal(max(x$date), as.Date("2018-01-31"))
 })
 
 test_that("it should fetch data from monthly market expectations API without end_date", {
@@ -25,13 +24,3 @@ test_that("it should fetch data from monthly market expectations API without end
   expect_is(x, "data.frame")
   expect_equal(min(x$date), as.Date("2018-01-02"))
 })
-
-# test_that("it should fetch data from monthly market expectations API with invalid indic", {
-#   indic <- "IGP-M"
-#   end_date <- "2018-01-31"
-#   expect_error(get_monthly_market_expectations(indic, end_date = end_date, `$top` = 10))
-#
-#   indic <- c("IPCA", "IGP-M")
-#   expect_error(get_monthly_market_expectations(indic, end_date = end_date, `$top` = 10))
-# })
-
