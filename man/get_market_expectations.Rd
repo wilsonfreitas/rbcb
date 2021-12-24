@@ -34,6 +34,18 @@ names (in english).}
 
 \item{...}{additional parameters to be passed to the API
 
+\code{type} defines the API used to fetch data.
+
+\itemize{
+\item \code{annual}: refers to the API *Expectativas de Mercado Anuais* for annual market expectations
+\item \code{quarterly}: refers to the API *Expectativas de Mercado Trimestrais* for quarterly market expectations
+\item \code{monthly}: refers to the API *Expectativas de Mercado Mensais* for monthly market expectations
+\item \code{inflation-12-months}: refers to the API *Expectativas de mercado para inflação nos próximos 12 meses* for market expectations of inflation indexes for the next 12 months.
+\item \code{top5s-monthly}: refers to the API *Expectativas de mercado mensais para os indicadores do Top 5* for monthly market expectations of top 5 indicators
+\item \code{top5s-annual}: refers to the API *Expectativas de mercado anuais para os indicadores do Top 5* for annual market expectations of top 5 indicators
+\item \code{institutions}: refers to the API *Expectativas de mercado informadas pelas instituições credenciadas* for market expectations sent by institutions
+}
+
 \code{indic} argument must be one of indicators listed in Details.
 Respecting the case, blank spaces and accents.
 
