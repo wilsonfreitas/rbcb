@@ -653,7 +653,7 @@ get_market_expectations <- function(type = c("annual",
 
   q <- list(...)
   q[["$format"]] <- "application/json"
-  q[["$orderby"]] <- "Data desc"
+  # q[["$orderby"]] <- "Data desc"
   filter__ <- paste(c(indic_filter, sd_filter, ed_filter, q[["$filter"]]),
                     collapse = " and ")
   filter__ <- if (filter__ == "") NULL else filter__
