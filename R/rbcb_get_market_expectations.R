@@ -637,53 +637,6 @@ get_market_expectations <- function(type = c("annual",
 }
 
 
-#' Get available indicators for all APIs
-#'
-#' The best way to find out avaliable indicators for each endpoint.
-#'
-#' Check <https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/documentacao>
-#' for more details
-#'
-#' @param type a character with one of the following: \code{annual}, \code{quarterly}
-#' \code{monthly}, \code{inflation-12-months}, \code{top5s-monthly}, \code{top5s-annual},
-#' \code{institutions}.
-#'
-#' \code{type} defines the API used to fetch data.
-#'
-#' \itemize{
-#' \item \code{annual}: refers to the API *Expectativas de Mercado Anuais* for annual market expectations
-#' \item \code{quarterly}: refers to the API *Expectativas de Mercado Trimestrais* for quarterly market expectations
-#' \item \code{monthly}: refers to the API *Expectativas de Mercado Mensais* for monthly market expectations
-#' \item \code{inflation-12-months}: refers to the API *Expectativas de mercado para inflação nos próximos 12 meses* for market expectations of inflation indexes for the next 12 months.
-#' \item \code{top5s-monthly}: refers to the API *Expectativas de mercado mensais para os indicadores do Top 5* for monthly market expectations of top 5 indicators
-#' \item \code{top5s-annual}: refers to the API *Expectativas de mercado anuais para os indicadores do Top 5* for annual market expectations of top 5 indicators
-#' \item \code{institutions}: refers to the API *Expectativas de mercado informadas pelas instituições credenciadas* for market expectations sent by institutions
-#' }
-#'
-#' @return
-#' A \code{character} vector with available indicators.
-#'
-#' @examples
-#' \dontrun{
-#' x <- indics("annual")
-#' x <- indics("monthly")
-#' }
-#'
-#' @export
-indics <- function(type = c("annual",
-                            "quarterly",
-                            "monthly",
-                            "inflation-12-months",
-                            "top5s-monthly",
-                            "top5s-annual",
-                            "institutions")) {
-  x <- get_market_expectations(type, `$top` = 1)
-  d_filter = sprintf("Data eq '%s'", x$Data)
-  df <- get_market_expectations(type, `$filter` = d_filter)
-  unique(df$Indicador)
-}
-
-
 .get_market_expectations_url <- function(x) {
   switch(
     x,
