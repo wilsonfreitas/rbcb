@@ -1,3 +1,8 @@
+Changes in Version 0.1.7
+  * new market expectations function: get_market_expectations
+  * new API for exchange rates using olinda API
+  * new addins: rbcb_search, rbcb_dataset
+
 Changes in Version 0.1.6
   * solved bug when downloading market expectations (issue #28)
   * added new columns to market expectations API calls (issue #26)

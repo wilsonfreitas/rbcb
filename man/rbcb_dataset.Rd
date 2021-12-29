@@ -6,8 +6,11 @@
 \usage{
 rbcb_dataset(name)
 }
+\arguments{
+\item{name}{dataset name}
+}
 \description{
-`rbcb_dataset()` opens an [RStudio
+`rbcb_dataset(name)` opens an [RStudio
   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
   [addin](http://rstudio.github.io/rstudioaddins/) that allows you to view
   a few attributes that help to explain the desired data.

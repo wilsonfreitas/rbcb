@@ -16,5 +16,6 @@
 #' @import xml2
 #' @import utils
 #' @import stats
+#' @importFrom methods is
 #'
 NULL

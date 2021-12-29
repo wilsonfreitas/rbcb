@@ -6,8 +6,11 @@
 \usage{
 rbcb_search(text = "")
 }
+\arguments{
+\item{text}{text to search}
+}
 \description{
-`rbcb_search()` opens an [RStudio
+`rbcb_search(text)` opens an [RStudio
   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
   [addin](http://rstudio.github.io/rstudioaddins/) that allows you to query
   for specific terms and see a suitable rbcb command to fetch the

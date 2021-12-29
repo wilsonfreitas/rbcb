@@ -21,6 +21,7 @@ Imports:
     xts,
     xml2,
     utils,
-    stats
+    stats,
+    methods
 RoxygenNote: 7.1.2
 Suggests: testthat, miniUI, shiny

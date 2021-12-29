@@ -5,11 +5,13 @@
 
 #' rbcb Search
 #'
-#' @description `rbcb_search()` opens an [RStudio
+#' @description `rbcb_search(text)` opens an [RStudio
 #'   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
 #'   [addin](http://rstudio.github.io/rstudioaddins/) that allows you to query
 #'   for specific terms and see a suitable rbcb command to fetch the
 #'   desired data.
+#'
+#' @param text text to search
 #'
 #' @export
 rbcb_search <- function(text = "") {
@@ -66,7 +68,7 @@ rbcb_search <- function(text = "") {
                  Command = cmds, check.names = FALSE)
     })
 
-    observeEvent(input$done, {
+    shiny::observeEvent(input$done, {
       shiny::stopApp(TRUE)
     })
 
@@ -79,10 +81,12 @@ rbcb_search <- function(text = "") {
 
 #' rbcb dataset
 #'
-#' @description `rbcb_dataset()` opens an [RStudio
+#' @description `rbcb_dataset(name)` opens an [RStudio
 #'   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
 #'   [addin](http://rstudio.github.io/rstudioaddins/) that allows you to view
 #'   a few attributes that help to explain the desired data.
+#'
+#' @param name dataset name
 #'
 #' @export
 rbcb_dataset <- function(name) {
@@ -150,7 +154,7 @@ rbcb_dataset <- function(name) {
       )
     })
 
-    observeEvent(input$done, {
+    shiny::observeEvent(input$done, {
       shiny::stopApp(TRUE)
     })
 
