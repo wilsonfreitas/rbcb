@@ -11,6 +11,8 @@ series_info = function(x) {
 
   doc = xml2::read_html(cnt)
   info = xml2::xml_find_first(doc, '//tr[@class="fundoPadraoAClaro3"]')
+  if (length(info) == 0)
+    stop("Given code returned no info from SGS: ", x$code)
   info = xml2::xml_find_all(info, ".//td")
   info = xml2::xml_text(info)
   info = as.list(info[-length(info)])

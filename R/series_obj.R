@@ -5,6 +5,8 @@
   env = list()
   env$name = name_
   env$code = as.numeric(code)
+  if (is.na(env$code))
+    stop("Invalid series code: ", code)
   structure(env, class = "series_obj")
 }
 
