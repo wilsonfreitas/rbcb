@@ -29,12 +29,12 @@ test_that("it should get series as xts", {
 })
 
 test_that("it should get series as ts", {
-  x <- get_series(c(IPCA = 433), start_date = as.Date("2017-01-01"), as = "ts")
+  x <- get_series(c(IPCA = 433), start_date = "2017-01-01", as = "ts")
   expect_equal(frequency(x), 12)
   expect_is(x, "ts")
   expect_equal(start(x), c(2017, 1))
 
-  x <- get_series(27569, start_date = as.Date("2012-01-01"), as = "ts")
+  x <- get_series(27569, start_date = "2012-01-01", as = "ts")
   expect_equal(frequency(x), 1)
   expect_is(x, "ts")
   expect_equal(start(x), c(2012, 1))
@@ -63,11 +63,11 @@ test_that("it should get series within a date period specifying only end_date", 
 
 test_that("it should get multiple series", {
   start <- Sys.Date() - 10
-  x <- get_series(c(USD = 1, IBOVESPA = 7), start_date = start)
+  x <- get_series(c(USD = 1, SELIC = 1178), start_date = start)
   expect_equal(length(x), 2)
-  expect_equal(names(x), c("USD", "IBOVESPA"))
+  expect_equal(names(x), c("USD", "SELIC"))
 
-  x <- get_series(c(USD = 1, 7), last = 5)
+  x <- get_series(c(USD = 1, 1178), last = 5)
   expect_equal(length(x), 2)
-  expect_equal(names(x), c("USD", "7"))
+  expect_equal(names(x), c("USD", "1178"))
 })
