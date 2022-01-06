@@ -9,6 +9,9 @@ rbcb_dataset(name)
 \arguments{
 \item{name}{dataset name}
 }
+\value{
+Addin has no return
+}
 \description{
 `rbcb_dataset(name)` opens an [RStudio
   gadget](https://shiny.rstudio.com/articles/gadgets.html) and

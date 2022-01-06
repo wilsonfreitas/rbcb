@@ -5,6 +5,8 @@
 #' @param x time series objects containing data to be extracted
 #' @param ... additional arguments
 #'
+#' @return tibble with time series
+#'
 #' @name helpers
 #' @examples
 #' x <- get_currency("EUR", "2018-06-22", "2018-06-28")

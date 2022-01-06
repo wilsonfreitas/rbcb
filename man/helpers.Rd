@@ -33,6 +33,9 @@ Ask(x, ...)
 
 \item{...}{additional arguments}
 }
+\value{
+tibble with time series
+}
 \description{
 Extraxt bid and ask data from time series objects.
 }

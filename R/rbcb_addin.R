@@ -1,8 +1,4 @@
 
-# library(httr)
-# library(shiny)
-# library(miniUI)
-
 #' rbcb Search
 #'
 #' @description `rbcb_search(text)` opens an [RStudio
@@ -12,6 +8,8 @@
 #'   desired data.
 #'
 #' @param text text to search
+#'
+#' @return Addin has no return
 #'
 #' @export
 rbcb_search <- function(text = "") {
@@ -88,6 +86,8 @@ rbcb_search <- function(text = "") {
 #'
 #' @param name dataset name
 #'
+#' @return Addin has no return
+#'
 #' @export
 rbcb_dataset <- function(name) {
 
@@ -141,7 +141,7 @@ rbcb_dataset <- function(name) {
       data <- query_result()
       shiny::tags$div(
         shiny::tags$strong("URL: "),
-        shiny::tags$a(data$ckan_url)
+        shiny::tags$a(data$ckan_url, href = data$ckan_url)
       )
     })
 

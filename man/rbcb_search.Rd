@@ -9,6 +9,9 @@ rbcb_search(text = "")
 \arguments{
 \item{text}{text to search}
 }
+\value{
+Addin has no return
+}
 \description{
 `rbcb_search(text)` opens an [RStudio
   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
