@@ -110,7 +110,7 @@ rbcb_dataset <- function(name) {
     query_result <- shiny::reactive({
       url <- paste0("https://dadosabertos.bcb.gov.br/api/rest/dataset/", name)
       res <- GET(url)
-      content(res, as = "text") |> jsonlite::fromJSON()
+      jsonlite::fromJSON(content(res, as = "text"))
     })
 
     output$title <- shiny::renderUI({
