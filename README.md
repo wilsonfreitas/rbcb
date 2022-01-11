@@ -2,7 +2,8 @@
 
 [![Travis-CI build status](https://travis-ci.org/wilsonfreitas/rbcb.svg?branch=master)](https://travis-ci.org/wilsonfreitas/rbcb)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/wilsonfreitas/rbcb?branch=master&svg=true)](https://ci.appveyor.com/project/wilsonfreitas/rbcb)
-<!-- [![Downloads](http://cranlogs.r-pkg.org/badges/rbcb?color=brightgreen)]( https://cran.r-project.org/package=rbcb) -->
+[![](http://cranlogs.r-pkg.org/badges/last-month/rbcb?color=green)](https://cran.r-project.org/package=rbcb)
+[![](https://www.r-pkg.org/badges/version/rbcb?color=orange)](https://cran.r-project.org/package=rbcb)
 
 An interface to structure the information provided by the [Brazilian Central Bank](https://www.bcb.gov.br).
 This package interfaces the [Brazilian Central Bank web services](https://www3.bcb.gov.br/sgspub) to provide data already formatted into R's data structures and download currency data 
@@ -10,10 +11,16 @@ from [Brazilian Centra Bank](https://www.bcb.gov.br) web site.
 
 ## Install
 
-This package is available to install from github using devtools:
+From CRAN:
 
 ```r
-devtools::install_github('wilsonfreitas/rbcb')
+install.packages("rbcb")
+```
+
+From github using remotes:
+
+```r
+remotes::install_github('wilsonfreitas/rbcb')
 ```
 
 ## Features
