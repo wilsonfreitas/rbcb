@@ -1,9 +1,9 @@
 
-skip_on_cran()
-
 context("get_series")
 
 test_that("it should get series json", {
+  skip_on_cran()
+
   x <- get_series(1, start_date = "2017-03-01", end_date = "2017-03-01", as = "text")
   expect_is(x, "character")
   expect_true(jsonlite::validate(x))
@@ -11,6 +11,8 @@ test_that("it should get series json", {
 })
 
 test_that("it should get one series as data.frame", {
+  skip_on_cran()
+
   x <- get_series(1, last = 10)
   expect_equal(dim(x)[1], 10)
   expect_equal(dim(x)[2], 2)
@@ -22,16 +24,22 @@ test_that("it should get one series as data.frame", {
 })
 
 test_that("it should name the series", {
+  skip_on_cran()
+
   x <- get_series(c(USD = 1), last = 10)
   expect_equal(colnames(x), c("date", "USD"))
 })
 
 test_that("it should get series as xts", {
+  skip_on_cran()
+
   x <- get_series(c(USD = 1), last = 10, as = "xts")
   expect_equal(colnames(x), "USD")
 })
 
 test_that("it should get series as ts", {
+  skip_on_cran()
+
   x <- get_series(c(IPCA = 433), start_date = "2017-01-01", as = "ts")
   expect_equal(frequency(x), 12)
   expect_is(x, "ts")
@@ -44,6 +52,8 @@ test_that("it should get series as ts", {
 })
 
 test_that("it should get series within a date period", {
+  skip_on_cran()
+
   x <- get_series(c(USD = 1), start_date = "2017-03-01", end_date = "2017-03-29")
   expect_is(x$date, "Date")
   expect_true(x$date[1] == "2017-03-01")
@@ -51,6 +61,8 @@ test_that("it should get series within a date period", {
 })
 
 test_that("it should get series within a date period specifying only start_date", {
+  skip_on_cran()
+
   start <- Sys.Date() - 10
   x <- get_series(c(USD = 1), start_date = start)
   expect_is(x$date, "Date")
@@ -58,6 +70,8 @@ test_that("it should get series within a date period specifying only start_date"
 })
 
 test_that("it should get series within a date period specifying only end_date", {
+  skip_on_cran()
+
   end <- "2017-01-02"
   x <- get_series(c(USD = 1), end_date = end)
   expect_is(x$date, "Date")
@@ -65,6 +79,8 @@ test_that("it should get series within a date period specifying only end_date", 
 })
 
 test_that("it should get multiple series", {
+  skip_on_cran()
+
   start <- Sys.Date() - 10
   x <- get_series(c(USD = 1, SELIC = 1178), start_date = start)
   expect_equal(length(x), 2)
