@@ -9,9 +9,11 @@
 #'
 #' @name helpers
 #' @examples
+#' \dontrun{
 #' x <- get_currency("EUR", "2018-06-22", "2018-06-28")
 #' Bid(x)
 #' Ask(x)
+#' }
 NULL
 
 #' @rdname helpers
