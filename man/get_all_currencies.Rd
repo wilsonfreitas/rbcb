@@ -17,6 +17,7 @@ The currency rates come quoted in BRL.
 Gets all currency values
 }
 \examples{
+\dontrun{
 get_all_currencies("2017-03-10")
-
+}
 }

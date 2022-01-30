@@ -13,6 +13,7 @@ A \code{data.frame} with information of all currencies
 Lists all currencies and presents their name, symbol, numeric code, country name and county numeric code
 }
 \examples{
+\dontrun{
 list_currencies()
-
+}
 }

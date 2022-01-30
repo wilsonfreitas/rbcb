@@ -108,10 +108,11 @@ get_currency_id <- function(symbol) {
 #' The cells must be read as \code{ROW} in \code{COL}, for example, BRL (row) in USD (column) means Brazilian Reals in American Dollars.
 #'
 #' @examples
+#' \dontrun{
 #' x <- get_currency_cross_rates("2017-03-10")
 #' currencies <- c("USD", "BRL", "AUD", "EUR", "CAD")
 #' x[currencies, currencies]
-#'
+#' }
 #' @export
 get_currency_cross_rates <- function(date, ref = c("ask", "bid")) {
   ref <- match.arg(ref)
@@ -145,8 +146,9 @@ generate_currency_matrix <- function(x) {
 #' The currency rates come quoted in BRL.
 #'
 #' @examples
+#' \dontrun{
 #' get_all_currencies("2017-03-10")
-#'
+#' }
 #' @export
 get_all_currencies <- function(date) {
   url <- "https://ptax.bcb.gov.br/ptax_internet/consultaBoletim.do?method=consultarBoletim"
@@ -193,8 +195,9 @@ get_all_currencies <- function(date) {
 #' A \code{data.frame} with information of all currencies
 #'
 #' @examples
+#' \dontrun{
 #' list_currencies()
-#'
+#' }
 #' @export
 list_currencies <- function() {
   x <- suppressMessages(get_currency_list())
@@ -225,8 +228,9 @@ list_currencies <- function() {
 #' the text content download from BCB site.
 #'
 #' @examples
+#' \dontrun{
 #' get_currency("USD", "2017-03-01", "2017-03-10")
-#'
+#' }
 #' @export
 get_currency <- function(symbol, start_date, end_date, as = c('tibble', 'xts', 'data.frame', 'text')) {
   as <- match.arg(as)

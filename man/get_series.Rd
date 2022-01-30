@@ -48,6 +48,6 @@ Get the series from BCB
 \dontrun{get_series(1, start_date = '2016-12-01')}
 \dontrun{x <- get_series(1, start_date = '2016-12-01', end_date = '2016-12-31')}
 # downlaod the last register
-x <- get_series(1, last = 1)
+\dontrun{x <- get_series(1, last = 1)}
 
 }

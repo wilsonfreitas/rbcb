@@ -37,7 +37,7 @@ olinda_usd_url <- function(start_date, end_date) {
 #' Parity quotations relates currency values with USD.
 #'
 #' @examples
-#' list_currencies()
+#' \dontrun{list_currencies()}
 #'
 #' @export
 olinda_list_currencies <- function() {
@@ -80,7 +80,7 @@ olinda_list_currencies <- function() {
 #' the text content download from BCB site.
 #'
 #' @examples
-#' olinda_get_currency("USD", "2017-03-01", "2017-03-10")
+#' \dontrun{olinda_get_currency("USD", "2017-03-01", "2017-03-10")}
 #'
 #' @export
 olinda_get_currency <- function(symbol, start_date, end_date = NULL,

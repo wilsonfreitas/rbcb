@@ -22,8 +22,9 @@ The cells must be read as \code{ROW} in \code{COL}, for example, BRL (row) in US
 The currency matrix has the currency cross rates for all currencies present in the BCB system.
 }
 \examples{
+\dontrun{
 x <- get_currency_cross_rates("2017-03-10")
 currencies <- c("USD", "BRL", "AUD", "EUR", "CAD")
 x[currencies, currencies]
-
+}
 }
