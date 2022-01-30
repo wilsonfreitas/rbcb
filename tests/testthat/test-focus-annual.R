@@ -1,4 +1,6 @@
 
+skip_on_cran()
+
 context("annual market expectations API")
 
 test_that("it should fetch data from annual market expectations API", {

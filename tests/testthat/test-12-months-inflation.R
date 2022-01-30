@@ -1,4 +1,6 @@
 
+skip_on_cran()
+
 context("12 months inflation market expectations API")
 
 test_that("it should fetch data from 12-months-infl market expectations API", {

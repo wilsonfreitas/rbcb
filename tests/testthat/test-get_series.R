@@ -1,3 +1,6 @@
+
+skip_on_cran()
+
 context("get_series")
 
 test_that("it should get series json", {

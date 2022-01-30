@@ -1,4 +1,6 @@
 
+skip_on_cran()
+
 context("currencies")
 
 test_that("it should get currency data from BCB", {

@@ -25,6 +25,8 @@ test_that("it should create series url", {
 })
 
 test_that("it should create series info", {
+  skip_on_cran()
+
   code = c(IBOVESPA = 7)
   x = series_obj(code)[[1]]
   info = series_info(x)
