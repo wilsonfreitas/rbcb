@@ -7,3 +7,4 @@ x.html
 .travis.yml
 legacy
 ^appveyor\.yml$
+^\.github$
