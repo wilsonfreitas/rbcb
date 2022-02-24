@@ -1,3 +1,7 @@
+Changes in Version 0.1.9
+  * added skip_on_cran to more tests that need connectivity
+  * added a load_info argument to series_obj function to enable/disable series information loading
+
 Changes in Version 0.1.8
   * added skip_on_cran to tests that need connectivity
   * added \dontrun to examples that need connectivity
