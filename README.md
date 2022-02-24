@@ -5,8 +5,7 @@
 [![R-CMD-check](https://github.com/wilsonfreitas/rbcb/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/wilsonfreitas/rbcb/actions/workflows/check-standard.yaml)
 
 An interface to structure the information provided by the [Brazilian Central Bank](https://www.bcb.gov.br).
-This package interfaces the [Brazilian Central Bank web services](https://www3.bcb.gov.br/sgspub) to provide data already formatted into R's data structures and download currency data 
-from [Brazilian Centra Bank](https://www.bcb.gov.br) web site.
+This package interfaces the [Brazilian Central Bank web services](https://dadosabertos.bcb.gov.br) to provide data already formatted into R's data structures.
 
 ## Install
 
