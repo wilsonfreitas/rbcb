@@ -35,7 +35,7 @@
 get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
                        as = c('tibble', 'xts', 'ts', 'data.frame', 'text')) {
   as <- match.arg(as)
-  objs = series_obj(code)
+  objs = series_obj(code, load_info = (as == "ts"))
 
   series = lapply(objs, function(x) .get_series(series_url(x, start_date, end_date, last)))
 
