@@ -2,6 +2,8 @@
 context("series object")
 
 test_that("it should create series objects", {
+  skip_on_cran()
+
   code = c(IBOVESPA = 7)
   x = series_obj(code)[[1]]
   expect_is(x, "series_obj")
@@ -18,6 +20,8 @@ test_that("it should create series objects", {
 })
 
 test_that("it should create series url", {
+  skip_on_cran()
+
   url = "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=7"
   code = c(IBOVESPA = 7)
   x = series_obj(code)[[1]]

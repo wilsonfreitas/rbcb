@@ -1,9 +1,11 @@
 
 context('create URL')
 
-ser = series_obj(c(USDBRL = 1))[[1]]
-
 test_that('should create urls', {
+  skip_on_cran()
+
+  ser <- series_obj(c(USDBRL = 1))[[1]]
+
   expect_equal(series_url(ser), 'http://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json')
   end_date <- format(Sys.Date(), "%d%%2F%m%%2F%Y")
 
@@ -25,6 +27,8 @@ test_that('should create urls', {
 })
 
 test_that('should warn for nonsense parameters', {
+  skip_on_cran()
+  ser <- series_obj(c(USDBRL = 1))[[1]]
   expect_warning(series_url(ser, start_date = '2016-01-01', last = 1))
 })
 
