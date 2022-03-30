@@ -492,6 +492,84 @@ get_institutions_market_expectations <- function(indic = NULL, start_date = NULL
 }
 
 
+#' Get Selic market expectations
+#'
+#' Statistics of Selic market expectations.
+#' All statistics are computed based on expectations provided by many financial
+#' institutions in Brazil: banks, funds, risk managers, so on and so forth.
+#' These expections and its statistics are used to build the FOCUS Report weekly
+#' released by the Brazilian Central Bank.
+#'
+#' Check <https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/documentacao#ExpectativasMercadoSelic>
+#' for more details
+#'
+#' @param start_date series initial date.
+#' Accepts ISO character formated date and \code{Date}.
+#' @param end_date series final date.
+#' Accepts ISO character formated date and \code{Date}.
+#' @param ... additional parameters to be passed to the API
+#'
+#' The \code{...} is to be used with API's parameters. \code{$top} to specify
+#' the maximum number of rows to be returned, this returns the \code{$top} rows,
+#' in chronological order. There is also \code{$skip} to ignore the first rows.
+#'
+#' @return
+#' A \code{data.frame} with the requested data.
+#'
+#' @examples
+#' \dontrun{
+#' # return all indicators for the specified date range
+#' start_date <- "2022-01-01"
+#' x <- get_selic_market_expectations(start_date = start_date, `$top` = 20)
+#' }
+#'
+#' @export
+get_selic_market_expectations <- function(start_date = NULL,
+                                          end_date = NULL, ...) {
+  get_market_expectations("selic", NULL, start_date, end_date,
+                          keep_names = FALSE, ...)
+}
+
+
+#' Get Selic market expectations from top 5 providers
+#'
+#' Statistics of Selic expectations for top 5 indicators.
+#' All statistics are computed based on expectations provided by many financial
+#' institutions in Brazil: banks, funds, risk managers, so on and so forth.
+#' These expections and its statistics are used to build the FOCUS Report weekly
+#' released by the Brazilian Central Bank.
+#'
+#' Check <https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/documentacao#ExpectativasMercadoTop5Selic>
+#' for more details
+#'
+#' @param start_date series initial date.
+#' Accepts ISO character formated date and \code{Date}.
+#' @param end_date series final date.
+#' Accepts ISO character formated date and \code{Date}.
+#' @param ... additional parameters to be passed to the API
+#'
+#' The \code{...} is to be used with API's parameters. \code{$top} to specify
+#' the maximum number of rows to be returned, this returns the \code{$top} rows,
+#' in chronological order. There is also \code{$skip} to ignore the first rows.
+#'
+#' @return
+#' A \code{data.frame} with the requested data.
+#'
+#' @examples
+#' \dontrun{
+#' # return all indicators for the specified date range
+#' start_date <- "2022-01-01"
+#' x <- get_top5s_selic_market_expectations(start_date = start_date, `$top` = 20)
+#' }
+#'
+#' @export
+get_top5s_selic_market_expectations <- function(start_date = NULL,
+                                                end_date = NULL, ...) {
+  get_market_expectations("top5s-selic", NULL, start_date, end_date,
+                          keep_names = FALSE, ...)
+}
+
+
 #' Get market expectations
 #'
 #' General function to get statistics of market expectations.
@@ -602,6 +680,12 @@ get_institutions_market_expectations <- function(indic = NULL, start_date = NULL
 #'
 #' # get all IPCA expectations informed by financial institutions since 2020
 #' x <- get_market_expectations("institutions", "IPCA", start_date = "2020-01-01")
+#'
+#' # get all SELIC expectations informed by financial institutions since 2022
+#' x <- get_market_expectations("selic", start_date = "2022-01-01")
+#'
+#' # get TOP5 SELIC expectations starting on 2022
+#' x <- get_market_expectations("top5s-selic", start_date = "2022-01-01")
 #' }
 #'
 #' @export
@@ -611,7 +695,9 @@ get_market_expectations <- function(type = c("annual",
                                              "inflation-12-months",
                                              "top5s-monthly",
                                              "top5s-annual",
-                                             "institutions"),
+                                             "institutions",
+                                             "selic",
+                                             "top5s-selic"),
                                     indic = NULL, start_date = NULL,
                                     end_date = NULL, keep_names = TRUE, ...) {
   type <- match.arg(type)
@@ -647,6 +733,8 @@ get_market_expectations <- function(type = c("annual",
     "top5s-monthly" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais",
     "top5s-annual" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais",
     "institutions" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInstituicoes",
+    "selic" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoSelic",
+    "top5s-selic" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic",
   )
 }
 
@@ -696,4 +784,3 @@ change_names <- function(name) switch(
   "tipoCalculo" = "typeCalc",
   name
 )
-

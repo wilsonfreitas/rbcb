@@ -130,6 +130,12 @@ x <- get_market_expectations("inflation-12-months", start_date = "2021-01-01")
 
 # get all IPCA expectations informed by financial institutions since 2020
 x <- get_market_expectations("institutions", "IPCA", start_date = "2020-01-01")
+
+# get all SELIC expectations informed by financial institutions since 2022
+x <- get_market_expectations("selic", start_date = "2022-01-01")
+
+# get TOP5 SELIC expectations starting on 2022
+x <- get_market_expectations("top5s-selic", start_date = "2022-01-01")
 }
 
 }
