@@ -6,7 +6,7 @@
 \usage{
 get_market_expectations(
   type = c("annual", "quarterly", "monthly", "inflation-12-months", "top5s-monthly",
-    "top5s-annual", "institutions"),
+    "top5s-annual", "institutions", "selic", "top5s-selic"),
   indic = NULL,
   start_date = NULL,
   end_date = NULL,
