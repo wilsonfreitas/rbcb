@@ -1,3 +1,7 @@
+# rbcb 0.1.11
+
+* created documentation site with pkgdown
+
 # rbcb 0.1.10
 
 * added new Selic endpoints for market expectations API:

@@ -9,3 +9,6 @@ legacy
 ^appveyor\.yml$
 ^\.github$
 .lintr
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
