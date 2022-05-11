@@ -9,7 +9,8 @@ Description: The Brazilian Central Bank API delivers many datasets which regard 
   indicators and many more. For more information please see <http://dadosabertos.bcb.gov.br/>.
   These datasets can be accessed through 'rbcb' functions and can be obtained in
   different data structures common to R ('tibble', 'data.frame', 'xts', ...).
-URL: https://github.com/wilsonfreitas/rbcb
+URL: https://github.com/wilsonfreitas/rbcb,
+    https://wilsonfreitas.github.io/rbcb/
 BugReports: https://github.com/wilsonfreitas/rbcb/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
