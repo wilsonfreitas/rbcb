@@ -7,20 +7,35 @@ series_info_url <- function(x) {
 series_info <- function(x) {
   url <- series_info_url(x)
   res <- httr::GET(url)
+  if (httr::status_code(res) != 200) {
+    msg <- sprintf(
+      "BCB SGS Request error %s for code %s",
+      httr::status_code(res),
+      x$code
+    )
+    stop(msg)
+  }
   cnt <- httr::content(res, as = "text")
 
   doc <- xml2::read_html(cnt)
   info <- xml2::xml_find_first(doc, '//tr[@class="fundoPadraoAClaro3"]')
   if (length(info) == 0) {
-    stop("Given code returned no info from SGS: ", x$code)
+    stop("BCB SGS error: code ", x$code, " returned no info")
   }
   info <- xml2::xml_find_all(info, ".//td")
   info <- xml2::xml_text(info)
+  if (length(info) == 1) {
+    stop("BCB SGS error: code ", x$code, " returned no info")
+  }
   info <- as.list(info[-length(info)])
-  info <- setNames(info, c("code", "description", "unit", "frequency", "start_date", "last_date"))
+  cn <- c("code", "description", "unit", "frequency", "start_date", "last_date")
+  info <- setNames(info, cn)
 
   if (as.numeric(info$code) != x$code) {
-    stop("Downloaded info is different from series info")
+    stop(
+      "Downloaded info is different from series info - given code: ",
+      x$code, " info code: ", info$code
+    )
   }
 
   info$code <- NULL
