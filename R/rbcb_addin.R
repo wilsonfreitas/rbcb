@@ -61,15 +61,16 @@ rbcb_search <- function(text = "") {
           "NA"
         }
       })
-      data.frame(`Result Title` = df$title,
-                 Name = df$name,
-                 Command = cmds, check.names = FALSE)
+      data.frame(
+        `Result Title` = df$title,
+        Name = df$name,
+        Command = cmds, check.names = FALSE
+      )
     })
 
     shiny::observeEvent(input$done, {
       shiny::stopApp(TRUE)
     })
-
   }
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
@@ -90,7 +91,6 @@ rbcb_search <- function(text = "") {
 #'
 #' @export
 rbcb_dataset <- function(name) {
-
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("rbcb dataset"),
     miniUI::miniContentPanel(
@@ -157,10 +157,8 @@ rbcb_dataset <- function(name) {
     shiny::observeEvent(input$done, {
       shiny::stopApp(TRUE)
     })
-
   }
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
   shiny::runGadget(app, viewer = shiny::dialogViewer("rbcb dataset"))
 }
-

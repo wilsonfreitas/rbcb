@@ -24,125 +24,145 @@
 #'
 #' @examples
 #' # download the entire series
-#' \dontrun{get_series(1)}
+#' \dontrun{
+#' get_series(1)
+#' }
 #' # download a period of dates
-#' \dontrun{get_series(1, start_date = '2016-12-01')}
-#' \dontrun{x <- get_series(1, start_date = '2016-12-01', end_date = '2016-12-31')}
+#' \dontrun{
+#' get_series(1, start_date = "2016-12-01")
+#' }
+#' \dontrun{
+#' x <- get_series(1, start_date = "2016-12-01", end_date = "2016-12-31")
+#' }
 #' # downlaod the last register
-#' \dontrun{x <- get_series(1, last = 1)}
+#' \dontrun{
+#' x <- get_series(1, last = 1)
+#' }
 #'
 #' @export
 get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
-                       as = c('tibble', 'xts', 'ts', 'data.frame', 'text')) {
+                       as = c("tibble", "xts", "ts", "data.frame", "text")) {
   as <- match.arg(as)
-  objs = series_obj(code, load_info = (as == "ts"))
+  objs <- series_obj(code, load_info = (as == "ts"))
 
-  series = lapply(objs, function(x) .get_series(series_url(x, start_date, end_date, last)))
+  series <- lapply(objs, function(x) .get_series(series_url(x, start_date, end_date, last)))
 
-  series = mapply(create_series, series, objs,
-                  MoreArgs = list(as = as),
-                  SIMPLIFY = FALSE,
-                  USE.NAMES = FALSE)
+  series <- mapply(create_series, series, objs,
+    MoreArgs = list(as = as),
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+  )
 
-  names_ = lapply(objs, function(x) x$name)
-  series = setNames(series, names_)
+  names_ <- lapply(objs, function(x) x$name)
+  series <- setNames(series, names_)
 
-  if (length(series) == 1)
+  if (length(series) == 1) {
     series[[1]]
-  else
+  } else {
     series
+  }
 }
 
-.get_series = function(url) {
+.get_series <- function(url) {
   res <- http_getter(url)
   txt <- http_gettext(res, as = "text")
   if (httr::status_code(res) != 200) {
-    msg <- sprintf("BCB API Request error %s\nContent returned:\n",
-                   httr::status_code(res))
+    msg <- sprintf(
+      "BCB API Request error %s\nContent returned:\n",
+      httr::status_code(res)
+    )
     stop(msg, txt)
   } else {
     txt
   }
 }
 
-create_series = function(json_, x, as) {
-  if (as == 'text')
+create_series <- function(json_, x, as) {
+  if (as == "text") {
     return(json_)
+  }
 
   df_ <- jsonlite::fromJSON(json_)
 
   names(df_) <- resolve_names(names(df_))
 
-  df_ = within(df_, {
-    date <- as.Date(date, format = '%d/%m/%Y')
-    if (exists("end_date"))
-      end_date <- as.Date(end_date, format = '%d/%m/%Y')
+  df_ <- within(df_, {
+    date <- as.Date(date, format = "%d/%m/%Y")
+    if (exists("end_date")) {
+      end_date <- as.Date(end_date, format = "%d/%m/%Y")
+    }
     value <- as.numeric(value)
   })
 
   name_ <- x$name
 
   switch (as,
-          'tibble' = {
-            df_ <- tibble::as_tibble(df_)
-            names(df_) <- set_series_name(names(df_), name_)
-            df_
-          },
-          'data.frame' = {
-            names(df_) <- set_series_name(names(df_), name_)
-            df_
-          },
-          'xts' = {
-            df_ <- xts::xts(df_$value, df_$date)
-            names(df_) <- name_
-            df_
-          },
-          'ts' = {
-            freq = if (is.null(x$info$frequency)) 'D' else x$info$frequency
-            freq_ = switch (freq,
-                           'A' = 1,
-                           'M' = 12,
-                           'D' = 366
-            )
-            start = switch (freq,
-              'A' = {
-                as.integer(format(df_$date[1], '%Y'))
-              },
-              'M' = {
-                c(
-                  as.integer(format(df_$date[1], '%Y')),
-                  as.integer(format(df_$date[1], '%m'))
-                )
-              },
-              'D' = {
-                c(
-                  as.integer(format(df_$date[1], '%Y')),
-                  as.integer(format(df_$date[1], '%j'))
-                )
-              }
-            )
-            stats::ts(df_$value, start = start, frequency = freq_)
-          }
+    "tibble" = {
+      df_ <- tibble::as_tibble(df_)
+      names(df_) <- set_series_name(names(df_), name_)
+      df_
+    },
+    "data.frame" = {
+      names(df_) <- set_series_name(names(df_), name_)
+      df_
+    },
+    "xts" = {
+      df_ <- xts::xts(df_$value, df_$date)
+      names(df_) <- name_
+      df_
+    },
+    "ts" = {
+      freq <- if (is.null(x$info$frequency)) "D" else x$info$frequency
+      freq_ <- switch (freq,
+        "A" = 1,
+        "M" = 12,
+        "D" = 366
+      )
+      start <- switch (freq,
+        "A" = {
+          as.integer(format(df_$date[1], "%Y"))
+        },
+        "M" = {
+          c(
+            as.integer(format(df_$date[1], "%Y")),
+            as.integer(format(df_$date[1], "%m"))
+          )
+        },
+        "D" = {
+          c(
+            as.integer(format(df_$date[1], "%Y")),
+            as.integer(format(df_$date[1], "%j"))
+          )
+        }
+      )
+      stats::ts(df_$value, start = start, frequency = freq_)
+    }
   )
 }
 
-resolve_names = function(nx) {
-  ix = grep("^data$|^datafim$|^valor$", nx)
-  nm = sapply(ix, function(ix) {
-    nnx = sub("^data$", "date", nx[ix])
-    if (nnx != nx[ix]) return(nnx)
-    nnx = sub("^datafim$", "end_date", nx[ix])
-    if (nnx != nx[ix]) return(nnx)
-    nnx = sub("^valor$", "value", nx[ix])
-    if (nnx != nx[ix]) return(nnx)
+resolve_names <- function(nx) {
+  ix <- grep("^data$|^datafim$|^valor$", nx)
+  nm <- sapply(ix, function(ix) {
+    nnx <- sub("^data$", "date", nx[ix])
+    if (nnx != nx[ix]) {
+      return(nnx)
+    }
+    nnx <- sub("^datafim$", "end_date", nx[ix])
+    if (nnx != nx[ix]) {
+      return(nnx)
+    }
+    nnx <- sub("^valor$", "value", nx[ix])
+    if (nnx != nx[ix]) {
+      return(nnx)
+    }
     nx[ix]
   }, USE.NAMES = FALSE)
-  nx[ix] = nm
+  nx[ix] <- nm
   nx
 }
 
-set_series_name = function(nx, nm) {
-  ix = grep("^value$", nx)
-  nx[ix] = nm
+set_series_name <- function(nx, nm) {
+  ix <- grep("^value$", nx)
+  nx[ix] <- nm
   nx
 }

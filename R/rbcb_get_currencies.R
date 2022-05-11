@@ -27,10 +27,11 @@ clear_cache <- function() rm(list = ls(.CACHE_ENV), pos = .CACHE_ENV)
 get_valid_currency_list <- function(date = Sys.Date()) {
   url2 <- sprintf("http://www4.bcb.gov.br/Download/fechamento/M%s.csv", format(date, "%Y%m%d"))
   res <- http_getter(url2)
-  if (res$status_code == 200)
+  if (res$status_code == 200) {
     return(res)
-  else
+  } else {
     get_valid_currency_list(date - 1)
+  }
 }
 
 get_currency_list <- function() {
@@ -159,19 +160,22 @@ get_all_currencies <- function(date) {
     ChkMoeda = 1
   )
   res <- http_poster(url, body = body, encode = "form")
-  if (res$status_code != 200)
+  if (res$status_code != 200) {
     stop("BCB API Request error")
+  }
   x <- httr::content(res, as = "text")
   # x <- http_gettext(res)
   m <- regexec("gerarCSVTodasAsMoedas&amp;id=(\\d+)", x)
-  if (length(m[[1]]) == 1 && m[[1]] == -1)
+  if (length(m[[1]]) == 1 && m[[1]] == -1) {
     stop("BCB API Request error")
+  }
   id <- regmatches(x, m)[[1]][2]
   url2 <- "https://ptax.bcb.gov.br/ptax_internet/consultaBoletim.do?method=gerarCSVTodasAsMoedas&id=%s"
   url2 <- sprintf(url2, id)
   res <- http_getter(url2)
-  if (res$status_code != 200)
+  if (res$status_code != 200) {
     stop("BCB API Request error")
+  }
   # x <- httr::content(res, as = "text", encoding = "UTF-8")
   x <- http_gettext(res)
   df <- utils::read.table(text = x, sep = ";", header = FALSE, colClasses = "character")
@@ -232,7 +236,7 @@ list_currencies <- function() {
 #' get_currency("USD", "2017-03-01", "2017-03-10")
 #' }
 #' @export
-get_currency <- function(symbol, start_date, end_date, as = c('tibble', 'xts', 'data.frame', 'text')) {
+get_currency <- function(symbol, start_date, end_date, as = c("tibble", "xts", "data.frame", "text")) {
   as <- match.arg(as)
   id <- get_currency_id(symbol)
   url <- currency_url(id, start_date, end_date)
@@ -240,7 +244,7 @@ get_currency <- function(symbol, start_date, end_date, as = c('tibble', 'xts', '
   if (res$status_code != 200) {
     stop("BCB API Request error, status code = ", res$status_code)
   }
-  if (grepl("text/html", httr::headers(res)[['content-type']])) {
+  if (grepl("text/html", httr::headers(res)[["content-type"]])) {
     # x <- httr::content(res, as = 'text')
     x <- http_gettext(res)
     x <- xml2::read_html(x)
@@ -249,8 +253,9 @@ get_currency <- function(symbol, start_date, end_date, as = c('tibble', 'xts', '
   }
   csv_ <- http_gettext(res)
 
-  if (as == 'text')
+  if (as == "text") {
     return(csv_)
+  }
 
   df_ <- utils::read.table(text = csv_, sep = ";", header = FALSE, colClasses = "character")
   names(df_) <- c("date", "aa", "bb", "cc", "bid", "ask", "dd", "ee")
@@ -262,9 +267,9 @@ get_currency <- function(symbol, start_date, end_date, as = c('tibble', 'xts', '
 
   df <- df[,c("date", "bid", "ask")]
 
-  if (as == 'tibble') {
+  if (as == "tibble") {
     df <- tibble::as_tibble(df)
-  } else if (as == 'xts') {
+  } else if (as == "xts") {
     df <- xts::xts(df[,-1], df$date)
   }
 
@@ -272,4 +277,3 @@ get_currency <- function(symbol, start_date, end_date, as = c('tibble', 'xts', '
 
   df
 }
-

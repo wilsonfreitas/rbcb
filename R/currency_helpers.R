@@ -23,7 +23,7 @@ Bid <- function(x, ...) UseMethod("Bid")
 #' @rdname helpers
 #' @export
 Bid.data.frame <- function(x, ...) {
-  x_ <- subset(x, select = c('date', 'bid'))
+  x_ <- subset(x, select = c("date", "bid"))
   colnames(x_) <- c("date", attr(x, "symbol"))
   x_
 }
