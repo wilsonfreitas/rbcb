@@ -37,7 +37,9 @@ olinda_usd_url <- function(start_date, end_date) {
 #' Parity quotations relates currency values with USD.
 #'
 #' @examples
-#' \dontrun{list_currencies()}
+#' \dontrun{
+#' list_currencies()
+#' }
 #'
 #' @export
 olinda_list_currencies <- function() {
@@ -80,15 +82,18 @@ olinda_list_currencies <- function() {
 #' the text content download from BCB site.
 #'
 #' @examples
-#' \dontrun{olinda_get_currency("USD", "2017-03-01", "2017-03-10")}
+#' \dontrun{
+#' olinda_get_currency("USD", "2017-03-01", "2017-03-10")
+#' }
 #'
 #' @export
 olinda_get_currency <- function(symbol, start_date, end_date = NULL,
-                                as = c('tibble', 'xts', 'data.frame', 'text'),
+                                as = c("tibble", "xts", "data.frame", "text"),
                                 parity = FALSE) {
   as <- match.arg(as)
-  if (is.null(end_date))
+  if (is.null(end_date)) {
     end_date <- start_date
+  }
   url <- olinda_currency_url(symbol, start_date, end_date)
   res <- http_getter(url)
   if (res$status_code != 200) {
@@ -97,16 +102,19 @@ olinda_get_currency <- function(symbol, start_date, end_date = NULL,
 
   text_ <- content(res, as = "text")
 
-  if (as == 'text')
+  if (as == "text") {
     return(text_)
+  }
 
   data_ <- jsonlite::fromJSON(text_)
   df_ <- data_$value
 
   if (length(df_) == 0) {
-    stop("The selected range returned no results: start_date = ",
-         format(start_date),
-         ", end_date = ", format(end_date))
+    stop(
+      "The selected range returned no results: start_date = ",
+      format(start_date),
+      ", end_date = ", format(end_date)
+    )
   }
 
   names(df_) <- c("bid_parity", "ask_parity", "bid", "ask", "datetime", "type")
@@ -115,22 +123,22 @@ olinda_get_currency <- function(symbol, start_date, end_date = NULL,
   })
 
   if (parity) {
-    df <- df[,c("datetime", "bid_parity", "ask_parity")]
+    df <- df[, c("datetime", "bid_parity", "ask_parity")]
     names(df) <- c("datetime", "bid", "ask")
   } else {
-    df <- df[,c("datetime", "bid", "ask")]
+    df <- df[, c("datetime", "bid", "ask")]
   }
 
-  if (as == 'tibble') {
+  if (as == "tibble") {
     df <- tibble::as_tibble(df)
-  } else if (as == 'xts') {
-    df <- xts::xts(df[,c(-1)], df$date)
+  } else if (as == "xts") {
+    df <- xts::xts(df[, c(-1)], df$date)
   }
 
-  if (is(df, "data.frame"))
+  if (is(df, "data.frame")) {
     class(df) <- c("olinda_df", class(df))
+  }
   attr(df, "symbol") <- symbol
 
   df
 }
-
