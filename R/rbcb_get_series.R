@@ -96,7 +96,7 @@ create_series <- function(json_, x, as) {
 
   name_ <- x$name
 
-  switch (as,
+  switch(as,
     "tibble" = {
       df_ <- tibble::as_tibble(df_)
       names(df_) <- set_series_name(names(df_), name_)
@@ -113,12 +113,12 @@ create_series <- function(json_, x, as) {
     },
     "ts" = {
       freq <- if (is.null(x$info$frequency)) "D" else x$info$frequency
-      freq_ <- switch (freq,
+      freq_ <- switch(freq,
         "A" = 1,
         "M" = 12,
         "D" = 366
       )
-      start <- switch (freq,
+      start <- switch(freq,
         "A" = {
           as.integer(format(df_$date[1], "%Y"))
         },

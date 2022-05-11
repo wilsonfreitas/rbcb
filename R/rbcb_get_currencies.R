@@ -91,7 +91,7 @@ get_currency_id <- function(symbol) {
   id_list <- suppressMessages(currency_id_list())
   all_currencies <- suppressMessages(get_currency_list())
   x <- merge(id_list, all_currencies)
-  max(x[x$symbol == symbol,]$id)
+  max(x[x$symbol == symbol, ]$id)
 }
 
 #' Get currency matrix from BCB
@@ -127,7 +127,7 @@ generate_currency_matrix <- function(x) {
     cur_mat <- matrix(0, nrow = length(c1), ncol = length(c1))
     colnames(cur_mat) <- ns
     rownames(cur_mat) <- ns
-    for (i in seq_along(c1)) cur_mat[,i] <- c1/c1[i]
+    for (i in seq_along(c1)) cur_mat[, i] <- c1 / c1[i]
     cur_mat
   }
   list(
@@ -186,9 +186,9 @@ get_all_currencies <- function(date) {
     ask <- as.numeric(sub(",", ".", ask))
   })
 
-  df <- df[,c("date", "symbol", "bid", "ask")]
+  df <- df[, c("date", "symbol", "bid", "ask")]
 
-  tibble::as_tibble(df[order(df$symbol),])
+  tibble::as_tibble(df[order(df$symbol), ])
 }
 
 #' List all currencies
@@ -205,7 +205,7 @@ get_all_currencies <- function(date) {
 #' @export
 list_currencies <- function() {
   x <- suppressMessages(get_currency_list())
-  tibble::as_tibble(x[is.na(x$exclusion_date),c("name", "code", "symbol", "country_name", "country_code")])
+  tibble::as_tibble(x[is.na(x$exclusion_date), c("name", "code", "symbol", "country_name", "country_code")])
 }
 
 #' Get currency values for a given period
@@ -265,12 +265,12 @@ get_currency <- function(symbol, start_date, end_date, as = c("tibble", "xts", "
     ask <- as.numeric(sub(",", ".", ask))
   })
 
-  df <- df[,c("date", "bid", "ask")]
+  df <- df[, c("date", "bid", "ask")]
 
   if (as == "tibble") {
     df <- tibble::as_tibble(df)
   } else if (as == "xts") {
-    df <- xts::xts(df[,-1], df$date)
+    df <- xts::xts(df[, -1], df$date)
   }
 
   attr(df, "symbol") <- symbol
