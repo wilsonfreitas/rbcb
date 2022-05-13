@@ -47,6 +47,8 @@ Given a currency symbol and a time interval (in dates) this function returns the
 bid and ask time series of currency rates.
 }
 \examples{
-\dontrun{olinda_get_currency("USD", "2017-03-01", "2017-03-10")}
+\dontrun{
+olinda_get_currency("USD", "2017-03-01", "2017-03-10")
+}
 
 }

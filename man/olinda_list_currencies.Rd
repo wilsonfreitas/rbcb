@@ -16,6 +16,8 @@ Parity quotations relates currency values with USD.
 Lists all currencies and presents their name, symbol, numeric code, country name and county numeric code
 }
 \examples{
-\dontrun{list_currencies()}
+\dontrun{
+list_currencies()
+}
 
 }
