@@ -14,6 +14,7 @@
 #' @import xts
 #' @import utils
 #' @import stats
+#' @import dplyr
 #' @importFrom xml2 read_html xml_find_all xml_attr xml_text xml_find_first
 #' @importFrom methods is
 #' @importFrom tibble tibble as_tibble
