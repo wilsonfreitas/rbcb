@@ -45,7 +45,7 @@ olinda_usd_url <- function(start_date, end_date) {
 olinda_list_currencies <- function() {
   url <- "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/Moedas"
   res <- GET(url)
-  data <- jsonlite::fromJSON(content(res, as = "text"))
+  data <- fromJSON(content(res, as = "text"))
   df <- data$value
   names(df) <- c("symbol", "name", "currency_type")
   df
@@ -106,7 +106,7 @@ olinda_get_currency <- function(symbol, start_date, end_date = NULL,
     return(text_)
   }
 
-  data_ <- jsonlite::fromJSON(text_)
+  data_ <- fromJSON(text_)
   df_ <- data_$value
 
   if (length(df_) == 0) {
@@ -130,9 +130,9 @@ olinda_get_currency <- function(symbol, start_date, end_date = NULL,
   }
 
   if (as == "tibble") {
-    df <- tibble::as_tibble(df)
+    df <- as_tibble(df)
   } else if (as == "xts") {
-    df <- xts::xts(df[, c(-1)], df$date)
+    df <- xts(df[, c(-1)], df$date)
   }
 
   if (is(df, "data.frame")) {

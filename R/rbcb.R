@@ -9,7 +9,8 @@
 #' @name rbcb
 #' @docType package
 #'
-#' @import httr
+#' @importFrom httr GET POST verbose add_headers status_code content modify_url
+#' @importFrom httr parse_url headers
 #' @importFrom jsonlite fromJSON
 #' @importFrom utils read.table
 #' @importFrom stats ts setNames

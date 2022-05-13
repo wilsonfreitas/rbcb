@@ -36,18 +36,18 @@ sgs_url <- function(x, from = NULL, to = NULL, last = 0) {
       code, last
     )
   }
-  httr::modify_url(url, query = query)
+  modify_url(url, query = query)
 }
 
 sgs_info <- function(x) {
   url <- "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId"
-  url <- httr::modify_url(url, query = list(hdOidSeriesSelecionadas = x$code))
+  url <- modify_url(url, query = list(hdOidSeriesSelecionadas = x$code))
 
   res <- http_getter(url)
-  if (httr::status_code(res) != 200) {
+  if (status_code(res) != 200) {
     msg <- sprintf(
       "BCB SGS Request error %s for code %s",
-      httr::status_code(res),
+      status_code(res),
       x$code
     )
     stop(msg)
@@ -57,15 +57,15 @@ sgs_info <- function(x) {
 }
 
 sgs_parse_info <- function(x, txt) {
-  doc <- xml2::read_html(txt)
+  doc <- read_html(txt)
 
-  info <- xml2::xml_find_first(doc, '//tr[@class="fundoPadraoAClaro3"]')
+  info <- xml_find_first(doc, '//tr[@class="fundoPadraoAClaro3"]')
   if (length(info) == 0) {
     stop("BCB SGS error: code ", x$code, " returned no info")
   }
 
-  info <- xml2::xml_find_all(info, ".//td")
-  info <- xml2::xml_text(info)
+  info <- xml_find_all(info, ".//td")
+  info <- xml_text(info)
   if (length(info) == 1) {
     stop("BCB SGS error: code ", x$code, " returned no info")
   }
@@ -143,7 +143,7 @@ print.sgs <- function(x, ...) {
 #' }
 #' @export
 rbcb_get.sgs <- function(x, from = NULL, to = NULL, last = 0, ...) {
-  purrr::map_dfr(x, function(ser) {
+  map_dfr(x, function(ser) {
     url <- sgs_url(ser, from, to, last)
     res <- http_getter(url)
     json <- http_gettext(res, as = "text")
@@ -152,7 +152,7 @@ rbcb_get.sgs <- function(x, from = NULL, to = NULL, last = 0, ...) {
 }
 
 sgs_create_series <- function(x, json) {
-  df_ <- jsonlite::fromJSON(json)
+  df_ <- fromJSON(json)
 
   df_ <- within(df_, {
     data <- as.Date(data, format = "%d/%m/%Y")
@@ -162,13 +162,13 @@ sgs_create_series <- function(x, json) {
   df_ <- df_[, c("data", "valor")]
   df_[["name"]] <- x$name
   names(df_) <- c("date", "value", "name")
-  df_ <- tibble::as_tibble(df_)
+  df_ <- as_tibble(df_)
   df_
 }
 
 .sgs_convert_series <- function(x, tidy_df, as) {
   series_g <- split(tidy_df, tidy_df$name)
-  df_g <- purrr::map(names(series_g), function(name) {
+  df_g <- map(names(series_g), function(name) {
     x_ <- x[[name]]
     df_ <- series_g[[name]]
     .sgs_convert_split(x_, df_, as)
@@ -194,7 +194,7 @@ sgs_create_series <- function(x, json) {
       df
     },
     "xts" = {
-      df <- xts::xts(df$value, df$date)
+      df <- xts(df$value, df$date)
       colnames(df) <- x$name
       df
     },
@@ -222,7 +222,7 @@ sgs_create_series <- function(x, json) {
           )
         }
       )
-      stats::ts(df$value, start = start, frequency = freq_)
+      ts(df$value, start = start, frequency = freq_)
     }
   )
 }

@@ -8,12 +8,12 @@
     }
     sprintf("http://api.bcb.gov.br/dados/serie/bcdata.sgs.%d/dados", as.integer(code))
   } else {
-    if (! is.null(start_date) || ! is.null(end_date)) {
+    if (!is.null(start_date) || !is.null(end_date)) {
       warning("Nonsense parameters: start_date or end_date provided together with last")
     }
     sprintf("http://api.bcb.gov.br/dados/serie/bcdata.sgs.%d/dados/ultimos/%d", as.integer(code), as.integer(last))
   }
-  httr::modify_url(url, query = query)
+  modify_url(url, query = query)
 }
 
 series_url <- function(x, start_date = NULL, end_date = NULL, last = 0) {
@@ -23,5 +23,5 @@ series_url <- function(x, start_date = NULL, end_date = NULL, last = 0) {
 search_series_url <- function(q, page = 1) {
   url <- "https://dadosabertos.bcb.gov.br/dataset"
   query <- list(res_format = "JSON", q = q, page = page)
-  httr::modify_url(url, query = query)
+  modify_url(url, query = query)
 }

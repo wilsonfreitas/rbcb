@@ -1,29 +1,29 @@
 
 series_info_url <- function(x) {
   url <- "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId"
-  httr::modify_url(url, query = list(hdOidSeriesSelecionadas = x$code))
+  modify_url(url, query = list(hdOidSeriesSelecionadas = x$code))
 }
 
 series_info <- function(x) {
   url <- series_info_url(x)
-  res <- httr::GET(url)
-  if (httr::status_code(res) != 200) {
+  res <- GET(url)
+  if (status_code(res) != 200) {
     msg <- sprintf(
       "BCB SGS Request error %s for code %s",
-      httr::status_code(res),
+      status_code(res),
       x$code
     )
     stop(msg)
   }
-  cnt <- httr::content(res, as = "text")
+  cnt <- content(res, as = "text")
 
-  doc <- xml2::read_html(cnt)
-  info <- xml2::xml_find_first(doc, '//tr[@class="fundoPadraoAClaro3"]')
+  doc <- read_html(cnt)
+  info <- xml_find_first(doc, '//tr[@class="fundoPadraoAClaro3"]')
   if (length(info) == 0) {
     stop("BCB SGS error: code ", x$code, " returned no info")
   }
-  info <- xml2::xml_find_all(info, ".//td")
-  info <- xml2::xml_text(info)
+  info <- xml_find_all(info, ".//td")
+  info <- xml_text(info)
   if (length(info) == 1) {
     stop("BCB SGS error: code ", x$code, " returned no info")
   }

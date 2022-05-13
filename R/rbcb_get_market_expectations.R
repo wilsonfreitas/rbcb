@@ -712,16 +712,16 @@ get_market_expectations <- function(type = c(
 
   res <- http_getter(url)
   text_ <- http_gettext(res, as = "text")
-  data_ <- jsonlite::fromJSON(text_)
+  data_ <- fromJSON(text_)
 
   if (!is.null(data_$value) && length(data_$value) == 0) {
-    return(tibble::tibble())
+    return(tibble())
   }
   if (is.null(data_$value)) {
     stop("BCB API Request error: no value attribute returned")
   }
 
-  df_ <- tibble::as_tibble(data_$value)
+  df_ <- as_tibble(data_$value)
   df_$Data <- as.Date(df_$Data)
 
   if (!keep_names) {
@@ -775,7 +775,7 @@ get_market_expectations <- function(type = c(
   filter__ <- if (filter__ == "") NULL else filter__
   q[["$filter"]] <- filter__
 
-  httr::modify_url(url, query = q)
+  modify_url(url, query = q)
 }
 
 change_names <- function(name) {
