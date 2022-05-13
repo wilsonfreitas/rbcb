@@ -1,6 +1,7 @@
 # rbcb 0.1.11
 
 * created documentation site with pkgdown
+* rbcb_get implemented for SGS API, it is being used as the infrastruture for get_series (Issue #17)
 
 # rbcb 0.1.10
 
