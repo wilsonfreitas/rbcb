@@ -26,7 +26,12 @@ Imports:
     methods,
     purrr
 RoxygenNote: 7.1.2
-Suggests: testthat, miniUI, shiny, dplyr
+Suggests: 
+    testthat,
+    miniUI,
+    shiny,
+    dplyr,
+    covr
 Collate:
   'rbcb.R'
   'rbcb_get.R'

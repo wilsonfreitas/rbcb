@@ -1,8 +1,11 @@
 # rbcb
 
+<!-- badges: start -->
 [![](https://www.r-pkg.org/badges/version/rbcb)](https://cran.r-project.org/package=rbcb)
 [![](http://cranlogs.r-pkg.org/badges/last-month/rbcb)](https://cran.r-project.org/package=rbcb)
 [![R-CMD-check](https://github.com/wilsonfreitas/rbcb/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/wilsonfreitas/rbcb/actions/workflows/check-standard.yaml)
+[![Codecov test coverage](https://codecov.io/gh/wilsonfreitas/rbcb/branch/master/graph/badge.svg)](https://app.codecov.io/gh/wilsonfreitas/rbcb?branch=master)
+<!-- badges: end -->
 
 An interface to structure the information provided by the [Brazilian Central Bank](https://www.bcb.gov.br).
 This package interfaces the [Brazilian Central Bank web services](https://dadosabertos.bcb.gov.br) to provide data already formatted into R's data structures.
