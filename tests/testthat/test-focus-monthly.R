@@ -2,7 +2,10 @@
 context("monthly market expectations API")
 
 test_that("it should fetch data from monthly market expectations API", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   indic <- "IPCA"
   start_date <- "2018-01-01"
@@ -13,7 +16,10 @@ test_that("it should fetch data from monthly market expectations API", {
 })
 
 test_that("it should fetch data from monthly market expectations API without start_date", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   indic <- "IPCA"
   end_date <- "2018-01-31"
@@ -22,7 +28,10 @@ test_that("it should fetch data from monthly market expectations API without sta
 })
 
 test_that("it should fetch data from monthly market expectations API without end_date", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   indic <- "IPCA"
   start_date <- "2018-01-02"

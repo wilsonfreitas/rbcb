@@ -2,48 +2,60 @@
 context("series object")
 
 test_that("it should create series objects", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
-  code = c(IBOVESPA = 7)
-  x = series_obj(code)[[1]]
+  code <- c(IBOVESPA = 7)
+  x <- series_obj(code)[[1]]
   expect_is(x, "series_obj")
   expect_equal(x$code, 7)
-  expect_equal(x$name, 'IBOVESPA')
+  expect_equal(x$name, "IBOVESPA")
 
-  code = c(IBOVESPA = 7, 433)
-  x = series_obj(code)
+  code <- c(IBOVESPA = 7, 433)
+  x <- series_obj(code)
   expect_is(x, "list")
   expect_equal(x[[1]]$code, 7)
-  expect_equal(x[[1]]$name, 'IBOVESPA')
+  expect_equal(x[[1]]$name, "IBOVESPA")
   expect_equal(x[[2]]$code, 433)
-  expect_equal(x[[2]]$name, '433')
+  expect_equal(x[[2]]$name, "433")
 })
 
 test_that("it should create series objects without load dataset info", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
-  code = c(IBOVESPA = 7)
-  x = series_obj(code, load_info = FALSE)[[1]]
+  code <- c(IBOVESPA = 7)
+  x <- series_obj(code, load_info = FALSE)[[1]]
   expect_is(x, "series_obj")
   expect_equal(x$code, 7)
-  expect_equal(x$name, 'IBOVESPA')
+  expect_equal(x$name, "IBOVESPA")
   expect_true(is.null(x$info))
 })
 
 test_that("it should create series url", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
-  url = "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=7"
-  code = c(IBOVESPA = 7)
-  x = series_obj(code)[[1]]
+  url <- "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=7"
+  code <- c(IBOVESPA = 7)
+  x <- series_obj(code)[[1]]
   expect_equal(series_info_url(x), url)
 })
 
 test_that("it should create series info", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
-  code = c(IBOVESPA = 7)
-  x = series_obj(code)[[1]]
-  info = series_info(x)
+  code <- c(IBOVESPA = 7)
+  x <- series_obj(code)[[1]]
+  info <- series_info(x)
   expect_equal(info$url, series_info_url(x))
 })

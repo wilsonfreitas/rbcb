@@ -2,7 +2,10 @@
 context("annual market expectations API")
 
 test_that("it should fetch data from annual market expectations API", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   indic <- "Balança comercial"
   start_date <- "2018-01-01"

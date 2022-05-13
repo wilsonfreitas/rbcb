@@ -2,7 +2,10 @@
 context("get_series")
 
 test_that("it should get one series as data.frame", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   x <- get_series(1, last = 10)
   expect_equal(dim(x)[1], 10)
@@ -15,21 +18,30 @@ test_that("it should get one series as data.frame", {
 })
 
 test_that("it should name the series", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   x <- get_series(c(USD = 1), last = 10)
   expect_equal(colnames(x), c("date", "USD"))
 })
 
 test_that("it should get series as xts", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   x <- get_series(c(USD = 1), last = 10, as = "xts")
   expect_equal(colnames(x), "USD")
 })
 
 test_that("it should get series as ts", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   x <- get_series(c(IPCA = 433), start_date = "2017-01-01", as = "ts")
   expect_equal(frequency(x), 12)
@@ -43,7 +55,10 @@ test_that("it should get series as ts", {
 })
 
 test_that("it should get series within a date period", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   x <- get_series(c(USD = 1), start_date = "2017-03-01", end_date = "2017-03-29")
   expect_is(x$date, "Date")
@@ -52,7 +67,10 @@ test_that("it should get series within a date period", {
 })
 
 test_that("it should get series within a date period specifying only start_date", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   start <- Sys.Date() - 10
   x <- get_series(c(USD = 1), start_date = start)
@@ -61,7 +79,10 @@ test_that("it should get series within a date period specifying only start_date"
 })
 
 test_that("it should get series within a date period specifying only end_date", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   end <- "2017-01-02"
   x <- get_series(c(USD = 1), end_date = end)
@@ -70,7 +91,10 @@ test_that("it should get series within a date period specifying only end_date", 
 })
 
 test_that("it should get multiple series", {
-  skip_on_cran()
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
 
   start <- Sys.Date() - 10
   x <- get_series(c(USD = 1, SELIC = 1178), start_date = start)
