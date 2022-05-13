@@ -160,7 +160,7 @@ get_all_currencies <- function(date) {
     ChkMoeda = 1
   )
   res <- http_poster(url, body = body, encode = "form")
-  x <- http_gettext(res)
+  x <- http_gettext(res, as = "text")
   m <- regexec("gerarCSVTodasAsMoedas&amp;id=(\\d+)", x)
   if (length(m[[1]]) == 1 && m[[1]] == -1) {
     stop("BCB API Request error")
