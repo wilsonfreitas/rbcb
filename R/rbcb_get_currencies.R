@@ -160,11 +160,7 @@ get_all_currencies <- function(date) {
     ChkMoeda = 1
   )
   res <- http_poster(url, body = body, encode = "form")
-  if (res$status_code != 200) {
-    stop("BCB API Request error")
-  }
-  x <- content(res, as = "text")
-  # x <- http_gettext(res)
+  x <- http_gettext(res)
   m <- regexec("gerarCSVTodasAsMoedas&amp;id=(\\d+)", x)
   if (length(m[[1]]) == 1 && m[[1]] == -1) {
     stop("BCB API Request error")
@@ -173,10 +169,6 @@ get_all_currencies <- function(date) {
   url2 <- "https://ptax.bcb.gov.br/ptax_internet/consultaBoletim.do?method=gerarCSVTodasAsMoedas&id=%s"
   url2 <- sprintf(url2, id)
   res <- http_getter(url2)
-  if (res$status_code != 200) {
-    stop("BCB API Request error")
-  }
-  # x <- content(res, as = "text", encoding = "UTF-8")
   x <- http_gettext(res)
   df <- read.table(text = x, sep = ";", header = FALSE, colClasses = "character")
   names(df) <- c("date", "code", "type", "symbol", "bid", "ask", "bid.USD", "ask.USD")
@@ -241,15 +233,8 @@ get_currency <- function(symbol, start_date, end_date, as = c("tibble", "xts", "
   id <- get_currency_id(symbol)
   url <- currency_url(id, start_date, end_date)
   res <- http_getter(url)
-  if (res$status_code != 200) {
-    stop("BCB API Request error, status code = ", res$status_code)
-  }
   if (grepl("text/html", headers(res)[["content-type"]])) {
-    # x <- content(res, as = 'text')
-    x <- http_gettext(res)
-    x <- read_html(x)
-    x <- xml_find_first(x, "//div[@class='msgErro']")
-    stop("BCB API returned error: ", xml_text(x))
+    stop("BCB API returned error")
   }
   csv_ <- http_gettext(res)
 

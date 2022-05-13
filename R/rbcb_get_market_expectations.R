@@ -710,9 +710,8 @@ get_market_expectations <- function(type = c(
     indic, start_date, end_date, ...
   )
 
-  res <- http_getter(url)
-  text_ <- http_gettext(res, as = "text")
-  data_ <- fromJSON(text_)
+  f <- http_download("get", url)
+  data_ <- fromJSON(f)
 
   if (!is.null(data_$value) && length(data_$value) == 0) {
     return(tibble())

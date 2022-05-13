@@ -19,5 +19,6 @@
 #' @importFrom methods is
 #' @importFrom tibble tibble as_tibble
 #' @importFrom purrr map map_dfr
+#' @importFrom digest digest
 #'
 NULL

@@ -43,13 +43,13 @@ sgs_info <- function(x) {
   url <- "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId"
   url <- modify_url(url, query = list(hdOidSeriesSelecionadas = x$code))
 
-  res <- http_getter(url)
+  f <- http_download("get", url)
 
-  sgs_parse_info(x, http_gettext(res, encoding = "latin1", as = "text"))
+  sgs_parse_info(x, f)
 }
 
-sgs_parse_info <- function(x, txt) {
-  doc <- read_html(txt)
+sgs_parse_info <- function(x, f) {
+  doc <- read_html(f, encoding = "latin1")
 
   info <- xml_find_first(doc, '//tr[@class="fundoPadraoAClaro3"]')
   if (length(info) == 0) {
@@ -137,9 +137,8 @@ print.sgs <- function(x, ...) {
 rbcb_get.sgs <- function(x, from = NULL, to = NULL, last = 0, ...) {
   map_dfr(x, function(ser) {
     url <- sgs_url(ser, from, to, last)
-    res <- http_getter(url)
-    json <- http_gettext(res, as = "text")
-    sgs_create_series(ser, json)
+    f <- http_download("get", url)
+    sgs_create_series(ser, f)
   })
 }
 

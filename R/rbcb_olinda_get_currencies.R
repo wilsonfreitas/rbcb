@@ -44,8 +44,8 @@ olinda_usd_url <- function(start_date, end_date) {
 #' @export
 olinda_list_currencies <- function() {
   url <- "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/Moedas"
-  res <- GET(url)
-  data <- fromJSON(content(res, as = "text"))
+  f <- http_download("get", url)
+  data <- fromJSON(f)
   df <- data$value
   names(df) <- c("symbol", "name", "currency_type")
   df
