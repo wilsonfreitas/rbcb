@@ -78,3 +78,24 @@ test_that("it should get ask/bid time series named with symbol", {
   x_bid <- Bid(x)
   expect_equal(colnames(x_bid), "USD")
 })
+
+test_that("it should get cross currency rates", {
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
+
+  x <- get_currency_cross_rates("2017-03-10")
+  d <- dim(x)
+  expect_equal(d[1], d[2])
+})
+
+test_that("it should list currencies", {
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
+
+  x <- list_currencies()
+  expect_s3_class(x, "data.frame")
+})
