@@ -6,7 +6,7 @@
 #' These datasets can be accessed through \code{rbcb} functions and can be obtained in
 #' different data structures common to R (tibble, data.frame, xts, ...).
 #'
-#' @name rbcb
+#' @name rbcb-package
 #' @docType package
 #'
 #' @importFrom httr GET POST verbose add_headers status_code content modify_url

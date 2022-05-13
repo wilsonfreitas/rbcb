@@ -33,7 +33,7 @@ Suggests:
     dplyr,
     covr
 Collate:
-  'rbcb.R'
+  'rbcb-package.R'
   'rbcb_get.R'
   'sgs.R'
   'rbcb_get_series.R'
@@ -43,6 +43,3 @@ Collate:
   'rbcb_get_currencies.R'
   'rbcb_get_market_expectations.R'
   'rbcb_olinda_get_currencies.R'
-  'rbcb_url.R'
-  'series_info.R'
-  'series_obj.R'
