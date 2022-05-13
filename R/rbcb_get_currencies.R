@@ -26,8 +26,8 @@ clear_cache <- function() rm(list = ls(.CACHE_ENV), pos = .CACHE_ENV)
 
 get_valid_currency_list <- function(date = Sys.Date()) {
   url2 <- sprintf("https://www4.bcb.gov.br/Download/fechamento/M%s.csv", format(date, "%Y%m%d"))
-  res <- http_getter(url2)
-  if (res$status_code == 200) {
+  res <- try(http_getter(url2), silent = TRUE)
+  if (!is(res, "try-error")) {
     return(res)
   } else {
     get_valid_currency_list(date - 1)
