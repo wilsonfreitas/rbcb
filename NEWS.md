@@ -2,9 +2,10 @@
 
 * created documentation site with pkgdown
 * rbcb_get implemented for SGS API, it is being used as the infrastruture for get_series (Issue #17)
-* organized code
-* NAMESPACE organized
+* NAMESPACE organized (use more importFrom instead of import in NAMESPACE)
 * upgraded tests to testthat 3
+* more tests to improve coverage
+* implemented a cache system (thru `options`) (Issue #54)
 
 # rbcb 0.1.10
 
