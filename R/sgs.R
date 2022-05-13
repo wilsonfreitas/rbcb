@@ -44,14 +44,6 @@ sgs_info <- function(x) {
   url <- modify_url(url, query = list(hdOidSeriesSelecionadas = x$code))
 
   res <- http_getter(url)
-  if (status_code(res) != 200) {
-    msg <- sprintf(
-      "BCB SGS Request error %s for code %s",
-      status_code(res),
-      x$code
-    )
-    stop(msg)
-  }
 
   sgs_parse_info(x, http_gettext(res, encoding = "latin1", as = "text"))
 }
