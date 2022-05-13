@@ -11,11 +11,12 @@
 #'
 #' @import httr
 #' @import jsonlite
-#' @import tibble
 #' @import xts
-#' @import xml2
 #' @import utils
 #' @import stats
+#' @importFrom xml2 read_html xml_find_all xml_attr xml_text xml_find_first
 #' @importFrom methods is
+#' @importFrom tibble tibble as_tibble
+#' @importFrom purrr map map_dfr
 #'
 NULL

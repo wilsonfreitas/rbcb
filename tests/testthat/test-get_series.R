@@ -1,23 +1,14 @@
 
 context("get_series")
 
-test_that("it should get series json", {
-  skip_on_cran()
-
-  x <- get_series(1, start_date = "2017-03-01", end_date = "2017-03-01", as = "text")
-  expect_is(x, "character")
-  expect_true(jsonlite::validate(x))
-  expect_equal(x, '[{"data":"01/03/2017","valor":"3.0976"}]')
-})
-
 test_that("it should get one series as data.frame", {
   skip_on_cran()
 
   x <- get_series(1, last = 10)
   expect_equal(dim(x)[1], 10)
   expect_equal(dim(x)[2], 2)
-  expect_true(!anyNA(x[,1]))
-  expect_true(!anyNA(x[,2]))
+  expect_true(!anyNA(x[, 1]))
+  expect_true(!anyNA(x[, 2]))
   expect_is(x, "data.frame")
   expect_is(x$date, "Date")
   expect_is(x$`1`, "numeric")
@@ -84,9 +75,9 @@ test_that("it should get multiple series", {
   start <- Sys.Date() - 10
   x <- get_series(c(USD = 1, SELIC = 1178), start_date = start)
   expect_equal(length(x), 2)
-  expect_equal(names(x), c("USD", "SELIC"))
+  expect_equal(sort(names(x)), c("SELIC", "USD"))
 
   x <- get_series(c(USD = 1, 1178), last = 5)
   expect_equal(length(x), 2)
-  expect_equal(names(x), c("USD", "1178"))
+  expect_equal(sort(names(x)), c("1178", "USD"))
 })

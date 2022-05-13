@@ -23,6 +23,22 @@ Imports:
     xml2,
     utils,
     stats,
-    methods
+    methods,
+    purrr,
+    dplyr
 RoxygenNote: 7.1.2
 Suggests: testthat, miniUI, shiny
+Collate:
+  'rbcb.R'
+  'rbcb_get.R'
+  'sgs.R'
+  'rbcb_get_series.R'
+  'currency_helpers.R'
+  'http_util.R'
+  'rbcb_addin.R'
+  'rbcb_get_currencies.R'
+  'rbcb_get_market_expectations.R'
+  'rbcb_olinda_get_currencies.R'
+  'rbcb_url.R'
+  'series_info.R'
+  'series_obj.R'

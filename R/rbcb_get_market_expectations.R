@@ -61,9 +61,9 @@
 #' @export
 get_monthly_market_expectations <- function(indic = NULL, start_date = NULL,
                                             end_date = NULL, ...) {
-
   df_ <- get_market_expectations("monthly", indic, start_date, end_date,
-                                 keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 
   refdate <- as.Date(paste0("01", df_$reference_date), "%d%m/%Y")
   levels_ <- format(sort(unique(refdate)), "%Y-%m")
@@ -131,9 +131,9 @@ get_monthly_market_expectations <- function(indic = NULL, start_date = NULL,
 #' @export
 get_quarterly_market_expectations <- function(indic = NULL, start_date = NULL,
                                               end_date = NULL, ...) {
-
   get_market_expectations("quarterly", indic, start_date, end_date,
-                          keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 }
 
 
@@ -216,9 +216,9 @@ get_quarterly_market_expectations <- function(indic = NULL, start_date = NULL,
 #' @export
 get_annual_market_expectations <- function(indic = NULL, start_date = NULL,
                                            end_date = NULL, ...) {
-
   get_market_expectations("annual", indic, start_date, end_date,
-                          keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 }
 
 
@@ -282,10 +282,10 @@ get_annual_market_expectations <- function(indic = NULL, start_date = NULL,
 #'
 #' @export
 get_twelve_months_inflation_expectations <- function(indic = NULL, start_date = NULL,
-                                                 end_date = NULL, ...) {
-
+                                                     end_date = NULL, ...) {
   get_market_expectations("inflation-12-months", indic, start_date, end_date,
-                          keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 }
 
 
@@ -341,10 +341,10 @@ get_twelve_months_inflation_expectations <- function(indic = NULL, start_date = 
 #'
 #' @export
 get_top5s_monthly_market_expectations <- function(indic = NULL, start_date = NULL,
-                                                 end_date = NULL, ...) {
-
+                                                  end_date = NULL, ...) {
   get_market_expectations("top5s-monthly", indic, start_date, end_date,
-                          keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 }
 
 
@@ -401,9 +401,9 @@ get_top5s_monthly_market_expectations <- function(indic = NULL, start_date = NUL
 #' @export
 get_top5s_annual_market_expectations <- function(indic = NULL, start_date = NULL,
                                                  end_date = NULL, ...) {
-
   get_market_expectations("top5s-annual", indic, start_date, end_date,
-                          keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 }
 
 
@@ -486,9 +486,9 @@ get_top5s_annual_market_expectations <- function(indic = NULL, start_date = NULL
 #' @export
 get_institutions_market_expectations <- function(indic = NULL, start_date = NULL,
                                                  end_date = NULL, ...) {
-
   get_market_expectations("institutions", indic, start_date, end_date,
-                          keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 }
 
 
@@ -527,7 +527,8 @@ get_institutions_market_expectations <- function(indic = NULL, start_date = NULL
 get_selic_market_expectations <- function(start_date = NULL,
                                           end_date = NULL, ...) {
   get_market_expectations("selic", NULL, start_date, end_date,
-                          keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 }
 
 
@@ -566,7 +567,8 @@ get_selic_market_expectations <- function(start_date = NULL,
 get_top5s_selic_market_expectations <- function(start_date = NULL,
                                                 end_date = NULL, ...) {
   get_market_expectations("top5s-selic", NULL, start_date, end_date,
-                          keep_names = FALSE, ...)
+    keep_names = FALSE, ...
+  )
 }
 
 
@@ -689,28 +691,35 @@ get_top5s_selic_market_expectations <- function(start_date = NULL,
 #' }
 #'
 #' @export
-get_market_expectations <- function(type = c("annual",
-                                             "quarterly",
-                                             "monthly",
-                                             "inflation-12-months",
-                                             "top5s-monthly",
-                                             "top5s-annual",
-                                             "institutions",
-                                             "selic",
-                                             "top5s-selic"),
+get_market_expectations <- function(type = c(
+                                      "annual",
+                                      "quarterly",
+                                      "monthly",
+                                      "inflation-12-months",
+                                      "top5s-monthly",
+                                      "top5s-annual",
+                                      "institutions",
+                                      "selic",
+                                      "top5s-selic"
+                                    ),
                                     indic = NULL, start_date = NULL,
                                     end_date = NULL, keep_names = TRUE, ...) {
   type <- match.arg(type)
-  url <- .build_expectations_url(.get_market_expectations_url(type),
-                           indic, start_date, end_date, ...)
+  url <- .build_expectations_url(
+    .get_market_expectations_url(type),
+    indic, start_date, end_date, ...
+  )
 
-  text_ <- .get_series(url)
+  res <- http_getter(url)
+  text_ <- http_gettext(res, as = "text")
   data_ <- jsonlite::fromJSON(text_)
 
-  if (!is.null(data_$value) && length(data_$value) == 0)
+  if (!is.null(data_$value) && length(data_$value) == 0) {
     return(tibble::tibble())
-  if (is.null(data_$value))
+  }
+  if (is.null(data_$value)) {
     stop("BCB API Request error: no value attribute returned")
+  }
 
   df_ <- tibble::as_tibble(data_$value)
   df_$Data <- as.Date(df_$Data)
@@ -724,8 +733,7 @@ get_market_expectations <- function(type = c("annual",
 
 
 .get_market_expectations_url <- function(x) {
-  switch(
-    x,
+  switch(x,
     "annual" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais",
     "quarterly" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTrimestrais",
     "monthly" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais",
@@ -746,41 +754,49 @@ get_market_expectations <- function(type = c("annual",
     indic_filter <- paste0("(", indic_filter, ")")
   }
 
-  sd_filter <- if (!is.null(start_date))
-    sprintf("Data ge '%s'", start_date) else NULL
+  sd_filter <- if (!is.null(start_date)) {
+    sprintf("Data ge '%s'", start_date)
+  } else {
+    NULL
+  }
 
-  ed_filter <- if (!is.null(end_date))
-    sprintf("Data le '%s'", end_date) else NULL
+  ed_filter <- if (!is.null(end_date)) {
+    sprintf("Data le '%s'", end_date)
+  } else {
+    NULL
+  }
 
   q <- list(...)
   q[["$format"]] <- "application/json"
   # q[["$orderby"]] <- "Data desc"
   filter__ <- paste(c(indic_filter, sd_filter, ed_filter, q[["$filter"]]),
-                    collapse = " and ")
+    collapse = " and "
+  )
   filter__ <- if (filter__ == "") NULL else filter__
   q[["$filter"]] <- filter__
 
   httr::modify_url(url, query = q)
 }
 
-change_names <- function(name) switch(
-  name,
-  "Instituicao" = "institution",
-  "Indicador" = "indic",
-  "Periodicidade" = "periodicity",
-  "Valor" = "value",
-  "Data" = "date",
-  "DataReferencia" = "reference_date",
-  "Media" = "mean",
-  "Mediana" = "median",
-  "DesvioPadrao" = "sd",
-  "Minimo" = "min",
-  "Maximo" = "max",
-  "numeroRespondentes" = "respondents",
-  "CoeficienteVariacao" = "coefvar",
-  "baseCalculo" = "base",
-  "IndicadorDetalhe" = "indic_detail",
-  "Suavizada" = "smoothed",
-  "tipoCalculo" = "typeCalc",
-  name
-)
+change_names <- function(name) {
+  switch(name,
+    "Instituicao" = "institution",
+    "Indicador" = "indic",
+    "Periodicidade" = "periodicity",
+    "Valor" = "value",
+    "Data" = "date",
+    "DataReferencia" = "reference_date",
+    "Media" = "mean",
+    "Mediana" = "median",
+    "DesvioPadrao" = "sd",
+    "Minimo" = "min",
+    "Maximo" = "max",
+    "numeroRespondentes" = "respondents",
+    "CoeficienteVariacao" = "coefvar",
+    "baseCalculo" = "base",
+    "IndicadorDetalhe" = "indic_detail",
+    "Suavizada" = "smoothed",
+    "tipoCalculo" = "typeCalc",
+    name
+  )
+}
