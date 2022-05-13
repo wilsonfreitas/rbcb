@@ -1,6 +1,3 @@
-
-context("get_series")
-
 test_that("it should get one series as data.frame", {
   if (!covr::in_covr()) {
     skip_on_cran()
@@ -12,9 +9,9 @@ test_that("it should get one series as data.frame", {
   expect_equal(dim(x)[2], 2)
   expect_true(!anyNA(x[, 1]))
   expect_true(!anyNA(x[, 2]))
-  expect_is(x, "data.frame")
-  expect_is(x$date, "Date")
-  expect_is(x$`1`, "numeric")
+  expect_s3_class(x, "data.frame")
+  expect_s3_class(x$date, "Date")
+  expect_type(x$`1`, "double")
 })
 
 test_that("it should name the series", {
@@ -45,13 +42,29 @@ test_that("it should get series as ts", {
 
   x <- get_series(c(IPCA = 433), start_date = "2017-01-01", as = "ts")
   expect_equal(frequency(x), 12)
-  expect_is(x, "ts")
+  expect_s3_class(x, "ts")
   expect_equal(start(x), c(2017, 1))
 
   x <- get_series(27569, start_date = "2012-01-01", as = "ts")
   expect_equal(frequency(x), 1)
-  expect_is(x, "ts")
+  expect_s3_class(x, "ts")
   expect_equal(start(x), c(2012, 1))
+
+  x <- get_series(1, last = 10, as = "ts")
+  expect_equal(frequency(x), 366)
+  expect_s3_class(x, "ts")
+  expect_equal(length(x), 10)
+})
+
+test_that("it should get series as data.frame", {
+  if (!covr::in_covr()) {
+    skip_on_cran()
+    skip_if_offline()
+  }
+
+  x <- get_series(1, last = 10, as = "data.frame")
+  expect_s3_class(x, "data.frame")
+  expect_equal(nrow(x), 10)
 })
 
 test_that("it should get series within a date period", {
@@ -61,7 +74,7 @@ test_that("it should get series within a date period", {
   }
 
   x <- get_series(c(USD = 1), start_date = "2017-03-01", end_date = "2017-03-29")
-  expect_is(x$date, "Date")
+  expect_s3_class(x$date, "Date")
   expect_true(x$date[1] == "2017-03-01")
   expect_true(x$date[dim(x)[1]] == "2017-03-29")
 })
@@ -74,7 +87,7 @@ test_that("it should get series within a date period specifying only start_date"
 
   start <- Sys.Date() - 10
   x <- get_series(c(USD = 1), start_date = start)
-  expect_is(x$date, "Date")
+  expect_s3_class(x$date, "Date")
   expect_true(nrow(x) >= 6)
 })
 
@@ -86,7 +99,7 @@ test_that("it should get series within a date period specifying only end_date", 
 
   end <- "2017-01-02"
   x <- get_series(c(USD = 1), end_date = end)
-  expect_is(x$date, "Date")
+  expect_s3_class(x$date, "Date")
   expect_true(x$date[nrow(x)] == end)
 })
 

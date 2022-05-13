@@ -27,7 +27,7 @@ Imports:
     purrr
 RoxygenNote: 7.1.2
 Suggests: 
-    testthat,
+    testthat (>= 3.0.0),
     miniUI,
     shiny,
     dplyr,
@@ -43,3 +43,4 @@ Collate:
   'rbcb_get_currencies.R'
   'rbcb_get_market_expectations.R'
   'rbcb_olinda_get_currencies.R'
+Config/testthat/edition: 3
