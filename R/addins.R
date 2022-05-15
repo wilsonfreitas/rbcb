@@ -36,23 +36,23 @@ rbcb_search <- function(text = "") {
     page_count <- shiny::reactiveVal(0)
     offset <- shiny::reactiveVal(0)
 
-    observeEvent(input$previous_page, {
+    shiny::observeEvent(input$previous_page, {
       offset(max(offset() - 10, 0))
     })
 
-    observeEvent(input$next_page, {
+    shiny::observeEvent(input$next_page, {
       offset(offset() + 10)
     })
 
-    observeEvent(input$first_page, {
+    shiny::observeEvent(input$first_page, {
       offset(0)
     })
 
-    observeEvent(input$last_page, {
+    shiny::observeEvent(input$last_page, {
       offset(floor(page_count() / 10) * 10)
     })
 
-    observeEvent(input$q, {
+    shiny::observeEvent(input$q, {
       offset(0)
     })
 
