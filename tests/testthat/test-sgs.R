@@ -27,3 +27,11 @@ test_that("it should fail to create a sgs object", {
   expect_error(sgs(0))
   expect_error(sgs(-1))
 })
+
+test_that("it should untidy dataframe", {
+  x <- sgs(USD = 1, SELIC = 1178)
+  df <- rbcb_get(x, from = Sys.Date() - 10)
+  untidy_data <- sgs_untidy(x, df, as = "xts")
+  expect_equal(length(untidy_data), length(x))
+  expect_equal(sort(names(x)), sort(names(untidy_data)))
+})

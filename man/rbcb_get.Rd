@@ -34,6 +34,6 @@ from the Brazilian Central Bank open data services.
 \examples{
 \dontrun{
 x <- sgs(USD = 1, SELIC = 1178)
-rbcb_get(x, from = "Sys.Date() - 10")
+rbcb_get(x, from = Sys.Date() - 10)
 }
 }

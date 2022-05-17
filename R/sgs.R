@@ -131,7 +131,7 @@ print.sgs <- function(x, ...) {
 #' @examples
 #' \dontrun{
 #' x <- sgs(USD = 1, SELIC = 1178)
-#' rbcb_get(x, from = "Sys.Date() - 10")
+#' rbcb_get(x, from = Sys.Date() - 10)
 #' }
 #' @export
 rbcb_get.sgs <- function(x, from = NULL, to = NULL, last = 0, ...) {
@@ -155,6 +155,30 @@ sgs_create_series <- function(x, json) {
   names(df_) <- c("date", "value", "name")
   df_ <- as_tibble(df_)
   df_
+}
+
+#' Convert tidy dataframe into a list
+#'
+#' Convert a tidy dataframe into a list of separate time series objects like
+#' `xts` and `ts` or even a `tibble` with a time series representation (
+#' two columns with dates and values).
+#'
+#' @param x sgs object with the corresponding codes
+#' @param tidydf tidy dataframe returned by `rbcb_get`
+#' @param as the returning type (`tibble`, `xts`, `ts`)
+#'
+#' @return a list with time series objects
+#'
+#' @examples
+#' \dontrun{
+#' x <- sgs(USD = 1, SELIC = 1178)
+#' df <- rbcb_get(x, from = Sys.Date() - 10)
+#' sgs_untidy(x, df, as = "xts")
+#' }
+#' @export
+sgs_untidy <- function(x, tidydf, as = c("tibble", "xts", "ts")) {
+  as <- match.arg(as)
+  .sgs_convert_series(x, tidydf, as)
 }
 
 .sgs_convert_series <- function(x, tidy_df, as) {
