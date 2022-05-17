@@ -13,3 +13,4 @@ legacy
 ^docs$
 ^pkgdown$
 ^codecov\.yml$
+README.rmd

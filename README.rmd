@@ -1,0 +1,219 @@
+---
+output: github_document
+---
+    
+```{r}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    out.width = "100%"
+)
+```
+
+# rbcb
+
+<!-- badges: start -->
+[![](https://www.r-pkg.org/badges/version/rbcb)](https://cran.r-project.org/package=rbcb)
+[![](http://cranlogs.r-pkg.org/badges/last-month/rbcb)](https://cran.r-project.org/package=rbcb)
+[![R-CMD-check](https://github.com/wilsonfreitas/rbcb/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/wilsonfreitas/rbcb/actions/workflows/check-standard.yaml)
+[![Codecov test coverage](https://codecov.io/gh/wilsonfreitas/rbcb/branch/master/graph/badge.svg)](https://app.codecov.io/gh/wilsonfreitas/rbcb?branch=master)
+<!-- badges: end -->
+
+An interface to structure the information provided by the [Brazilian Central Bank](https://www.bcb.gov.br).
+This package interfaces the [Brazilian Central Bank web services](https://dadosabertos.bcb.gov.br) to provide data already formatted into R's data structures.
+
+## Install
+
+From CRAN:
+
+``` r
+install.packages("rbcb")
+```
+
+From github using remotes:
+
+``` r
+remotes::install_github('wilsonfreitas/rbcb')
+```
+
+## Features
+
+- [rbcb](#rbcb)
+  - [Install](#install)
+  - [Features](#features)
+    - [Usage](#usage)
+      - [The `get_series` function](#the-get_series-function)
+      - [Market expectations](#market-expectations)
+      - [OLINDA API for currency rates](#olinda-api-for-currency-rates)
+      - [Currency rates](#currency-rates)
+      - [Cross currency rates](#cross-currency-rates)
+
+### Usage
+
+Load the package:
+
+```{r}
+library(rbcb)
+```
+
+#### The `get_series` function
+
+<a name="single-series"></a>
+Download the series by calling `rbcb::get_series` and pass the time series code is as the first argument.
+For example, let's download the USDBRL time series which code is `1`.
+
+```{r}
+rbcb::get_series(c(USDBRL = 1))
+```
+
+Note that this series starts at 1984 and has approximately 8000 rows.
+Also note that you can name the downloaded series by passing a named `vector` in the `code` argument.
+To download recent values you should use the argument `last = N`, see below.
+
+<a name="tibble-objects"></a>
+```{r}
+rbcb::get_series(c(USDBRL = 1), last = 10)
+```
+
+<a name="download-types"></a>
+The series can be downloaded in many different types: `tibble`, `xts`, `ts` or `data.frame`, but the default is `tibble`.
+See the next example where the Brazilian Broad Consumer Price Index (IPCA) is downloaded as `xts` object.
+
+<a name="xts-objects"></a>
+```{r}
+rbcb::get_series(c(IPCA = 433), last = 12, as = "xts")
+```
+
+or as a `ts` object.
+
+<a name="ts-objects"></a>
+```{r}
+rbcb::get_series(c(IPCA = 433), last = 12, as = "ts")
+```
+
+<a name="multiple-series"></a>
+Multiple series can be downloaded at once by passing a named vector with the series codes.
+The return is a named list with the downloaded series.
+
+```{r}
+rbcb::get_series(c(IPCA = 433, IGPM = 189), last = 12, as = "ts")
+```
+
+
+#### Market expectations
+
+<a name="market-expectations"></a>
+The function `get_market_expectations` returns market expectations discussed in the Focus Report that summarizes the statistics calculated from expectations collected from market practitioners.
+
+The first argument `type` accepts the following values:
+
+- `annual`: annual expectations
+- `quarterly`: quarterly expectations
+- `monthly`: monthly expectations
+- `top5s-monthly`: monthly expectations for top 5 indicators
+- `top5s-annual`: annual expectations for top 5 indicators
+- `inflation-12-months`: inflation expectations for the next 12 months
+- `institutions`: market expectations informed by financial institutions
+
+The example below shows how to download IPCA's monthly expectations.
+
+```{r}
+rbcb::get_market_expectations("monthly", "IPCA", end_date = "2018-01-31", `$top` = 5)
+```
+
+
+#### OLINDA API for currency rates
+
+<a name="olinda-currency-rates"></a>
+Use currency functions to download currency rates from the BCB OLINDA API.
+
+```{r}
+olinda_list_currencies()
+```
+
+Use `olinda_get_currency` function to download data from specific currency by
+the currency symbol.
+
+```{r}
+olinda_get_currency("USD", "2017-03-01", "2017-03-03")
+```
+
+The rates come quoted in BRL, so 3.10 is worth 1 USD in BRL.
+
+**Parity values**
+
+Type A currencies have parity values quoted in USD (1 CURRENCY in USD).
+
+```{r}
+olinda_get_currency("CAD", "2017-03-01", "2017-03-01")
+```
+
+```{r}
+olinda_get_currency("CAD", "2017-03-01", "2017-03-01", parity = TRUE)
+```
+
+Type B currencies have parity values as 1 USD in CURRENCY, see AUD, for
+example.
+
+```{r}
+olinda_get_currency("AUD", "2017-03-01", "2017-03-01")
+```
+
+```{r}
+olinda_get_currency("AUD", "2017-03-01", "2017-03-01", parity = TRUE)
+```
+
+#### Currency rates
+
+<a name="currency-rates"></a>
+Use currency functions to download currency rates from the BCB web site.
+
+```{r}
+rbcb::get_currency("USD", "2017-03-01", "2017-03-10")
+```
+
+The rates come quoted in BRL, so 3.0970 is worth 1 USD in BRL.
+
+All currency time series have an attribute called `symbol` that stores its own
+currency name.
+
+```{r}
+attr(rbcb::get_currency("USD", "2017-03-01", "2017-03-10"), "symbol")
+```
+
+Trying another currency.
+
+```{r}
+get_currency("JPY", "2017-03-01", "2017-03-10") |> Ask()
+```
+
+To see the avaliable currencies call `list_currencies`.
+
+```{r}
+rbcb::list_currencies()
+```
+
+There are 216 currencies available.
+
+#### Cross currency rates
+
+<a name="cross-currency-rates"></a>
+The API provides a matrix with the relations between exchange rates, this is the
+matrix of cross currency rates.
+This is a square matrix with the all exchange rates between all currencies.
+
+```{r}
+x <- rbcb::get_currency_cross_rates("2017-03-10")
+dim(x)
+```
+
+```{r}
+# Since there are many currencies it is interesting to subset the matrix.
+cr <- c("USD", "BRL", "EUR", "CAD")
+x[cr, cr]
+```
+
+The rates are quoted by its columns labels, so the numbers in the BRL column are worth one currency unit in BRL.
+
+
