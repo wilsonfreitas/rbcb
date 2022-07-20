@@ -4,14 +4,14 @@ output: github_document
     
 ```{r}
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
-    fig.path = "man/figures/README-",
-    out.width = "100%"
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
 ```
 
-# rbcb
+# rbcb <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 [![](https://www.r-pkg.org/badges/version/rbcb)](https://cran.r-project.org/package=rbcb)

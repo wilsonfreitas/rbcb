@@ -1,14 +1,14 @@
 
 ``` r
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
-    fig.path = "man/figures/README-",
-    out.width = "100%"
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
 ```
 
-# rbcb
+# rbcb <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 
@@ -68,7 +68,7 @@ is `1`.
 
 ``` r
 rbcb::get_series(c(USDBRL = 1))
-#> # A tibble: 9,385 x 2
+#> # A tibble: 9,431 x 2
 #>    date       USDBRL
 #>    <date>      <dbl>
 #>  1 1984-11-28   2828
@@ -81,7 +81,7 @@ rbcb::get_series(c(USDBRL = 1))
 #>  8 1984-12-07   2923
 #>  9 1984-12-10   2965
 #> 10 1984-12-11   2965
-#> # ... with 9,375 more rows
+#> # ... with 9,421 more rows
 ```
 
 Note that this series starts at 1984 and has approximately 8000 rows.
@@ -96,16 +96,16 @@ rbcb::get_series(c(USDBRL = 1), last = 10)
 #> # A tibble: 10 x 2
 #>    date       USDBRL
 #>    <date>      <dbl>
-#>  1 2022-05-03   5.02
-#>  2 2022-05-04   5.01
-#>  3 2022-05-05   5.01
-#>  4 2022-05-06   5.08
-#>  5 2022-05-09   5.13
-#>  6 2022-05-10   5.14
-#>  7 2022-05-11   5.12
-#>  8 2022-05-12   5.15
-#>  9 2022-05-13   5.11
-#> 10 2022-05-16   5.07
+#>  1 2022-07-07   5.36
+#>  2 2022-07-08   5.31
+#>  3 2022-07-11   5.35
+#>  4 2022-07-12   5.41
+#>  5 2022-07-13   5.40
+#>  6 2022-07-14   5.46
+#>  7 2022-07-15   5.40
+#>  8 2022-07-18   5.37
+#>  9 2022-07-19   5.39
+#> 10 2022-07-20   5.43
 ```
 
 <a name="download-types"></a> The series can be downloaded in many
@@ -118,8 +118,6 @@ Price Index (IPCA) is downloaded as `xts` object.
 ``` r
 rbcb::get_series(c(IPCA = 433), last = 12, as = "xts")
 #>            IPCA
-#> 2021-05-01 0.83
-#> 2021-06-01 0.53
 #> 2021-07-01 0.96
 #> 2021-08-01 0.87
 #> 2021-09-01 1.16
@@ -130,6 +128,8 @@ rbcb::get_series(c(IPCA = 433), last = 12, as = "xts")
 #> 2022-02-01 1.01
 #> 2022-03-01 1.62
 #> 2022-04-01 1.06
+#> 2022-05-01 0.47
+#> 2022-06-01 0.67
 ```
 
 or as a `ts` object.
@@ -138,10 +138,9 @@ or as a `ts` object.
 
 ``` r
 rbcb::get_series(c(IPCA = 433), last = 12, as = "ts")
-#> Skipping download - using cached version
 #>       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
-#> 2021                     0.83 0.53 0.96 0.87 1.16 1.25 0.95 0.73
-#> 2022 0.54 1.01 1.62 1.06
+#> 2021                               0.96 0.87 1.16 1.25 0.95 0.73
+#> 2022 0.54 1.01 1.62 1.06 0.47 0.67
 ```
 
 <a name="multiple-series"></a> Multiple series can be downloaded at once
@@ -150,17 +149,15 @@ list with the downloaded series.
 
 ``` r
 rbcb::get_series(c(IPCA = 433, IGPM = 189), last = 12, as = "ts")
-#> Skipping download - using cached version
-#> Skipping download - using cached version
-#> $IGPM
-#>        Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
-#> 2021                          4.10  0.60  0.78  0.66 -0.64  0.64  0.02  0.87
-#> 2022  1.82  1.83  1.74  1.41                                                
-#> 
 #> $IPCA
 #>       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
-#> 2021                     0.83 0.53 0.96 0.87 1.16 1.25 0.95 0.73
-#> 2022 0.54 1.01 1.62 1.06
+#> 2021                               0.96 0.87 1.16 1.25 0.95 0.73
+#> 2022 0.54 1.01 1.62 1.06 0.47 0.67                              
+#> 
+#> $IGPM
+#>        Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
+#> 2021                                      0.78  0.66 -0.64  0.64  0.02  0.87
+#> 2022  1.82  1.83  1.74  1.41  0.52  0.59
 ```
 
 #### Market expectations
