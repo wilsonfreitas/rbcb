@@ -12,8 +12,8 @@
   different data structures common to R (tibble, data.frame, xts, ...).">
 <title>R Interface to Brazilian Central Bank Web Services • rbcb</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="R Interface to Brazilian Central Bank Web Services">
 <meta property="og:description" content="The Brazilian Central Bank API delivers many datasets which regard economic
@@ -69,14 +69,14 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
-    collapse <span class="op">=</span> <span class="cn">TRUE</span>,
-    comment <span class="op">=</span> <span class="st">"#&gt;"</span>,
-    fig.path <span class="op">=</span> <span class="st">"man/figures/README-"</span>,
-    out.width <span class="op">=</span> <span class="st">"100%"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span></span>
+<span>  collapse <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">"#&gt;"</span>,</span>
+<span>  fig.path <span class="op">=</span> <span class="st">"man/figures/README-"</span>,</span>
+<span>  out.width <span class="op">=</span> <span class="st">"100%"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="section level1">
-<div class="page-header"><h1 id="rbcb">rbcb<a class="anchor" aria-label="anchor" href="#rbcb"></a>
+<div class="page-header"><h1 id="rbcb-">rbcb <img src="reference/figures/logo.png" align="right" width="120"><a class="anchor" aria-label="anchor" href="#rbcb-"></a>
 </h1></div>
 <!-- badges: start -->
 <p>An interface to structure the information provided by the <a href="https://www.bcb.gov.br" class="external-link">Brazilian Central Bank</a>. This package interfaces the <a href="https://dadosabertos.bcb.gov.br" class="external-link">Brazilian Central Bank web services</a> to provide data already formatted into R’s data structures.</p>
@@ -85,10 +85,10 @@
 </h2>
 <p>From CRAN:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rbcb"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rbcb"</span><span class="op">)</span></span></code></pre></div>
 <p>From github using remotes:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'wilsonfreitas/rbcb'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'wilsonfreitas/rbcb'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
@@ -114,83 +114,80 @@
 </h3>
 <p>Load the package:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/wilsonfreitas/rbcb" class="external-link">rbcb</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/wilsonfreitas/rbcb" class="external-link">rbcb</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="the-get_series-function">The <code>get_series</code> function<a class="anchor" aria-label="anchor" href="#the-get_series-function"></a>
 </h4>
 <p><a name="single-series"></a> Download the series by calling <code><a href="reference/get_series.html">rbcb::get_series</a></code> and pass the time series code is as the first argument. For example, let’s download the USDBRL time series which code is <code>1</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>USDBRL <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 9,385 x 2</span>
-<span class="co">#&gt;    date       USDBRL</span>
-<span class="co">#&gt;    &lt;date&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1984-11-28   2828</span>
-<span class="co">#&gt;  2 1984-11-29   2828</span>
-<span class="co">#&gt;  3 1984-11-30   2881</span>
-<span class="co">#&gt;  4 1984-12-03   2881</span>
-<span class="co">#&gt;  5 1984-12-04   2881</span>
-<span class="co">#&gt;  6 1984-12-05   2923</span>
-<span class="co">#&gt;  7 1984-12-06   2923</span>
-<span class="co">#&gt;  8 1984-12-07   2923</span>
-<span class="co">#&gt;  9 1984-12-10   2965</span>
-<span class="co">#&gt; 10 1984-12-11   2965</span>
-<span class="co">#&gt; # ... with 9,375 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>USDBRL <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 9,431 x 2</span></span>
+<span><span class="co">#&gt;    date       USDBRL</span></span>
+<span><span class="co">#&gt;    &lt;date&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 1984-11-28   2828</span></span>
+<span><span class="co">#&gt;  2 1984-11-29   2828</span></span>
+<span><span class="co">#&gt;  3 1984-11-30   2881</span></span>
+<span><span class="co">#&gt;  4 1984-12-03   2881</span></span>
+<span><span class="co">#&gt;  5 1984-12-04   2881</span></span>
+<span><span class="co">#&gt;  6 1984-12-05   2923</span></span>
+<span><span class="co">#&gt;  7 1984-12-06   2923</span></span>
+<span><span class="co">#&gt;  8 1984-12-07   2923</span></span>
+<span><span class="co">#&gt;  9 1984-12-10   2965</span></span>
+<span><span class="co">#&gt; 10 1984-12-11   2965</span></span>
+<span><span class="co">#&gt; # ... with 9,421 more rows</span></span></code></pre></div>
 <p>Note that this series starts at 1984 and has approximately 8000 rows. Also note that you can name the downloaded series by passing a named <code>vector</code> in the <code>code</code> argument. To download recent values you should use the argument <code>last = N</code>, see below.</p>
 <p><a name="tibble-objects"></a></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>USDBRL <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, last <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 10 x 2</span>
-<span class="co">#&gt;    date       USDBRL</span>
-<span class="co">#&gt;    &lt;date&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2022-05-03   5.02</span>
-<span class="co">#&gt;  2 2022-05-04   5.01</span>
-<span class="co">#&gt;  3 2022-05-05   5.01</span>
-<span class="co">#&gt;  4 2022-05-06   5.08</span>
-<span class="co">#&gt;  5 2022-05-09   5.13</span>
-<span class="co">#&gt;  6 2022-05-10   5.14</span>
-<span class="co">#&gt;  7 2022-05-11   5.12</span>
-<span class="co">#&gt;  8 2022-05-12   5.15</span>
-<span class="co">#&gt;  9 2022-05-13   5.11</span>
-<span class="co">#&gt; 10 2022-05-16   5.07</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>USDBRL <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, last <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 10 x 2</span></span>
+<span><span class="co">#&gt;    date       USDBRL</span></span>
+<span><span class="co">#&gt;    &lt;date&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 2022-07-07   5.36</span></span>
+<span><span class="co">#&gt;  2 2022-07-08   5.31</span></span>
+<span><span class="co">#&gt;  3 2022-07-11   5.35</span></span>
+<span><span class="co">#&gt;  4 2022-07-12   5.41</span></span>
+<span><span class="co">#&gt;  5 2022-07-13   5.40</span></span>
+<span><span class="co">#&gt;  6 2022-07-14   5.46</span></span>
+<span><span class="co">#&gt;  7 2022-07-15   5.40</span></span>
+<span><span class="co">#&gt;  8 2022-07-18   5.37</span></span>
+<span><span class="co">#&gt;  9 2022-07-19   5.39</span></span>
+<span><span class="co">#&gt; 10 2022-07-20   5.43</span></span></code></pre></div>
 <p><a name="download-types"></a> The series can be downloaded in many different types: <code>tibble</code>, <code>xts</code>, <code>ts</code> or <code>data.frame</code>, but the default is <code>tibble</code>. See the next example where the Brazilian Broad Consumer Price Index (IPCA) is downloaded as <code>xts</code> object.</p>
 <p><a name="xts-objects"></a></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>IPCA <span class="op">=</span> <span class="fl">433</span><span class="op">)</span>, last <span class="op">=</span> <span class="fl">12</span>, as <span class="op">=</span> <span class="st">"xts"</span><span class="op">)</span>
-<span class="co">#&gt;            IPCA</span>
-<span class="co">#&gt; 2021-05-01 0.83</span>
-<span class="co">#&gt; 2021-06-01 0.53</span>
-<span class="co">#&gt; 2021-07-01 0.96</span>
-<span class="co">#&gt; 2021-08-01 0.87</span>
-<span class="co">#&gt; 2021-09-01 1.16</span>
-<span class="co">#&gt; 2021-10-01 1.25</span>
-<span class="co">#&gt; 2021-11-01 0.95</span>
-<span class="co">#&gt; 2021-12-01 0.73</span>
-<span class="co">#&gt; 2022-01-01 0.54</span>
-<span class="co">#&gt; 2022-02-01 1.01</span>
-<span class="co">#&gt; 2022-03-01 1.62</span>
-<span class="co">#&gt; 2022-04-01 1.06</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>IPCA <span class="op">=</span> <span class="fl">433</span><span class="op">)</span>, last <span class="op">=</span> <span class="fl">12</span>, as <span class="op">=</span> <span class="st">"xts"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            IPCA</span></span>
+<span><span class="co">#&gt; 2021-07-01 0.96</span></span>
+<span><span class="co">#&gt; 2021-08-01 0.87</span></span>
+<span><span class="co">#&gt; 2021-09-01 1.16</span></span>
+<span><span class="co">#&gt; 2021-10-01 1.25</span></span>
+<span><span class="co">#&gt; 2021-11-01 0.95</span></span>
+<span><span class="co">#&gt; 2021-12-01 0.73</span></span>
+<span><span class="co">#&gt; 2022-01-01 0.54</span></span>
+<span><span class="co">#&gt; 2022-02-01 1.01</span></span>
+<span><span class="co">#&gt; 2022-03-01 1.62</span></span>
+<span><span class="co">#&gt; 2022-04-01 1.06</span></span>
+<span><span class="co">#&gt; 2022-05-01 0.47</span></span>
+<span><span class="co">#&gt; 2022-06-01 0.67</span></span></code></pre></div>
 <p>or as a <code>ts</code> object.</p>
 <p><a name="ts-objects"></a></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>IPCA <span class="op">=</span> <span class="fl">433</span><span class="op">)</span>, last <span class="op">=</span> <span class="fl">12</span>, as <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span>
-<span class="co">#&gt; Skipping download - using cached version</span>
-<span class="co">#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec</span>
-<span class="co">#&gt; 2021                     0.83 0.53 0.96 0.87 1.16 1.25 0.95 0.73</span>
-<span class="co">#&gt; 2022 0.54 1.01 1.62 1.06</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>IPCA <span class="op">=</span> <span class="fl">433</span><span class="op">)</span>, last <span class="op">=</span> <span class="fl">12</span>, as <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec</span></span>
+<span><span class="co">#&gt; 2021                               0.96 0.87 1.16 1.25 0.95 0.73</span></span>
+<span><span class="co">#&gt; 2022 0.54 1.01 1.62 1.06 0.47 0.67</span></span></code></pre></div>
 <p><a name="multiple-series"></a> Multiple series can be downloaded at once by passing a named vector with the series codes. The return is a named list with the downloaded series.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>IPCA <span class="op">=</span> <span class="fl">433</span>, IGPM <span class="op">=</span> <span class="fl">189</span><span class="op">)</span>, last <span class="op">=</span> <span class="fl">12</span>, as <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span>
-<span class="co">#&gt; Skipping download - using cached version</span>
-<span class="co">#&gt; Skipping download - using cached version</span>
-<span class="co">#&gt; $IGPM</span>
-<span class="co">#&gt;        Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec</span>
-<span class="co">#&gt; 2021                          4.10  0.60  0.78  0.66 -0.64  0.64  0.02  0.87</span>
-<span class="co">#&gt; 2022  1.82  1.83  1.74  1.41                                                </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $IPCA</span>
-<span class="co">#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec</span>
-<span class="co">#&gt; 2021                     0.83 0.53 0.96 0.87 1.16 1.25 0.95 0.73</span>
-<span class="co">#&gt; 2022 0.54 1.01 1.62 1.06</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_series.html">get_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>IPCA <span class="op">=</span> <span class="fl">433</span>, IGPM <span class="op">=</span> <span class="fl">189</span><span class="op">)</span>, last <span class="op">=</span> <span class="fl">12</span>, as <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $IPCA</span></span>
+<span><span class="co">#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec</span></span>
+<span><span class="co">#&gt; 2021                               0.96 0.87 1.16 1.25 0.95 0.73</span></span>
+<span><span class="co">#&gt; 2022 0.54 1.01 1.62 1.06 0.47 0.67                              </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $IGPM</span></span>
+<span><span class="co">#&gt;        Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec</span></span>
+<span><span class="co">#&gt; 2021                                      0.78  0.66 -0.64  0.64  0.02  0.87</span></span>
+<span><span class="co">#&gt; 2022  1.82  1.83  1.74  1.41  0.52  0.59</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="market-expectations">Market expectations<a class="anchor" aria-label="anchor" href="#market-expectations"></a>
@@ -215,142 +212,142 @@
 </ul>
 <p>The example below shows how to download IPCA’s monthly expectations.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_market_expectations.html">get_market_expectations</a></span><span class="op">(</span><span class="st">"monthly"</span>, <span class="st">"IPCA"</span>, end_date <span class="op">=</span> <span class="st">"2018-01-31"</span>, `$top` <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 10</span>
-<span class="co">#&gt;   Indicador Data       DataReferencia Media Mediana DesvioPadrao Minimo Maximo numeroRespondentes baseCalculo</span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;date&gt;     &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;              &lt;int&gt;       &lt;int&gt;</span>
-<span class="co">#&gt; 1 IPCA      2018-01-31 06/2019         0.21    0.2          0.07   0.13   0.36                 14           1</span>
-<span class="co">#&gt; 2 IPCA      2018-01-31 06/2019         0.2     0.2          0.1   -0.3    0.36                 43           0</span>
-<span class="co">#&gt; 3 IPCA      2018-01-31 05/2019         0.31    0.29         0.06   0.22   0.43                 19           1</span>
-<span class="co">#&gt; 4 IPCA      2018-01-31 05/2019         0.31    0.3          0.06   0.15   0.45                 55           0</span>
-<span class="co">#&gt; 5 IPCA      2018-01-31 04/2019         0.38    0.39         0.1    0.16   0.61                 20           1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_market_expectations.html">get_market_expectations</a></span><span class="op">(</span><span class="st">"monthly"</span>, <span class="st">"IPCA"</span>, end_date <span class="op">=</span> <span class="st">"2018-01-31"</span>, `$top` <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5 x 10</span></span>
+<span><span class="co">#&gt;   Indicador Data       DataReferencia Media Mediana DesvioPadrao Minimo Maximo numeroRespondentes baseCalculo</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;date&gt;     &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;              &lt;int&gt;       &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 IPCA      2018-01-31 06/2019         0.21    0.2          0.07   0.13   0.36                 14           1</span></span>
+<span><span class="co">#&gt; 2 IPCA      2018-01-31 06/2019         0.2     0.2          0.1   -0.3    0.36                 43           0</span></span>
+<span><span class="co">#&gt; 3 IPCA      2018-01-31 05/2019         0.31    0.29         0.06   0.22   0.43                 19           1</span></span>
+<span><span class="co">#&gt; 4 IPCA      2018-01-31 05/2019         0.31    0.3          0.06   0.15   0.45                 55           0</span></span>
+<span><span class="co">#&gt; 5 IPCA      2018-01-31 04/2019         0.38    0.39         0.1    0.16   0.61                 20           1</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="olinda-api-for-currency-rates">OLINDA API for currency rates<a class="anchor" aria-label="anchor" href="#olinda-api-for-currency-rates"></a>
 </h4>
 <p><a name="olinda-currency-rates"></a> Use currency functions to download currency rates from the BCB OLINDA API.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/olinda_list_currencies.html">olinda_list_currencies</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt;    symbol                     name currency_type</span>
-<span class="co">#&gt; 1     AUD        Dólar australiano             B</span>
-<span class="co">#&gt; 2     CAD          Dólar canadense             A</span>
-<span class="co">#&gt; 3     CHF             Franco suíço             A</span>
-<span class="co">#&gt; 4     DKK       Coroa dinamarquesa             A</span>
-<span class="co">#&gt; 5     EUR                     Euro             B</span>
-<span class="co">#&gt; 6     GBP          Libra Esterlina             B</span>
-<span class="co">#&gt; 7     JPY                     Iene             A</span>
-<span class="co">#&gt; 8     NOK         Coroa norueguesa             A</span>
-<span class="co">#&gt; 9     SEK              Coroa sueca             A</span>
-<span class="co">#&gt; 10    USD Dólar dos Estados Unidos             A</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/olinda_list_currencies.html">olinda_list_currencies</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    symbol                     name currency_type</span></span>
+<span><span class="co">#&gt; 1     AUD        Dólar australiano             B</span></span>
+<span><span class="co">#&gt; 2     CAD          Dólar canadense             A</span></span>
+<span><span class="co">#&gt; 3     CHF             Franco suíço             A</span></span>
+<span><span class="co">#&gt; 4     DKK       Coroa dinamarquesa             A</span></span>
+<span><span class="co">#&gt; 5     EUR                     Euro             B</span></span>
+<span><span class="co">#&gt; 6     GBP          Libra Esterlina             B</span></span>
+<span><span class="co">#&gt; 7     JPY                     Iene             A</span></span>
+<span><span class="co">#&gt; 8     NOK         Coroa norueguesa             A</span></span>
+<span><span class="co">#&gt; 9     SEK              Coroa sueca             A</span></span>
+<span><span class="co">#&gt; 10    USD Dólar dos Estados Unidos             A</span></span></code></pre></div>
 <p>Use <code>olinda_get_currency</code> function to download data from specific currency by the currency symbol.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"USD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-03"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 13 x 3</span>
-<span class="co">#&gt;    datetime              bid   ask</span>
-<span class="co">#&gt;    &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2017-03-01 14:37:41  3.10  3.10</span>
-<span class="co">#&gt;  2 2017-03-01 15:37:01  3.10  3.10</span>
-<span class="co">#&gt;  3 2017-03-01 15:37:01  3.10  3.10</span>
-<span class="co">#&gt;  4 2017-03-02 10:04:33  3.11  3.11</span>
-<span class="co">#&gt;  5 2017-03-02 11:07:36  3.10  3.10</span>
-<span class="co">#&gt;  6 2017-03-02 12:10:41  3.12  3.12</span>
-<span class="co">#&gt;  7 2017-03-02 13:06:27  3.12  3.12</span>
-<span class="co">#&gt;  8 2017-03-02 13:06:27  3.11  3.11</span>
-<span class="co">#&gt;  9 2017-03-03 10:10:38  3.13  3.13</span>
-<span class="co">#&gt; 10 2017-03-03 11:10:48  3.13  3.13</span>
-<span class="co">#&gt; 11 2017-03-03 12:07:35  3.14  3.14</span>
-<span class="co">#&gt; 12 2017-03-03 13:07:10  3.14  3.14</span>
-<span class="co">#&gt; 13 2017-03-03 13:07:10  3.14  3.14</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"USD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-03"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 13 x 3</span></span>
+<span><span class="co">#&gt;    datetime              bid   ask</span></span>
+<span><span class="co">#&gt;    &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 2017-03-01 14:37:41  3.10  3.10</span></span>
+<span><span class="co">#&gt;  2 2017-03-01 15:37:01  3.10  3.10</span></span>
+<span><span class="co">#&gt;  3 2017-03-01 15:37:01  3.10  3.10</span></span>
+<span><span class="co">#&gt;  4 2017-03-02 10:04:33  3.11  3.11</span></span>
+<span><span class="co">#&gt;  5 2017-03-02 11:07:36  3.10  3.10</span></span>
+<span><span class="co">#&gt;  6 2017-03-02 12:10:41  3.12  3.12</span></span>
+<span><span class="co">#&gt;  7 2017-03-02 13:06:27  3.12  3.12</span></span>
+<span><span class="co">#&gt;  8 2017-03-02 13:06:27  3.11  3.11</span></span>
+<span><span class="co">#&gt;  9 2017-03-03 10:10:38  3.13  3.13</span></span>
+<span><span class="co">#&gt; 10 2017-03-03 11:10:48  3.13  3.13</span></span>
+<span><span class="co">#&gt; 11 2017-03-03 12:07:35  3.14  3.14</span></span>
+<span><span class="co">#&gt; 12 2017-03-03 13:07:10  3.14  3.14</span></span>
+<span><span class="co">#&gt; 13 2017-03-03 13:07:10  3.14  3.14</span></span></code></pre></div>
 <p>The rates come quoted in BRL, so 3.10 is worth 1 USD in BRL.</p>
 <p><strong>Parity values</strong></p>
 <p>Type A currencies have parity values quoted in USD (1 CURRENCY in USD).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"CAD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-01"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   datetime              bid   ask</span>
-<span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2017-03-01 14:37:41  2.32  2.32</span>
-<span class="co">#&gt; 2 2017-03-01 15:37:01  2.32  2.32</span>
-<span class="co">#&gt; 3 2017-03-01 15:37:01  2.32  2.32</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"CAD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-01"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 x 3</span></span>
+<span><span class="co">#&gt;   datetime              bid   ask</span></span>
+<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 2017-03-01 14:37:41  2.32  2.32</span></span>
+<span><span class="co">#&gt; 2 2017-03-01 15:37:01  2.32  2.32</span></span>
+<span><span class="co">#&gt; 3 2017-03-01 15:37:01  2.32  2.32</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"CAD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-01"</span>, parity <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   datetime              bid   ask</span>
-<span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2017-03-01 14:37:41  1.33  1.33</span>
-<span class="co">#&gt; 2 2017-03-01 15:37:01  1.33  1.33</span>
-<span class="co">#&gt; 3 2017-03-01 15:37:01  1.33  1.33</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"CAD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-01"</span>, parity <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 x 3</span></span>
+<span><span class="co">#&gt;   datetime              bid   ask</span></span>
+<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 2017-03-01 14:37:41  1.33  1.33</span></span>
+<span><span class="co">#&gt; 2 2017-03-01 15:37:01  1.33  1.33</span></span>
+<span><span class="co">#&gt; 3 2017-03-01 15:37:01  1.33  1.33</span></span></code></pre></div>
 <p>Type B currencies have parity values as 1 USD in CURRENCY, see AUD, for example.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"AUD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-01"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   datetime              bid   ask</span>
-<span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2017-03-01 14:37:41  2.38  2.38</span>
-<span class="co">#&gt; 2 2017-03-01 15:37:01  2.38  2.38</span>
-<span class="co">#&gt; 3 2017-03-01 15:37:01  2.38  2.38</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"AUD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-01"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 x 3</span></span>
+<span><span class="co">#&gt;   datetime              bid   ask</span></span>
+<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 2017-03-01 14:37:41  2.38  2.38</span></span>
+<span><span class="co">#&gt; 2 2017-03-01 15:37:01  2.38  2.38</span></span>
+<span><span class="co">#&gt; 3 2017-03-01 15:37:01  2.38  2.38</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"AUD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-01"</span>, parity <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   datetime              bid   ask</span>
-<span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2017-03-01 14:37:41 0.768 0.768</span>
-<span class="co">#&gt; 2 2017-03-01 15:37:01 0.767 0.768</span>
-<span class="co">#&gt; 3 2017-03-01 15:37:01 0.767 0.768</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/olinda_get_currency.html">olinda_get_currency</a></span><span class="op">(</span><span class="st">"AUD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-01"</span>, parity <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 x 3</span></span>
+<span><span class="co">#&gt;   datetime              bid   ask</span></span>
+<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 2017-03-01 14:37:41 0.768 0.768</span></span>
+<span><span class="co">#&gt; 2 2017-03-01 15:37:01 0.767 0.768</span></span>
+<span><span class="co">#&gt; 3 2017-03-01 15:37:01 0.767 0.768</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="currency-rates">Currency rates<a class="anchor" aria-label="anchor" href="#currency-rates"></a>
 </h4>
 <p><a name="currency-rates"></a> Use currency functions to download currency rates from the BCB web site.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_currency.html">get_currency</a></span><span class="op">(</span><span class="st">"USD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-10"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 3</span>
-<span class="co">#&gt;   date         bid   ask</span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2017-03-01  3.10  3.10</span>
-<span class="co">#&gt; 2 2017-03-02  3.11  3.11</span>
-<span class="co">#&gt; 3 2017-03-03  3.14  3.14</span>
-<span class="co">#&gt; 4 2017-03-06  3.11  3.11</span>
-<span class="co">#&gt; 5 2017-03-07  3.12  3.12</span>
-<span class="co">#&gt; 6 2017-03-08  3.15  3.15</span>
-<span class="co">#&gt; 7 2017-03-09  3.17  3.17</span>
-<span class="co">#&gt; 8 2017-03-10  3.16  3.16</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_currency.html">get_currency</a></span><span class="op">(</span><span class="st">"USD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-10"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 8 x 3</span></span>
+<span><span class="co">#&gt;   date         bid   ask</span></span>
+<span><span class="co">#&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 2017-03-01  3.10  3.10</span></span>
+<span><span class="co">#&gt; 2 2017-03-02  3.11  3.11</span></span>
+<span><span class="co">#&gt; 3 2017-03-03  3.14  3.14</span></span>
+<span><span class="co">#&gt; 4 2017-03-06  3.11  3.11</span></span>
+<span><span class="co">#&gt; 5 2017-03-07  3.12  3.12</span></span>
+<span><span class="co">#&gt; 6 2017-03-08  3.15  3.15</span></span>
+<span><span class="co">#&gt; 7 2017-03-09  3.17  3.17</span></span>
+<span><span class="co">#&gt; 8 2017-03-10  3.16  3.16</span></span></code></pre></div>
 <p>The rates come quoted in BRL, so 3.0970 is worth 1 USD in BRL.</p>
 <p>All currency time series have an attribute called <code>symbol</code> that stores its own currency name.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_currency.html">get_currency</a></span><span class="op">(</span><span class="st">"USD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-10"</span><span class="op">)</span>, <span class="st">"symbol"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "USD"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_currency.html">get_currency</a></span><span class="op">(</span><span class="st">"USD"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-10"</span><span class="op">)</span>, <span class="st">"symbol"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "USD"</span></span></code></pre></div>
 <p>Trying another currency.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/get_currency.html">get_currency</a></span><span class="op">(</span><span class="st">"JPY"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-10"</span><span class="op">)</span> |&gt; <span class="fu"><a href="reference/helpers.html">Ask</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 2</span>
-<span class="co">#&gt;   date          JPY</span>
-<span class="co">#&gt;   &lt;date&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2017-03-01 0.0273</span>
-<span class="co">#&gt; 2 2017-03-02 0.0272</span>
-<span class="co">#&gt; 3 2017-03-03 0.0274</span>
-<span class="co">#&gt; 4 2017-03-06 0.0274</span>
-<span class="co">#&gt; 5 2017-03-07 0.0274</span>
-<span class="co">#&gt; 6 2017-03-08 0.0274</span>
-<span class="co">#&gt; 7 2017-03-09 0.0276</span>
-<span class="co">#&gt; 8 2017-03-10 0.0275</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/get_currency.html">get_currency</a></span><span class="op">(</span><span class="st">"JPY"</span>, <span class="st">"2017-03-01"</span>, <span class="st">"2017-03-10"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/helpers.html">Ask</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 8 x 2</span></span>
+<span><span class="co">#&gt;   date          JPY</span></span>
+<span><span class="co">#&gt;   &lt;date&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 2017-03-01 0.0273</span></span>
+<span><span class="co">#&gt; 2 2017-03-02 0.0272</span></span>
+<span><span class="co">#&gt; 3 2017-03-03 0.0274</span></span>
+<span><span class="co">#&gt; 4 2017-03-06 0.0274</span></span>
+<span><span class="co">#&gt; 5 2017-03-07 0.0274</span></span>
+<span><span class="co">#&gt; 6 2017-03-08 0.0274</span></span>
+<span><span class="co">#&gt; 7 2017-03-09 0.0276</span></span>
+<span><span class="co">#&gt; 8 2017-03-10 0.0275</span></span></code></pre></div>
 <p>To see the avaliable currencies call <code>list_currencies</code>.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/list_currencies.html">list_currencies</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 218 x 5</span>
-<span class="co">#&gt;    name                   code symbol country_name          country_code</span>
-<span class="co">#&gt;    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;                        &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 AFEGANE AFEGANIST         5 AFN    AFEGANISTAO                    132</span>
-<span class="co">#&gt;  2 RANDE/AFRICA SUL        785 ZAR    AFRICA DO SUL                 7560</span>
-<span class="co">#&gt;  3 LEK ALBANIA REP         490 ALL    ALBANIA, REPUBLICA DA          175</span>
-<span class="co">#&gt;  4 EURO                    978 EUR    ALEMANHA                       230</span>
-<span class="co">#&gt;  5 KWANZA/ANGOLA           635 AOA    ANGOLA                         400</span>
-<span class="co">#&gt;  6 DOLAR CARIBE ORIENTAL   215 XCD    ANGUILLA                       418</span>
-<span class="co">#&gt;  7 DOLAR CARIBE ORIENTAL   215 XCD    ANTIGUA E BARBUDA              434</span>
-<span class="co">#&gt;  8 RIAL/ARAB SAUDITA       820 SAR    ARABIA SAUDITA                 531</span>
-<span class="co">#&gt;  9 DINAR ARGELINO           95 DZD    ARGELIA                        590</span>
-<span class="co">#&gt; 10 PESO ARGENTINO          706 ARS    ARGENTINA                      639</span>
-<span class="co">#&gt; # ... with 208 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/list_currencies.html">list_currencies</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 218 x 5</span></span>
+<span><span class="co">#&gt;    name                   code symbol country_name          country_code</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;                        &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 AFEGANE AFEGANIST         5 AFN    AFEGANISTAO                    132</span></span>
+<span><span class="co">#&gt;  2 RANDE/AFRICA SUL        785 ZAR    AFRICA DO SUL                 7560</span></span>
+<span><span class="co">#&gt;  3 LEK ALBANIA REP         490 ALL    ALBANIA, REPUBLICA DA          175</span></span>
+<span><span class="co">#&gt;  4 EURO                    978 EUR    ALEMANHA                       230</span></span>
+<span><span class="co">#&gt;  5 KWANZA/ANGOLA           635 AOA    ANGOLA                         400</span></span>
+<span><span class="co">#&gt;  6 DOLAR CARIBE ORIENTAL   215 XCD    ANGUILLA                       418</span></span>
+<span><span class="co">#&gt;  7 DOLAR CARIBE ORIENTAL   215 XCD    ANTIGUA E BARBUDA              434</span></span>
+<span><span class="co">#&gt;  8 RIAL/ARAB SAUDITA       820 SAR    ARABIA SAUDITA                 531</span></span>
+<span><span class="co">#&gt;  9 DINAR ARGELINO           95 DZD    ARGELIA                        590</span></span>
+<span><span class="co">#&gt; 10 PESO ARGENTINO          706 ARS    ARGENTINA                      639</span></span>
+<span><span class="co">#&gt; # ... with 208 more rows</span></span></code></pre></div>
 <p>There are 216 currencies available.</p>
 </div>
 <div class="section level4">
@@ -358,18 +355,18 @@
 </h4>
 <p><a name="cross-currency-rates"></a> The API provides a matrix with the relations between exchange rates, this is the matrix of cross currency rates. This is a square matrix with the all exchange rates between all currencies.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_currency_cross_rates.html">get_currency_cross_rates</a></span><span class="op">(</span><span class="st">"2017-03-10"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] 156 156</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">rbcb</span><span class="fu">::</span><span class="fu"><a href="reference/get_currency_cross_rates.html">get_currency_cross_rates</a></span><span class="op">(</span><span class="st">"2017-03-10"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 156 156</span></span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Since there are many currencies it is interesting to subset the matrix.</span>
-<span class="va">cr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USD"</span>, <span class="st">"BRL"</span>, <span class="st">"EUR"</span>, <span class="st">"CAD"</span><span class="op">)</span>
-<span class="va">x</span><span class="op">[</span><span class="va">cr</span>, <span class="va">cr</span><span class="op">]</span>
-<span class="co">#&gt;           USD    BRL       EUR       CAD</span>
-<span class="co">#&gt; USD 1.0000000 3.1623 0.9380896 1.3465764</span>
-<span class="co">#&gt; BRL 0.3162255 1.0000 0.2966479 0.4258218</span>
-<span class="co">#&gt; EUR 1.0659963 3.3710 1.0000000 1.4354454</span>
-<span class="co">#&gt; CAD 0.7426240 2.3484 0.6966479 1.0000000</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Since there are many currencies it is interesting to subset the matrix.</span></span>
+<span><span class="va">cr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USD"</span>, <span class="st">"BRL"</span>, <span class="st">"EUR"</span>, <span class="st">"CAD"</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="va">cr</span>, <span class="va">cr</span><span class="op">]</span></span>
+<span><span class="co">#&gt;           USD    BRL       EUR       CAD</span></span>
+<span><span class="co">#&gt; USD 1.0000000 3.1623 0.9380896 1.3465764</span></span>
+<span><span class="co">#&gt; BRL 0.3162255 1.0000 0.2966479 0.4258218</span></span>
+<span><span class="co">#&gt; EUR 1.0659963 3.3710 1.0000000 1.4354454</span></span>
+<span><span class="co">#&gt; CAD 0.7426240 2.3484 0.6966479 1.0000000</span></span></code></pre></div>
 <p>The rates are quoted by its columns labels, so the numbers in the BRL column are worth one currency unit in BRL.</p>
 </div>
 </div>
@@ -430,7 +427,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
