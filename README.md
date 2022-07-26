@@ -1,13 +1,4 @@
 
-``` r
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-
 # rbcb <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
@@ -68,7 +59,7 @@ is `1`.
 
 ``` r
 rbcb::get_series(c(USDBRL = 1))
-#> # A tibble: 9,431 x 2
+#> # A tibble: 9,434 x 2
 #>    date       USDBRL
 #>    <date>      <dbl>
 #>  1 1984-11-28   2828
@@ -81,7 +72,7 @@ rbcb::get_series(c(USDBRL = 1))
 #>  8 1984-12-07   2923
 #>  9 1984-12-10   2965
 #> 10 1984-12-11   2965
-#> # ... with 9,421 more rows
+#> # ... with 9,424 more rows
 ```
 
 Note that this series starts at 1984 and has approximately 8000 rows.
@@ -96,16 +87,16 @@ rbcb::get_series(c(USDBRL = 1), last = 10)
 #> # A tibble: 10 x 2
 #>    date       USDBRL
 #>    <date>      <dbl>
-#>  1 2022-07-07   5.36
-#>  2 2022-07-08   5.31
-#>  3 2022-07-11   5.35
-#>  4 2022-07-12   5.41
-#>  5 2022-07-13   5.40
-#>  6 2022-07-14   5.46
-#>  7 2022-07-15   5.40
-#>  8 2022-07-18   5.37
-#>  9 2022-07-19   5.39
-#> 10 2022-07-20   5.43
+#>  1 2022-07-12   5.41
+#>  2 2022-07-13   5.40
+#>  3 2022-07-14   5.46
+#>  4 2022-07-15   5.40
+#>  5 2022-07-18   5.37
+#>  6 2022-07-19   5.39
+#>  7 2022-07-20   5.43
+#>  8 2022-07-21   5.48
+#>  9 2022-07-22   5.45
+#> 10 2022-07-25   5.41
 ```
 
 <a name="download-types"></a> The series can be downloaded in many
