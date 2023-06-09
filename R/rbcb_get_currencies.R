@@ -40,8 +40,7 @@ get_currency_list <- function() {
     return(get("TEMP_FILE_CURRENCY_LIST", envir = .CACHE_ENV))
   } else {
     res <- get_valid_currency_list()
-    x <- http_gettext(res)
-
+    x <- http_gettext(res, encoding="windows-1252")
     df <- read.table(text = x, sep = ";", header = TRUE, colClasses = "character")
     names(df) <- c("code", "name", "symbol", "country_code", "country_name", "type", "exclusion_date")
 
