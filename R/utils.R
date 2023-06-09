@@ -34,7 +34,7 @@ http_poster <- function(url, body, encode = "form", verbose = getOption("rbcb_ve
 http_gettext <- function(res, encoding = "UTF-8", as = "raw") {
   x <- content(res, as = as, encoding = encoding)
   if (as == "raw") {
-    rawToChar(x)%>%iconv(from=encoding)
+    iconv(rawToChar(x),from=encoding)
   } else {
     x
   }
