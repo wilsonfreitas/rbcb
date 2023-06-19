@@ -32,7 +32,8 @@ Suggests:
     miniUI,
     shiny,
     dplyr,
-    covr
+    covr,
+    withr
 Collate:
   'rbcb-package.R'
   'rbcb_get.R'
