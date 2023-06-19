@@ -26,7 +26,7 @@ Imports:
     methods,
     purrr,
     digest
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0),
     miniUI,
