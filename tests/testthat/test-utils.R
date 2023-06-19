@@ -1,5 +1,6 @@
 test_that("it should test http download", {
   url <- "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/Moedas"
+  options(rbcb_cache = TRUE)
   f <- http_download("get", url)
   expect_message(http_download("get", url))
   expect_true(file.exists(f))
