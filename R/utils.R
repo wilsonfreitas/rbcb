@@ -1,10 +1,10 @@
-
 http_getter <- function(url, verbose = getOption("rbcb_verbose", default = FALSE)) {
+  h <- httr::handle("")
   res <- GET(
     url = url,
     config = list(),
     if (verbose) verbose(),
-    add_headers("User-Agent" = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36")
+    handle = h
   )
   if (status_code(res) != 200) {
     msg <- sprintf("Request error %s\n", status_code(res))
