@@ -3,7 +3,7 @@
 The API provides requests for annual, monthly, and quarterly expectations.
 Is is also proveided expectations for 12 months ahead, specific requests for
 the top 5 indicators for annual and monthly expectations and data provided
-by financial institutions."><title>Get market expectations — get_market_expectations • rbcb</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Get market expectations — get_market_expectations"><meta property="og:description" content="General function to get statistics of market expectations.
+by financial institutions."><title>Get market expectations — get_market_expectations • rbcb</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Get market expectations — get_market_expectations"><meta property="og:description" content="General function to get statistics of market expectations.
 The API provides requests for annual, monthly, and quarterly expectations.
 Is is also proveided expectations for 12 months ahead, specific requests for
 the top 5 indicators for annual and monthly expectations and data provided
@@ -65,7 +65,7 @@ by financial institutions.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_market_expectations</span><span class="op">(</span></span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"annual"</span>, <span class="st">"quarterly"</span>, <span class="st">"monthly"</span>, <span class="st">"inflation-12-months"</span>, <span class="st">"top5s-monthly"</span>,</span>
-<span>    <span class="st">"top5s-annual"</span>, <span class="st">"institutions"</span>, <span class="st">"selic"</span>, <span class="st">"top5s-selic"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"top5s-annual"</span>, <span class="st">"selic"</span>, <span class="st">"top5s-selic"</span><span class="op">)</span>,</span>
 <span>  indic <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  start_date <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  end_date <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -78,8 +78,7 @@ by financial institutions.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>type</dt>
 <dd><p>a character with one of the following: <code>annual</code>, <code>quarterly</code>
-<code>monthly</code>, <code>inflation-12-months</code>, <code>top5s-monthly</code>, <code>top5s-annual</code>,
-<code>institutions</code>.</p></dd>
+<code>monthly</code>, <code>inflation-12-months</code>, <code>top5s-monthly</code>, <code>top5s-annual</code>.</p></dd>
 
 
 <dt>indic</dt>
@@ -106,13 +105,14 @@ names (in english).</p></dd>
 <dt>...</dt>
 <dd><p>additional parameters to be passed to the API</p>
 <p><code>type</code> defines the API used to fetch data.</p>
-<ul><li><p><code>annual</code>: refers to the API *Expectativas de Mercado Anuais* for annual market expectations</p></li>
+<ul><li><p><code>selic</code>: refers to the API *Expectativas de Mercado Selic - Estatísticas* for SELIC rate expectations</p></li>
+<li><p><code>annual</code>: refers to the API *Expectativas de Mercado Anuais* for annual market expectations</p></li>
 <li><p><code>quarterly</code>: refers to the API *Expectativas de Mercado Trimestrais* for quarterly market expectations</p></li>
 <li><p><code>monthly</code>: refers to the API *Expectativas de Mercado Mensais* for monthly market expectations</p></li>
 <li><p><code>inflation-12-months</code>: refers to the API *Expectativas de mercado para inflação nos próximos 12 meses* for market expectations of inflation indexes for the next 12 months.</p></li>
-<li><p><code>top5s-monthly</code>: refers to the API *Expectativas de mercado mensais para os indicadores do Top 5* for monthly market expectations of top 5 indicators</p></li>
-<li><p><code>top5s-annual</code>: refers to the API *Expectativas de mercado anuais para os indicadores do Top 5* for annual market expectations of top 5 indicators</p></li>
-<li><p><code>institutions</code>: refers to the API *Expectativas de mercado informadas pelas instituições credenciadas* for market expectations sent by institutions</p></li>
+<li><p><code>top5s-selic</code>: refers to the API *Expectativas de Mercado Selic Top5* for SELIC rate expectations of top 5's</p></li>
+<li><p><code>top5s-monthly</code>: refers to the API *Expectativas de mercado mensais para os indicadores do Top 5* for monthly market expectations of top 5's</p></li>
+<li><p><code>top5s-annual</code>: refers to the API *Expectativas de mercado anuais para os indicadores do Top 5* for annual market expectations of top 5's</p></li>
 </ul><p><code>indic</code> argument must be one of indicators listed in Details.
 Respecting the case, blank spaces and accents.</p>
 <p>The <code>...</code> is to be used with API's parameters. <code>$top</code> to specify
@@ -189,9 +189,6 @@ for more details</p>
 <span class="r-in"><span><span class="co"># get all inflation expectations for 12 months ahead starting on 2021-01</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">get_market_expectations</span><span class="op">(</span><span class="st">"inflation-12-months"</span>, start_date <span class="op">=</span> <span class="st">"2021-01-01"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># get all IPCA expectations informed by financial institutions since 2020</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">get_market_expectations</span><span class="op">(</span><span class="st">"institutions"</span>, <span class="st">"IPCA"</span>, start_date <span class="op">=</span> <span class="st">"2020-01-01"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># get all SELIC expectations informed by financial institutions since 2022</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">get_market_expectations</span><span class="op">(</span><span class="st">"selic"</span>, start_date <span class="op">=</span> <span class="st">"2022-01-01"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -210,7 +207,7 @@ for more details</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
     </footer></div>
