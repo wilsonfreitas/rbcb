@@ -1,4 +1,3 @@
-
 #' Get monthly market expectations of economic indicators
 #'
 #' Statistics for the monthly expectations of economic indicators.
@@ -407,91 +406,6 @@ get_top5s_annual_market_expectations <- function(indic = NULL, start_date = NULL
 }
 
 
-#' Get market expectations sent by officially recognized Institutions that
-#' contribute with expectations
-#'
-#' Statistics of market expectations sent by institutions.
-#' All statistics are computed based on expectations provided by many financial
-#' institutions in Brazil: banks, funds, risk managers, so on and so forth.
-#' These expections and its statistics are used to build the FOCUS Report weekly
-#' released by the Brazilian Central Bank.
-#'
-#' There are market expectations available for the following indicators:
-#'
-#' \itemize{
-#' \item Balança Comercial
-#' \item Câmbio
-#' \item Conta corrente
-#' \item Dívida bruta do governo geral
-#' \item Dívida líquida do setor público
-#' \item IGP-DI
-#' \item IGP-M
-#' \item INPC
-#' \item Investimento direto no país
-#' \item IPA-DI
-#' \item IPA-M
-#' \item IPCA
-#' \item IPCA Administrados
-#' \item IPCA Alimentação no domicílio
-#' \item IPCA Bens industrializados
-#' \item IPCA Livres
-#' \item IPCA Serviços
-#' \item IPCA-15
-#' \item IPC-FIPE
-#' \item PIB Agropecuária
-#' \item PIB Despesa de consumo da administração pública
-#' \item PIB despesa de consumo das famílias
-#' \item PIB Exportação de bens e serviços
-#' \item PIB Formação Bruta de Capital Fixo
-#' \item PIB Importação de bens e serviços
-#' \item PIB Indústria
-#' \item PIB Serviços
-#' \item PIB Total
-#' \item Produção industrial
-#' \item Resultado nominal
-#' \item Resultado primário
-#' \item Selic
-#' \item Taxa de desocupação
-#' }
-#'
-#' Check <https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/documentacao#ExpectativasMercadoInstituicoes>
-#' for more details
-#'
-#' @param indic a character vector with economic indicators names.
-#' They are case sensitive and don't forget the accents.
-#' @param start_date series initial date.
-#' Accepts ISO character formated date and \code{Date}.
-#' @param end_date series final date.
-#' Accepts ISO character formated date and \code{Date}.
-#' @param ... additional parameters to be passed to the API
-#'
-#' \code{indic} argument must be one of indicators listed in Details.
-#' Respecting the case, blank spaces and accents.
-#'
-#' The \code{...} is to be used with API's parameters. \code{$top} to specify
-#' the maximum number of rows to be returned, this returns the \code{$top} rows,
-#' in chronological order. There is also \code{$skip} to ignore the first rows.
-#'
-#' @return
-#' A \code{data.frame} with the requested data.
-#'
-#' @examples
-#' \dontrun{
-#' indic <- "IPCA"
-#' x <- get_institutions_market_expectations(indic, `$top` = 10)
-#'
-#' x <- get_institutions_market_expectations(`$top` = 20)
-#' }
-#'
-#' @export
-get_institutions_market_expectations <- function(indic = NULL, start_date = NULL,
-                                                 end_date = NULL, ...) {
-  get_market_expectations("institutions", indic, start_date, end_date,
-    keep_names = FALSE, ...
-  )
-}
-
-
 #' Get Selic market expectations
 #'
 #' Statistics of Selic market expectations.
@@ -627,8 +541,7 @@ get_top5s_selic_market_expectations <- function(start_date = NULL,
 #' for more details
 #'
 #' @param type a character with one of the following: \code{annual}, \code{quarterly}
-#' \code{monthly}, \code{inflation-12-months}, \code{top5s-monthly}, \code{top5s-annual},
-#' \code{institutions}.
+#' \code{monthly}, \code{inflation-12-months}, \code{top5s-monthly}, \code{top5s-annual}.
 #' @param indic a character vector with economic indicators names.
 #' They are case sensitive and don't forget the accents.
 #' @param start_date series initial date.
@@ -643,13 +556,14 @@ get_top5s_selic_market_expectations <- function(start_date = NULL,
 #' \code{type} defines the API used to fetch data.
 #'
 #' \itemize{
+#' \item \code{selic}: refers to the API *Expectativas de Mercado Selic - Estatísticas* for SELIC rate expectations
 #' \item \code{annual}: refers to the API *Expectativas de Mercado Anuais* for annual market expectations
 #' \item \code{quarterly}: refers to the API *Expectativas de Mercado Trimestrais* for quarterly market expectations
 #' \item \code{monthly}: refers to the API *Expectativas de Mercado Mensais* for monthly market expectations
 #' \item \code{inflation-12-months}: refers to the API *Expectativas de mercado para inflação nos próximos 12 meses* for market expectations of inflation indexes for the next 12 months.
-#' \item \code{top5s-monthly}: refers to the API *Expectativas de mercado mensais para os indicadores do Top 5* for monthly market expectations of top 5 indicators
-#' \item \code{top5s-annual}: refers to the API *Expectativas de mercado anuais para os indicadores do Top 5* for annual market expectations of top 5 indicators
-#' \item \code{institutions}: refers to the API *Expectativas de mercado informadas pelas instituições credenciadas* for market expectations sent by institutions
+#' \item \code{top5s-selic}: refers to the API *Expectativas de Mercado Selic Top5* for SELIC rate expectations of top 5's
+#' \item \code{top5s-monthly}: refers to the API *Expectativas de mercado mensais para os indicadores do Top 5* for monthly market expectations of top 5's
+#' \item \code{top5s-annual}: refers to the API *Expectativas de mercado anuais para os indicadores do Top 5* for annual market expectations of top 5's
 #' }
 #'
 #' \code{indic} argument must be one of indicators listed in Details.
@@ -680,9 +594,6 @@ get_top5s_selic_market_expectations <- function(start_date = NULL,
 #' # get all inflation expectations for 12 months ahead starting on 2021-01
 #' x <- get_market_expectations("inflation-12-months", start_date = "2021-01-01")
 #'
-#' # get all IPCA expectations informed by financial institutions since 2020
-#' x <- get_market_expectations("institutions", "IPCA", start_date = "2020-01-01")
-#'
 #' # get all SELIC expectations informed by financial institutions since 2022
 #' x <- get_market_expectations("selic", start_date = "2022-01-01")
 #'
@@ -698,7 +609,6 @@ get_market_expectations <- function(type = c(
                                       "inflation-12-months",
                                       "top5s-monthly",
                                       "top5s-annual",
-                                      "institutions",
                                       "selic",
                                       "top5s-selic"
                                     ),
@@ -739,7 +649,6 @@ get_market_expectations <- function(type = c(
     "inflation-12-months" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses",
     "top5s-monthly" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais",
     "top5s-annual" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais",
-    "institutions" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInstituicoes",
     "selic" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoSelic",
     "top5s-selic" = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic",
   )

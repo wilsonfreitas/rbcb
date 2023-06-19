@@ -6,7 +6,7 @@
 \usage{
 get_market_expectations(
   type = c("annual", "quarterly", "monthly", "inflation-12-months", "top5s-monthly",
-    "top5s-annual", "institutions", "selic", "top5s-selic"),
+    "top5s-annual", "selic", "top5s-selic"),
   indic = NULL,
   start_date = NULL,
   end_date = NULL,
@@ -16,8 +16,7 @@ get_market_expectations(
 }
 \arguments{
 \item{type}{a character with one of the following: \code{annual}, \code{quarterly}
-\code{monthly}, \code{inflation-12-months}, \code{top5s-monthly}, \code{top5s-annual},
-\code{institutions}.}
+\code{monthly}, \code{inflation-12-months}, \code{top5s-monthly}, \code{top5s-annual}.}
 
 \item{indic}{a character vector with economic indicators names.
 They are case sensitive and don't forget the accents.}
@@ -37,13 +36,14 @@ names (in english).}
 \code{type} defines the API used to fetch data.
 
 \itemize{
+\item \code{selic}: refers to the API *Expectativas de Mercado Selic - Estatísticas* for SELIC rate expectations
 \item \code{annual}: refers to the API *Expectativas de Mercado Anuais* for annual market expectations
 \item \code{quarterly}: refers to the API *Expectativas de Mercado Trimestrais* for quarterly market expectations
 \item \code{monthly}: refers to the API *Expectativas de Mercado Mensais* for monthly market expectations
 \item \code{inflation-12-months}: refers to the API *Expectativas de mercado para inflação nos próximos 12 meses* for market expectations of inflation indexes for the next 12 months.
-\item \code{top5s-monthly}: refers to the API *Expectativas de mercado mensais para os indicadores do Top 5* for monthly market expectations of top 5 indicators
-\item \code{top5s-annual}: refers to the API *Expectativas de mercado anuais para os indicadores do Top 5* for annual market expectations of top 5 indicators
-\item \code{institutions}: refers to the API *Expectativas de mercado informadas pelas instituições credenciadas* for market expectations sent by institutions
+\item \code{top5s-selic}: refers to the API *Expectativas de Mercado Selic Top5* for SELIC rate expectations of top 5's
+\item \code{top5s-monthly}: refers to the API *Expectativas de mercado mensais para os indicadores do Top 5* for monthly market expectations of top 5's
+\item \code{top5s-annual}: refers to the API *Expectativas de mercado anuais para os indicadores do Top 5* for annual market expectations of top 5's
 }
 
 \code{indic} argument must be one of indicators listed in Details.
@@ -127,9 +127,6 @@ x <- get_market_expectations("top5s-annual", `$top` = 20)
 
 # get all inflation expectations for 12 months ahead starting on 2021-01
 x <- get_market_expectations("inflation-12-months", start_date = "2021-01-01")
-
-# get all IPCA expectations informed by financial institutions since 2020
-x <- get_market_expectations("institutions", "IPCA", start_date = "2020-01-01")
 
 # get all SELIC expectations informed by financial institutions since 2022
 x <- get_market_expectations("selic", start_date = "2022-01-01")
