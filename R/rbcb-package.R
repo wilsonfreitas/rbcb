@@ -1,3 +1,6 @@
+#' @keywords internal
+"_PACKAGE"
+
 #' R interface to Brazilian Central Bank RESTful API
 #'
 #' The Brazilian Central Bank API delivers many datasets which regard economic
