@@ -1,3 +1,11 @@
+# rbcb 0.1.14
+
+* Correct BUG Issue #61 - Error importing quarterly data as ts objects
+
+# rbcb 0.1.13
+
+# rbcb 0.1.12
+
 # rbcb 0.1.11
 
 * created documentation site with pkgdown
