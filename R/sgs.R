@@ -217,12 +217,19 @@ sgs_untidy <- function(x, tidydf, as = c("tibble", "xts", "ts")) {
       freq <- if (is.null(x$info$frequency)) "D" else x$info$frequency
       freq_ <- switch(freq,
         "A" = 1,
+        "Q" = 4,
         "M" = 12,
         "D" = 366
       )
       start <- switch(freq,
         "A" = {
           as.integer(format(df$date[1], "%Y"))
+        },
+        "Q" = {
+          c(
+            as.integer(format(df$date[1], "%Y")),
+            as.integer(format(df$date[1], "%m")) %/% 3L + 1L
+          )
         },
         "M" = {
           c(

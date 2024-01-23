@@ -40,15 +40,28 @@ test_that("it should get series as ts", {
     skip_if_offline()
   }
 
+  x <- get_series(13521, start_date = "2012-01-01", as = "ts")
+  expect_equal(frequency(x), 1)
+  expect_s3_class(x, "ts")
+  expect_equal(start(x), c(2012, 1))
+
+  x <- get_series(28563, start_date = "2012-04-01", as = "ts")
+  expect_equal(frequency(x), 4)
+  expect_s3_class(x, "ts")
+  expect_equal(start(x), c(2012, 2))
+  x <- get_series(28563, start_date = "2022-02-01", as = "ts")
+  expect_equal(start(x), c(2022, 1))
+  x <- get_series(28563, start_date = "2022-05-01", as = "ts")
+  expect_equal(start(x), c(2022, 2))
+  x <- get_series(28563, start_date = "2022-08-01", as = "ts")
+  expect_equal(start(x), c(2022, 3))
+  x <- get_series(28563, start_date = "2022-11-01", as = "ts")
+  expect_equal(start(x), c(2022, 4))
+
   x <- get_series(c(IPCA = 433), start_date = "2017-01-01", as = "ts")
   expect_equal(frequency(x), 12)
   expect_s3_class(x, "ts")
   expect_equal(start(x), c(2017, 1))
-
-  x <- get_series(27569, start_date = "2012-01-01", as = "ts")
-  expect_equal(frequency(x), 1)
-  expect_s3_class(x, "ts")
-  expect_equal(start(x), c(2012, 1))
 
   x <- get_series(1, last = 10, as = "ts")
   expect_equal(frequency(x), 366)
