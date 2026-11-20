@@ -7,6 +7,8 @@
   - `sgs()` rejects invalid codes (zero, negative, non-numeric) directly.
 * Daily SGS series can be downloaded again without `start_date` (Issue #64). The API limits daily
   series to 10-year windows, so longer periods are downloaded in 10-year windows and combined.
+* The RStudio addins `rbcb_search()` and `rbcb_dataset()` work again: dataset search uses the
+  CKAN v3 API of dadosabertos.bcb.gov.br (Issue #68).
 
 # rbcb 0.1.14
 

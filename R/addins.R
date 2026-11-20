@@ -62,17 +62,6 @@ rbcb_search <- function(text = "") {
       data$results
     })
 
-    query_codes <- shiny::reactive({
-      x <- query_result()
-      sapply(x, function(.x) {
-        if (is.null(.x$extras$codigo_sgs)) {
-          NA_integer_
-        } else {
-          as.integer(.x$extras$codigo_sgs)
-        }
-      })
-    })
-
     output$page_count <- shiny::renderUI({
       page <- as.integer(offset() / 10) + 1L
       pages <- ceiling(page_count() / 10)
@@ -88,7 +77,7 @@ rbcb_search <- function(text = "") {
         return(NULL)
       }
       cmds <- sapply(df$cod_sgs, function(x) {
-        if (as.character(x) != "" && length(as.character(x))) {
+        if (!is.na(x) && x != "") {
           paste0("rbcb::get_series(", x, ")")
         } else {
           "NA"
@@ -123,12 +112,20 @@ rbcb_search <- function(text = "") {
 #'   [addin](http://rstudio.github.io/rstudioaddins/) that allows you to view
 #'   a few attributes that help to explain the desired data.
 #'
-#' @param name dataset name
+#' @param name dataset id (as shown by `rbcb_search()`) or name
 #'
 #' @return Addin has no return
 #'
 #' @export
 rbcb_dataset <- function(name) {
+  data <- tryCatch(dataset_info(name), rbcb_http_error = function(e) {
+    if (e$status != 404) stop(e)
+    stop("Dataset not found: '", name, "'. ",
+      "Use the dataset id shown by rbcb_search().",
+      call. = FALSE
+    )
+  })
+
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("rbcb dataset"),
     miniUI::miniContentPanel(
@@ -145,12 +142,7 @@ rbcb_dataset <- function(name) {
   )
 
   server <- function(input, output, session) {
-    query_result <- shiny::reactive({
-      dataset_info(name)
-    })
-
     output$title <- shiny::renderUI({
-      data <- query_result()
       shiny::tags$div(
         shiny::tags$strong("Title: "),
         data$title
@@ -158,7 +150,6 @@ rbcb_dataset <- function(name) {
     })
 
     output$name <- shiny::renderUI({
-      data <- query_result()
       shiny::tags$div(
         shiny::tags$strong("Name: "),
         name
@@ -166,7 +157,6 @@ rbcb_dataset <- function(name) {
     })
 
     output$author <- shiny::renderUI({
-      data <- query_result()
       shiny::tags$div(
         shiny::tags$strong("Author: "),
         data$author
@@ -174,19 +164,20 @@ rbcb_dataset <- function(name) {
     })
 
     output$url <- shiny::renderUI({
-      data <- query_result()
       shiny::tags$div(
         shiny::tags$strong("URL: "),
-        shiny::tags$a(data$ckan_url, href = data$ckan_url)
+        shiny::tags$a(
+          paste0("https://dadosabertos.bcb.gov.br/dataset/", data$name),
+          href = paste0("https://dadosabertos.bcb.gov.br/dataset/", data$name)
+        )
       )
     })
 
     output$notes <- shiny::renderUI({
-      data <- query_result()
       shiny::tags$div(
         shiny::tags$strong("Description: "),
         shiny::tags$br(),
-        shiny::HTML(data$notes_rendered)
+        data$notes
       )
     })
 

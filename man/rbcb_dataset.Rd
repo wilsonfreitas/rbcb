@@ -7,7 +7,7 @@
 rbcb_dataset(name)
 }
 \arguments{
-\item{name}{dataset name}
+\item{name}{dataset id (as shown by `rbcb_search()`) or name}
 }
 \value{
 Addin has no return
