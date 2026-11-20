@@ -22,3 +22,11 @@ Useful links:
 - <https://wilsonfreitas.github.io/rbcb/>
 
 - Report bugs at <https://github.com/wilsonfreitas/rbcb/issues>
+
+Useful links:
+
+- <https://github.com/wilsonfreitas/rbcb>
+
+- <https://wilsonfreitas.github.io/rbcb/>
+
+- Report bugs at <https://github.com/wilsonfreitas/rbcb/issues>

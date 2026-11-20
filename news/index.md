@@ -6,6 +6,15 @@
   [`olinda_get_currency()`](https://wilsonfreitas.github.io/rbcb/reference/olinda_get_currency.md):
   the PTAX OData API now requires dates as MM-DD-YYYY (Issue
   [\#67](https://github.com/wilsonfreitas/rbcb/issues/67))
+- [`sgs()`](https://wilsonfreitas.github.io/rbcb/reference/sgs.md) and
+  `get_series(as = "ts")` no longer fail when the SGS website is down
+  (Issue [\#66](https://github.com/wilsonfreitas/rbcb/issues/66)):
+  - [`sgs()`](https://wilsonfreitas.github.io/rbcb/reference/sgs.md) now
+    defaults to `load_info = FALSE`; the metadata page returns HTTP 502.
+  - `get_series(as = "ts")` infers the series frequency from the dates
+    instead of the metadata.
+  - [`sgs()`](https://wilsonfreitas.github.io/rbcb/reference/sgs.md)
+    rejects invalid codes (zero, negative, non-numeric) directly.
 
 ## rbcb 0.1.14
 

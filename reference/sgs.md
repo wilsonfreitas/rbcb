@@ -6,7 +6,7 @@ datasets from the SGS API.
 ## Usage
 
 ``` r
-sgs(..., load_info = TRUE)
+sgs(..., load_info = FALSE)
 ```
 
 ## Arguments
@@ -18,7 +18,8 @@ sgs(..., load_info = TRUE)
 - load_info:
 
   \`logical\` indicating with the dataset info shoud be loaded (default
-  TRUE)
+  FALSE). The info is scraped from the SGS website, which is often
+  unavailable.
 
 ## Value
 

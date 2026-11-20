@@ -34,6 +34,15 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="rbcb-development-version">rbcb (development version)<a class="anchor" aria-label="anchor" href="#rbcb-development-version"></a></h2>
 <ul><li>Fix <code><a href="../reference/olinda_get_currency.html">olinda_get_currency()</a></code>: the PTAX OData API now requires dates as MM-DD-YYYY (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/67" class="external-link">#67</a>)</li>
+<li>
+<code><a href="../reference/sgs.html">sgs()</a></code> and <code>get_series(as = "ts")</code> no longer fail when the SGS website is down (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/66" class="external-link">#66</a>):
+<ul><li>
+<code><a href="../reference/sgs.html">sgs()</a></code> now defaults to <code>load_info = FALSE</code>; the metadata page returns HTTP 502.</li>
+<li>
+<code>get_series(as = "ts")</code> infers the series frequency from the dates instead of the metadata.</li>
+<li>
+<code><a href="../reference/sgs.html">sgs()</a></code> rejects invalid codes (zero, negative, non-numeric) directly.</li>
+</ul></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.14" id="rbcb-0114">rbcb 0.1.14<a class="anchor" aria-label="anchor" href="#rbcb-0114"></a></h2><p class="text-muted">CRAN release: 2024-01-25</p>
