@@ -11,9 +11,9 @@ sgs_obj <- function(code, load_info = TRUE) {
   env <- list()
   env$unamed <- unamed
   env$name <- name_
-  env$code <- as.numeric(code)
-  if (is.na(env$code)) {
-    stop("Invalid series code: ", as.numeric(code))
+  env$code <- suppressWarnings(as.numeric(code))
+  if (is.na(env$code) || env$code < 1) {
+    stop("Invalid series code: ", code)
   }
   env$info <- if (load_info) sgs_info(env) else NULL
   structure(env, class = "sgs_obj")
@@ -79,7 +79,8 @@ sgs_parse_info <- function(x, f) {
 #'
 #' @param ... numeric codes (preferably named)
 #' @param load_info `logical` indicating with the dataset info shoud be loaded
-#'        (default TRUE)
+#'        (default FALSE). The info is scraped from the SGS website, which is
+#'        often unavailable.
 #'
 #' @return an SGS object representing SGS codes
 #' @examples
@@ -87,7 +88,7 @@ sgs_parse_info <- function(x, f) {
 #' sgs(USD = 1, IPCA = 433)
 #' }
 #' @export
-sgs <- function(..., load_info = TRUE) {
+sgs <- function(..., load_info = FALSE) {
   codes <- list(...)
   objs <- lapply(seq_along(codes), function(ix) {
     sgs_obj(codes[ix], load_info)
@@ -214,7 +215,7 @@ sgs_untidy <- function(x, tidydf, as = c("tibble", "xts", "ts")) {
       df
     },
     "ts" = {
-      freq <- if (is.null(x$info$frequency)) "D" else x$info$frequency
+      freq <- .sgs_infer_frequency(df$date)
       freq_ <- switch(freq,
         "A" = 1,
         "Q" = 4,
@@ -247,4 +248,13 @@ sgs_untidy <- function(x, tidydf, as = c("tibble", "xts", "ts")) {
       ts(df$value, start = start, frequency = freq_)
     }
   )
+}
+# Infer SGS frequency code from the typical gap between dates (in days).
+# Gaps not matching A/Q/M (e.g. weekly) fall back to "D", as before.
+.sgs_infer_frequency <- function(dates) {
+  if (length(dates) < 2) {
+    return("D")
+  }
+  gap <- stats::median(abs(diff(as.numeric(dates))))
+  if (gap >= 360) "A" else if (gap >= 85) "Q" else if (gap >= 28) "M" else "D"
 }

@@ -2,7 +2,6 @@
 % Please edit documentation in R/rbcb-package.R
 \docType{package}
 \name{rbcb-package}
-\alias{rbcb}
 \alias{rbcb-package}
 \title{rbcb: R Interface to Brazilian Central Bank Web Services}
 \description{
@@ -17,6 +16,14 @@ These datasets can be accessed through \code{rbcb} functions and can be obtained
 different data structures common to R (tibble, data.frame, xts, ...).
 }
 \seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/wilsonfreitas/rbcb}
+  \item \url{https://wilsonfreitas.github.io/rbcb/}
+  \item Report bugs at \url{https://github.com/wilsonfreitas/rbcb/issues}
+}
+
+
 Useful links:
 \itemize{
   \item \url{https://github.com/wilsonfreitas/rbcb}

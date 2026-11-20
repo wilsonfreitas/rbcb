@@ -4,13 +4,14 @@
 \alias{sgs}
 \title{Create SGS code}
 \usage{
-sgs(..., load_info = TRUE)
+sgs(..., load_info = FALSE)
 }
 \arguments{
 \item{...}{numeric codes (preferably named)}
 
 \item{load_info}{`logical` indicating with the dataset info shoud be loaded
-(default TRUE)}
+(default FALSE). The info is scraped from the SGS website, which is
+often unavailable.}
 }
 \value{
 an SGS object representing SGS codes

@@ -131,3 +131,11 @@ test_that("it should get multiple series", {
   expect_equal(length(x), 2)
   expect_equal(sort(names(x)), c("1178", "USD"))
 })
+test_that("it should infer series frequency from dates", {
+  d <- function(...) as.Date(c(...))
+  expect_equal(.sgs_infer_frequency(d("2023-01-01", "2024-01-01", "2025-01-01")), "A")
+  expect_equal(.sgs_infer_frequency(d("2022-01-01", "2022-04-01", "2022-07-01")), "Q")
+  expect_equal(.sgs_infer_frequency(d("2026-02-01", "2026-03-01", "2026-04-01")), "M")
+  expect_equal(.sgs_infer_frequency(d("2026-11-19", "2026-11-18", "2026-11-17")), "D")
+  expect_equal(.sgs_infer_frequency(d("2026-11-19")), "D")
+})

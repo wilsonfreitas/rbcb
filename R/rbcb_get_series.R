@@ -44,7 +44,7 @@ get_series <- function(code, start_date = NULL, end_date = NULL, last = 0,
                        as = c("tibble", "xts", "ts", "data.frame", "text")) {
   as <- match.arg(as)
   sgs_args <- as.list(code)
-  sgs_args$load_info <- (as == "ts")
+  sgs_args$load_info <- FALSE
   objs <- do.call(sgs, sgs_args)
 
   df_tidy <- rbcb_get(objs, start_date, end_date, last)
