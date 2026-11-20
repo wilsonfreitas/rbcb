@@ -7,7 +7,7 @@
 [![](http://cranlogs.r-pkg.org/badges/last-month/rbcb)](https://cran.r-project.org/package=rbcb)
 [![R-CMD-check](https://github.com/wilsonfreitas/rbcb/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/wilsonfreitas/rbcb/actions/workflows/check-standard.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/wilsonfreitas/rbcb/branch/master/graph/badge.svg)](https://app.codecov.io/gh/wilsonfreitas/rbcb?branch=master)
+coverage](https://codecov.io/gh/wilsonfreitas/rbcb/branch/main/graph/badge.svg)](https://app.codecov.io/gh/wilsonfreitas/rbcb?branch=main)
 <!-- badges: end -->
 
 An interface to structure the information provided by the [Brazilian
