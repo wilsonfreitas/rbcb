@@ -11,16 +11,16 @@
 #     consultada pela respectiva taxa.
 
 olinda_currency_url <- function(symbol, start_date, end_date) {
-  start_date <- format(as.Date(start_date), "%m/%d/%Y")
-  end_date <- format(as.Date(end_date), "%m/%d/%Y")
+  start_date <- format(as.Date(start_date), "%m-%d-%Y")
+  end_date <- format(as.Date(end_date), "%m-%d-%Y")
   url <- "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?%%40moeda='%s'&%%40dataInicial='%s'&%%40dataFinalCotacao='%s'"
   sprintf(url, symbol, start_date, end_date)
 }
 
 
 olinda_usd_url <- function(start_date, end_date) {
-  start_date <- format(as.Date(start_date), "%m/%d/%Y")
-  end_date <- format(as.Date(end_date), "%m/%d/%Y")
+  start_date <- format(as.Date(start_date), "%m-%d-%Y")
+  end_date <- format(as.Date(end_date), "%m-%d-%Y")
   url <- "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?%%40dataInicial='%s'&%%40dataFinalCotacao='%s'"
   sprintf(url, start_date, end_date)
 }

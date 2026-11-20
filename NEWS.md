@@ -1,3 +1,7 @@
+# rbcb (development version)
+
+* Fix `olinda_get_currency()`: the PTAX OData API now requires dates as MM-DD-YYYY (Issue #67)
+
 # rbcb 0.1.14
 
 * Correct BUG Issue #61 - Error importing quarterly data as ts objects
