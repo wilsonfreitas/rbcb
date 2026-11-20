@@ -19,6 +19,13 @@
   [\#64](https://github.com/wilsonfreitas/rbcb/issues/64)). The API
   limits daily series to 10-year windows, so longer periods are
   downloaded in 10-year windows and combined.
+- The RStudio addins
+  [`rbcb_search()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_search.md)
+  and
+  [`rbcb_dataset()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_dataset.md)
+  work again: dataset search uses the CKAN v3 API of
+  dadosabertos.bcb.gov.br (Issue
+  [\#68](https://github.com/wilsonfreitas/rbcb/issues/68)).
 
 ## rbcb 0.1.14
 

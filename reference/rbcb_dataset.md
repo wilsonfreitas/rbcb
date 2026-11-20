@@ -15,7 +15,7 @@ rbcb_dataset(name)
 
 - name:
 
-  dataset name
+  dataset id (as shown by \`rbcb_search()\`) or name
 
 ## Value
 
