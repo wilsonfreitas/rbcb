@@ -5,6 +5,8 @@
   - `sgs()` now defaults to `load_info = FALSE`; the metadata page returns HTTP 502.
   - `get_series(as = "ts")` infers the series frequency from the dates instead of the metadata.
   - `sgs()` rejects invalid codes (zero, negative, non-numeric) directly.
+* Daily SGS series can be downloaded again without `start_date` (Issue #64). The API limits daily
+  series to 10-year windows, so longer periods are downloaded in 10-year windows and combined.
 
 # rbcb 0.1.14
 

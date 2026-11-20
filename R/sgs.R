@@ -137,10 +137,45 @@ print.sgs <- function(x, ...) {
 #' @export
 rbcb_get.sgs <- function(x, from = NULL, to = NULL, last = 0, ...) {
   map_dfr(x, function(ser) {
-    url <- sgs_url(ser, from, to, last)
-    f <- http_download("get", url)
-    sgs_create_series(ser, f)
+    files <- sgs_download(ser, from, to, last)
+    map_dfr(files, function(f) sgs_create_series(ser, f))
   })
+}
+
+# Daily series accept at most a 10-year window (HTTP 406). On 406 the range is
+# downloaded in 10-year windows, from `to` back to `from` or to the first empty
+# window (HTTP 404), which marks the start of the series.
+sgs_download <- function(x, from, to, last) {
+  if (last != 0) {
+    return(http_download("get", sgs_url(x, last = last)))
+  }
+  tryCatch(
+    http_download("get", sgs_url(x, from, to)),
+    rbcb_http_error = function(e) {
+      if (e$status != 406) stop(e)
+      sgs_download_windows(x, from, to)
+    }
+  )
+}
+
+sgs_download_windows <- function(x, from, to) {
+  from <- if (is.null(from)) as.Date("1900-01-01") else as.Date(from)
+  end <- if (is.null(to)) Sys.Date() else as.Date(to)
+  files <- character(0)
+  while (end >= from) {
+    start <- max(from, seq(end, by = "-10 years", length.out = 2)[2] + 1)
+    f <- tryCatch(
+      http_download("get", sgs_url(x, start, end)),
+      rbcb_http_error = function(e) if (e$status == 404) NULL else stop(e)
+    )
+    if (is.null(f)) break
+    files <- c(f, files)
+    end <- start - 1
+  }
+  if (length(files) == 0) {
+    stop("BCB SGS: no data for code ", x$code, " in the requested period")
+  }
+  files
 }
 
 sgs_create_series <- function(x, json) {

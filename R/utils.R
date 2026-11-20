@@ -6,12 +6,7 @@ http_getter <- function(url, verbose = getOption("rbcb_verbose", default = FALSE
     handle = h,
     if (verbose) verbose()
   )
-  if (status_code(res) != 200) {
-    msg <- sprintf("Request error %s\n", status_code(res))
-    stop(msg, "URL:", url)
-  } else {
-    res
-  }
+  if (status_code(res) != 200) http_error(res, url) else res
 }
 
 http_poster <- function(url, body, encode = "form", verbose = getOption("rbcb_verbose", default = FALSE)) {
@@ -22,12 +17,19 @@ http_poster <- function(url, body, encode = "form", verbose = getOption("rbcb_ve
     encode = encode,
     if (verbose) verbose()
   )
-  if (status_code(res) != 200) {
-    msg <- sprintf("Request error %s\n", status_code(res))
-    stop(msg, "URL:", url)
-  } else {
-    res
-  }
+  if (status_code(res) != 200) http_error(res, url) else res
+}
+
+# Classed error so callers can react to a specific HTTP status.
+http_error <- function(res, url) {
+  stop(structure(
+    class = c("rbcb_http_error", "error", "condition"),
+    list(
+      message = sprintf("Request error %s\nURL:%s", status_code(res), url),
+      call = NULL,
+      status = status_code(res)
+    )
+  ))
 }
 
 http_gettext <- function(res, encoding = "UTF-8", as = "raw") {

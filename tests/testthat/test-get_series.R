@@ -114,6 +114,9 @@ test_that("it should get series within a date period specifying only end_date", 
   x <- get_series(c(USD = 1), end_date = end)
   expect_s3_class(x$date, "Date")
   expect_true(x$date[nrow(x)] == end)
+  # daily series over 10 years are downloaded in windows back to the first value
+  expect_true(x$date[1] == "1984-11-28")
+  expect_false(is.unsorted(x$date))
 })
 
 test_that("it should get multiple series", {
