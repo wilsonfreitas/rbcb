@@ -1,5 +1,12 @@
 # Changelog
 
+## rbcb (development version)
+
+- Fix
+  [`olinda_get_currency()`](https://wilsonfreitas.github.io/rbcb/reference/olinda_get_currency.md):
+  the PTAX OData API now requires dates as MM-DD-YYYY (Issue
+  [\#67](https://github.com/wilsonfreitas/rbcb/issues/67))
+
 ## rbcb 0.1.14
 
 CRAN release: 2024-01-25
