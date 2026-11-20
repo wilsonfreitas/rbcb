@@ -15,6 +15,10 @@
     instead of the metadata.
   - [`sgs()`](https://wilsonfreitas.github.io/rbcb/reference/sgs.md)
     rejects invalid codes (zero, negative, non-numeric) directly.
+- Daily SGS series can be downloaded again without `start_date` (Issue
+  [\#64](https://github.com/wilsonfreitas/rbcb/issues/64)). The API
+  limits daily series to 10-year windows, so longer periods are
+  downloaded in 10-year windows and combined.
 
 ## rbcb 0.1.14
 
