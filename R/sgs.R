@@ -181,6 +181,18 @@ sgs_download_windows <- function(x, from, to) {
   files
 }
 
+# Raw JSON of one series; the 10-year windows are joined into one JSON array.
+sgs_json <- function(x, from, to, last) {
+  txt <- vapply(sgs_download(x, from, to, last), function(f) {
+    paste(readLines(f, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
+  }, "", USE.NAMES = FALSE)
+  if (length(txt) == 1) {
+    return(txt)
+  }
+  inner <- sub("(?s)^\\s*\\[(.*)\\]\\s*$", "\\1", txt, perl = TRUE)
+  paste0("[", paste(inner[nzchar(trimws(inner))], collapse = ","), "]")
+}
+
 # Period series (TR 226, TBF 253) also return `dataFim`; keep it as `enddate`.
 sgs_create_series <- function(x, json) {
   df_ <- fromJSON(json)

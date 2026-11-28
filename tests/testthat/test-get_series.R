@@ -58,7 +58,7 @@ test_that("it should get series as ts", {
   x <- get_series(28563, start_date = "2022-11-01", as = "ts")
   expect_equal(start(x), c(2022, 4))
 
-  x <- get_series(c(IPCA = 433), start_date = "2017-01-01", as = "ts")
+  x <- get_series(c(IPCA = 433), start_date = "2017-01-01", end_date = "2024-12-31", as = "ts")
   expect_equal(frequency(x), 12)
   expect_s3_class(x, "ts")
   expect_equal(start(x), c(2017, 1))
@@ -151,4 +151,15 @@ test_that("it should return the end date of period series", {
   expect_true(all(x$enddate > x$date))
   y <- get_series(c(TR = 226, USD = 1), last = 5)
   expect_equal(names(y$USD), c("date", "USD"))
+})
+
+test_that("it should return the raw JSON with as = 'text'", {
+  skip_on_cran()
+  skip_if_offline()
+  x <- get_series(1, last = 3, as = "text")
+  expect_type(x, "character")
+  expect_equal(nrow(jsonlite::fromJSON(x)), 3)
+  y <- get_series(c(USD = 1, SELIC = 1178), last = 2, as = "text")
+  expect_equal(names(y), c("USD", "SELIC"))
+  expect_equal(nrow(jsonlite::fromJSON(y$SELIC)), 2)
 })

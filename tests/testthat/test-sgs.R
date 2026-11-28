@@ -64,3 +64,14 @@ test_that("it should not add enddate to series without periods", {
   expect_equal(names(df), c("date", "value", "name"))
   expect_equal(names(.sgs_convert_split(x$USD, df, "tibble")), c("date", "USD"))
 })
+
+test_that("it should join the JSON of 10-year windows into one array", {
+  f1 <- tempfile(fileext = ".json")
+  f2 <- tempfile(fileext = ".json")
+  writeLines('[{"data":"01/01/2000","valor":"1"}]', f1)
+  writeLines('[\n{"data":"01/01/2010","valor":"2"},\n{"data":"02/01/2010","valor":"3"}\n]', f2)
+  local_mocked_bindings(sgs_download = function(...) c(f1, f2))
+  txt <- sgs_json(sgs(USD = 1)$USD, NULL, NULL, 0)
+  df <- jsonlite::fromJSON(txt)
+  expect_equal(df$valor, c("1", "2", "3"))
+})
