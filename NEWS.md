@@ -7,6 +7,10 @@
   - `sgs()` rejects invalid codes (zero, negative, non-numeric) directly.
 * Daily SGS series can be downloaded again without `start_date` (Issue #64). The API limits daily
   series to 10-year windows, so longer periods are downloaded in 10-year windows and combined.
+* SGS series that return a period for each value (TR 226, TBF 253) keep the end of the period
+  in a new `enddate` column, in `rbcb_get()` and in `get_series(as = "tibble")` /
+  `"data.frame"`. Before, the end date was dropped. `as = "xts"` and `"ts"` raise an error
+  when two periods share a start date (Issue #82).
 * The RStudio addins `rbcb_search()` and `rbcb_dataset()` work again: dataset search uses the
   CKAN v3 API of dadosabertos.bcb.gov.br (Issue #68).
 

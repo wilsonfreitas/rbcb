@@ -142,3 +142,13 @@ test_that("it should infer series frequency from dates", {
   expect_equal(.sgs_infer_frequency(d("2026-11-19", "2026-11-18", "2026-11-17")), "D")
   expect_equal(.sgs_infer_frequency(d("2026-11-19")), "D")
 })
+
+test_that("it should return the end date of period series", {
+  skip_on_cran()
+  skip_if_offline()
+  x <- get_series(c(TR = 226), last = 5)
+  expect_equal(names(x), c("date", "enddate", "TR"))
+  expect_true(all(x$enddate > x$date))
+  y <- get_series(c(TR = 226, USD = 1), last = 5)
+  expect_equal(names(y$USD), c("date", "USD"))
+})

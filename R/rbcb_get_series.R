@@ -22,6 +22,11 @@
 #' to \code{xts}, \code{data.frame}, \code{ts}, or \code{text} to return these other types.
 #' \code{text} returns the JSON data provided by the remote API.
 #'
+#' Series that return a period for each value (e.g. TR 226, TBF 253) have an
+#' extra \code{enddate} column in \code{tibble} and \code{data.frame} output.
+#' \code{xts} and \code{ts} are indexed by the start date only, and raise an
+#' error when two periods share a start date.
+#'
 #' @examples
 #' # download the entire series
 #' \dontrun{
