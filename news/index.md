@@ -26,6 +26,11 @@
   date was dropped. `as = "xts"` and `"ts"` raise an error when two
   periods share a start date (Issue
   [\#82](https://github.com/wilsonfreitas/rbcb/issues/82)).
+- `get_series(as = "text")` returns the raw JSON again: one string for
+  one series, or a named list for several series. Before, it returned
+  `NULL`. Periods longer than 10 years are joined into one JSON array,
+  as in python-bcb (Issue
+  [\#72](https://github.com/wilsonfreitas/rbcb/issues/72)).
 - The RStudio addins
   [`rbcb_search()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_search.md)
   and

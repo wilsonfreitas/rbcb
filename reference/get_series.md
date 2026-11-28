@@ -52,7 +52,9 @@ get_series(
 
 `tibble` is the default returning class, but the argument `as` can be
 set to `xts`, `data.frame`, `ts`, or `text` to return these other types.
-`text` returns the JSON data provided by the remote API.
+`text` returns the JSON data provided by the remote API: one string for
+one series, or a named list of strings for several series. Periods
+longer than 10 years are joined into one JSON array.
 
 Series that return a period for each value (e.g. TR 226, TBF 253) have
 an extra `enddate` column in `tibble` and `data.frame` output. `xts` and
