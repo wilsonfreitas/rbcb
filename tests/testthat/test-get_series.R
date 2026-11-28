@@ -58,7 +58,7 @@ test_that("it should get series as ts", {
   x <- get_series(28563, start_date = "2022-11-01", as = "ts")
   expect_equal(start(x), c(2022, 4))
 
-  x <- get_series(c(IPCA = 433), start_date = "2017-01-01", as = "ts")
+  x <- get_series(c(IPCA = 433), start_date = "2017-01-01", end_date = "2024-12-31", as = "ts")
   expect_equal(frequency(x), 12)
   expect_s3_class(x, "ts")
   expect_equal(start(x), c(2017, 1))
