@@ -31,6 +31,10 @@
   `NULL`. Periods longer than 10 years are joined into one JSON array,
   as in python-bcb (Issue
   [\#72](https://github.com/wilsonfreitas/rbcb/issues/72)).
+- SGS series are always returned oldest-first. With `last = N`, some
+  series (e.g. Selic 1178) came newest-first, so `as = "ts"` had a wrong
+  start and reversed values (Issue
+  [\#73](https://github.com/wilsonfreitas/rbcb/issues/73)).
 - The RStudio addins
   [`rbcb_search()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_search.md)
   and
