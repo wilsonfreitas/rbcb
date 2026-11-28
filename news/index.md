@@ -51,6 +51,11 @@
   open overnight got the first day’s data again for URLs that do not
   change, such as `get_series(code, last = N)` (Issue
   [\#75](https://github.com/wilsonfreitas/rbcb/issues/75)).
+- [`print()`](https://rdrr.io/r/base/print.html) of
+  [`sgs()`](https://wilsonfreitas.github.io/rbcb/reference/sgs.md)
+  objects shows the series names and codes again. The print methods were
+  not registered, so R printed the raw list (Issue
+  [\#77](https://github.com/wilsonfreitas/rbcb/issues/77)).
 - The RStudio addins
   [`rbcb_search()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_search.md)
   and

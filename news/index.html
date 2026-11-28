@@ -52,6 +52,8 @@
 <li>
 <code><a href="../reference/get_currency.html">get_currency()</a></code> with an unknown symbol stops with “Unknown currency symbol”. Before, it gave a confusing <code>-Inf</code> warning and built a URL with <code>-Inf</code> in it (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/76" class="external-link">#76</a>).</li>
 <li>Cached downloads expire after one day. Before, a session that stayed open overnight got the first day’s data again for URLs that do not change, such as <code>get_series(code, last = N)</code> (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/75" class="external-link">#75</a>).</li>
+<li>
+<code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> of <code><a href="../reference/sgs.html">sgs()</a></code> objects shows the series names and codes again. The print methods were not registered, so R printed the raw list (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/77" class="external-link">#77</a>).</li>
 <li>The RStudio addins <code><a href="../reference/rbcb_search.html">rbcb_search()</a></code> and <code><a href="../reference/rbcb_dataset.html">rbcb_dataset()</a></code> work again: dataset search uses the CKAN v3 API of dadosabertos.bcb.gov.br (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/68" class="external-link">#68</a>).</li>
 </ul></div>
     <div class="section level2">
