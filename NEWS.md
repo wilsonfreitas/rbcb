@@ -22,6 +22,9 @@
   (Issue #74).
 * `get_currency()` with an unknown symbol stops with "Unknown currency symbol". Before, it gave a
   confusing `-Inf` warning and built a URL with `-Inf` in it (Issue #76).
+* Cached downloads expire after one day. Before, a session that stayed open overnight got the
+  first day's data again for URLs that do not change, such as `get_series(code, last = N)`
+  (Issue #75).
 * The RStudio addins `rbcb_search()` and `rbcb_dataset()` work again: dataset search uses the
   CKAN v3 API of dadosabertos.bcb.gov.br (Issue #68).
 
