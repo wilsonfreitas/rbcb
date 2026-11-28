@@ -99,3 +99,31 @@ test_that("it should list currencies", {
   x <- list_currencies()
   expect_s3_class(x, "data.frame")
 })
+
+test_that("get_valid_currency_list goes back only on 404, at most 10 days", {
+  err <- function(status) {
+    stop(structure(
+      class = c("rbcb_http_error", "error", "condition"),
+      list(message = paste("Request error", status), call = NULL, status = status)
+    ))
+  }
+  calls <- 0
+  local_mocked_bindings(http_getter = function(url) {
+    calls <<- calls + 1
+    if (grepl("M20261127", url)) "ok" else err(404)
+  })
+  expect_equal(get_valid_currency_list(as.Date("2026-11-29")), "ok")
+  expect_equal(calls, 3)
+
+  calls <- 0
+  expect_error(get_valid_currency_list(as.Date("2026-01-31")), "last 10 days")
+  expect_equal(calls, 10)
+
+  calls <- 0
+  local_mocked_bindings(http_getter = function(url) {
+    calls <<- calls + 1
+    err(503)
+  })
+  expect_error(get_valid_currency_list(), "503")
+  expect_equal(calls, 1)
+})

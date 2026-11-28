@@ -24,14 +24,21 @@ currency_url <- function(id, start_date, end_date) {
 
 clear_cache <- function() rm(list = ls(.CACHE_ENV), pos = .CACHE_ENV)
 
-get_valid_currency_list <- function(date = Sys.Date()) {
-  url2 <- sprintf("https://www4.bcb.gov.br/Download/fechamento/M%s.csv", format(date, "%Y%m%d"))
-  res <- try(http_getter(url2), silent = TRUE)
-  if (!is(res, "try-error")) {
-    return(res)
-  } else {
-    get_valid_currency_list(date - 1)
+# The latest daily file: go back one day on 404 (weekends, holidays), at most
+# 10 days. Any other error (no network, server down) is raised at once.
+get_valid_currency_list <- function(date = Sys.Date(), max_days = 10) {
+  for (i in seq_len(max_days)) {
+    url2 <- sprintf("https://www4.bcb.gov.br/Download/fechamento/M%s.csv", format(date, "%Y%m%d"))
+    res <- tryCatch(http_getter(url2), rbcb_http_error = function(e) {
+      if (e$status != 404) stop(e)
+      NULL
+    })
+    if (!is.null(res)) {
+      return(res)
+    }
+    date <- date - 1
   }
+  stop("BCB PTAX: no currency list found in the last ", max_days, " days", call. = FALSE)
 }
 
 get_currency_list <- function() {
