@@ -20,6 +20,8 @@
   10 days, and only when a day has no file (HTTP 404). Before, any error (for example no network)
   made it go back one day at a time with no limit, until R stopped with "infinite recursion"
   (Issue #74).
+* `get_currency()` with an unknown symbol stops with "Unknown currency symbol". Before, it gave a
+  confusing `-Inf` warning and built a URL with `-Inf` in it (Issue #76).
 * The RStudio addins `rbcb_search()` and `rbcb_dataset()` work again: dataset search uses the
   CKAN v3 API of dadosabertos.bcb.gov.br (Issue #68).
 
