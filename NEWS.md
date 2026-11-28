@@ -25,6 +25,8 @@
 * Cached downloads expire after one day. Before, a session that stayed open overnight got the
   first day's data again for URLs that do not change, such as `get_series(code, last = N)`
   (Issue #75).
+* `print()` of `sgs()` objects shows the series names and codes again. The print methods were not
+  registered, so R printed the raw list (Issue #77).
 * The RStudio addins `rbcb_search()` and `rbcb_dataset()` work again: dataset search uses the
   CKAN v3 API of dadosabertos.bcb.gov.br (Issue #68).
 

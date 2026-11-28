@@ -87,3 +87,10 @@ test_that("it should sort series by date (some come newest-first)", {
   expect_equal(df$value, c(1, 2, 3))
   expect_false(is.unsorted(df$date))
 })
+
+test_that("it should print sgs objects", {
+  x <- sgs(USD = 1, 433)
+  expect_output(print(x), "-- SGS Series: USD")
+  expect_output(print(x), "-- SGS Series: `433`")
+  expect_output(print(x$USD), "Code: 1")
+})
