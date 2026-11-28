@@ -51,6 +51,7 @@
 <li>The currency list lookup (used by <code><a href="../reference/get_currency.html">get_currency()</a></code> and <code><a href="../reference/list_currencies.html">list_currencies()</a></code>) goes back at most 10 days, and only when a day has no file (HTTP 404). Before, any error (for example no network) made it go back one day at a time with no limit, until R stopped with “infinite recursion” (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/74" class="external-link">#74</a>).</li>
 <li>
 <code><a href="../reference/get_currency.html">get_currency()</a></code> with an unknown symbol stops with “Unknown currency symbol”. Before, it gave a confusing <code>-Inf</code> warning and built a URL with <code>-Inf</code> in it (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/76" class="external-link">#76</a>).</li>
+<li>Cached downloads expire after one day. Before, a session that stayed open overnight got the first day’s data again for URLs that do not change, such as <code>get_series(code, last = N)</code> (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/75" class="external-link">#75</a>).</li>
 <li>The RStudio addins <code><a href="../reference/rbcb_search.html">rbcb_search()</a></code> and <code><a href="../reference/rbcb_dataset.html">rbcb_dataset()</a></code> work again: dataset search uses the CKAN v3 API of dadosabertos.bcb.gov.br (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/68" class="external-link">#68</a>).</li>
 </ul></div>
     <div class="section level2">

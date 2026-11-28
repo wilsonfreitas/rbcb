@@ -47,6 +47,10 @@
   with an unknown symbol stops with “Unknown currency symbol”. Before,
   it gave a confusing `-Inf` warning and built a URL with `-Inf` in it
   (Issue [\#76](https://github.com/wilsonfreitas/rbcb/issues/76)).
+- Cached downloads expire after one day. Before, a session that stayed
+  open overnight got the first day’s data again for URLs that do not
+  change, such as `get_series(code, last = N)` (Issue
+  [\#75](https://github.com/wilsonfreitas/rbcb/issues/75)).
 - The RStudio addins
   [`rbcb_search()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_search.md)
   and
