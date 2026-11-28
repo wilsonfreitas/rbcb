@@ -97,6 +97,7 @@ sgs <- function(..., load_info = FALSE) {
   structure(objs, class = "sgs")
 }
 
+#' @export
 print.sgs_obj <- function(x, ...) {
   name <- if (x$unamed) {
     paste0("`", x$name, "`")
@@ -115,6 +116,7 @@ print.sgs_obj <- function(x, ...) {
   invisible(x)
 }
 
+#' @export
 print.sgs <- function(x, ...) {
   lapply(x, print.sgs_obj)
   invisible(x)
