@@ -14,6 +14,8 @@
 * `get_series(as = "text")` returns the raw JSON again: one string for one series, or a named
   list for several series. Before, it returned `NULL`. Periods longer than 10 years are joined
   into one JSON array, as in python-bcb (Issue #72).
+* SGS series are always returned oldest-first. With `last = N`, some series (e.g. Selic 1178)
+  came newest-first, so `as = "ts"` had a wrong start and reversed values (Issue #73).
 * The RStudio addins `rbcb_search()` and `rbcb_dataset()` work again: dataset search uses the
   CKAN v3 API of dadosabertos.bcb.gov.br (Issue #68).
 

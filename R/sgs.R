@@ -202,7 +202,8 @@ sgs_create_series <- function(x, json) {
   }
   out$value <- as.numeric(df_$valor)
   out$name <- x$name
-  out
+  # with `last`, some series (e.g. 1178) come newest-first
+  out[do.call(order, unname(out[intersect(c("date", "enddate"), names(out))])), ]
 }
 
 #' Convert tidy dataframe into a list
