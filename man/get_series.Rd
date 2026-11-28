@@ -36,7 +36,9 @@ Once \code{last} is provided it overrides the arguments \code{start_date} and \c
 \value{
 \code{tibble} is the default returning class, but the argument \code{as} can be set
 to \code{xts}, \code{data.frame}, \code{ts}, or \code{text} to return these other types.
-\code{text} returns the JSON data provided by the remote API.
+\code{text} returns the JSON data provided by the remote API: one string for
+one series, or a named list of strings for several series. Periods longer than
+10 years are joined into one JSON array.
 
 Series that return a period for each value (e.g. TR 226, TBF 253) have an
 extra \code{enddate} column in \code{tibble} and \code{data.frame} output.

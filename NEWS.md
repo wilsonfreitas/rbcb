@@ -11,6 +11,9 @@
   in a new `enddate` column, in `rbcb_get()` and in `get_series(as = "tibble")` /
   `"data.frame"`. Before, the end date was dropped. `as = "xts"` and `"ts"` raise an error
   when two periods share a start date (Issue #82).
+* `get_series(as = "text")` returns the raw JSON again: one string for one series, or a named
+  list for several series. Before, it returned `NULL`. Periods longer than 10 years are joined
+  into one JSON array, as in python-bcb (Issue #72).
 * The RStudio addins `rbcb_search()` and `rbcb_dataset()` work again: dataset search uses the
   CKAN v3 API of dadosabertos.bcb.gov.br (Issue #68).
 

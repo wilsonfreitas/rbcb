@@ -152,3 +152,14 @@ test_that("it should return the end date of period series", {
   y <- get_series(c(TR = 226, USD = 1), last = 5)
   expect_equal(names(y$USD), c("date", "USD"))
 })
+
+test_that("it should return the raw JSON with as = 'text'", {
+  skip_on_cran()
+  skip_if_offline()
+  x <- get_series(1, last = 3, as = "text")
+  expect_type(x, "character")
+  expect_equal(nrow(jsonlite::fromJSON(x)), 3)
+  y <- get_series(c(USD = 1, SELIC = 1178), last = 2, as = "text")
+  expect_equal(names(y), c("USD", "SELIC"))
+  expect_equal(nrow(jsonlite::fromJSON(y$SELIC)), 2)
+})
