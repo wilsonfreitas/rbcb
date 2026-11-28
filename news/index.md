@@ -35,6 +35,14 @@
   series (e.g. Selic 1178) came newest-first, so `as = "ts"` had a wrong
   start and reversed values (Issue
   [\#73](https://github.com/wilsonfreitas/rbcb/issues/73)).
+- The currency list lookup (used by
+  [`get_currency()`](https://wilsonfreitas.github.io/rbcb/reference/get_currency.md)
+  and
+  [`list_currencies()`](https://wilsonfreitas.github.io/rbcb/reference/list_currencies.md))
+  goes back at most 10 days, and only when a day has no file (HTTP 404).
+  Before, any error (for example no network) made it go back one day at
+  a time with no limit, until R stopped with “infinite recursion” (Issue
+  [\#74](https://github.com/wilsonfreitas/rbcb/issues/74)).
 - The RStudio addins
   [`rbcb_search()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_search.md)
   and
