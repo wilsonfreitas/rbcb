@@ -43,6 +43,10 @@
   Before, any error (for example no network) made it go back one day at
   a time with no limit, until R stopped with “infinite recursion” (Issue
   [\#74](https://github.com/wilsonfreitas/rbcb/issues/74)).
+- [`get_currency()`](https://wilsonfreitas.github.io/rbcb/reference/get_currency.md)
+  with an unknown symbol stops with “Unknown currency symbol”. Before,
+  it gave a confusing `-Inf` warning and built a URL with `-Inf` in it
+  (Issue [\#76](https://github.com/wilsonfreitas/rbcb/issues/76)).
 - The RStudio addins
   [`rbcb_search()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_search.md)
   and
