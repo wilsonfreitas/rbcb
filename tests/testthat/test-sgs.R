@@ -75,3 +75,15 @@ test_that("it should join the JSON of 10-year windows into one array", {
   df <- jsonlite::fromJSON(txt)
   expect_equal(df$valor, c("1", "2", "3"))
 })
+
+test_that("it should sort series by date (some come newest-first)", {
+  f <- tempfile(fileext = ".json")
+  writeLines('[
+    {"data":"19/11/2026","valor":"3"},
+    {"data":"18/11/2026","valor":"2"},
+    {"data":"17/11/2026","valor":"1"}
+  ]', f)
+  df <- sgs_create_series(sgs(SELIC = 1178)$SELIC, f)
+  expect_equal(df$value, c(1, 2, 3))
+  expect_false(is.unsorted(df$date))
+})

@@ -163,3 +163,12 @@ test_that("it should return the raw JSON with as = 'text'", {
   expect_equal(names(y), c("USD", "SELIC"))
   expect_equal(nrow(jsonlite::fromJSON(y$SELIC)), 2)
 })
+
+test_that("it should return series oldest-first with last = N", {
+  skip_on_cran()
+  skip_if_offline()
+  x <- get_series(c(SELIC = 1178), last = 5)
+  expect_false(is.unsorted(x$date))
+  y <- get_series(c(SELIC = 1178), last = 5, as = "ts")
+  expect_equal(as.numeric(y), x$SELIC)
+})
