@@ -97,6 +97,9 @@ get_currency_id <- function(symbol) {
   id_list <- suppressMessages(currency_id_list())
   all_currencies <- suppressMessages(get_currency_list())
   x <- merge(id_list, all_currencies)
+  if (!any(x$symbol == symbol)) {
+    stop("Unknown currency symbol: ", symbol, ". See list_currencies().", call. = FALSE)
+  }
   max(x[x$symbol == symbol, ]$id)
 }
 

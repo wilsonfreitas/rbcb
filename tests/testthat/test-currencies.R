@@ -127,3 +127,12 @@ test_that("get_valid_currency_list goes back only on 404, at most 10 days", {
   expect_error(get_valid_currency_list(), "503")
   expect_equal(calls, 1)
 })
+
+test_that("get_currency_id gives a clear error for an unknown symbol", {
+  local_mocked_bindings(
+    currency_id_list = function() data.frame(id = c(61, 222), name = c("x", "y")),
+    get_currency_list = function() data.frame(name = c("x", "y"), symbol = c("USD", "EUR"))
+  )
+  expect_equal(get_currency_id("USD"), 61)
+  expect_error(get_currency_id("XXX"), "Unknown currency symbol: XXX")
+})
