@@ -44,6 +44,7 @@
 <code><a href="../reference/sgs.html">sgs()</a></code> rejects invalid codes (zero, negative, non-numeric) directly.</li>
 </ul></li>
 <li>Daily SGS series can be downloaded again without <code>start_date</code> (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/64" class="external-link">#64</a>). The API limits daily series to 10-year windows, so longer periods are downloaded in 10-year windows and combined.</li>
+<li>SGS series that return a period for each value (TR 226, TBF 253) keep the end of the period in a new <code>enddate</code> column, in <code><a href="../reference/rbcb_get.html">rbcb_get()</a></code> and in <code>get_series(as = "tibble")</code> / <code>"data.frame"</code>. Before, the end date was dropped. <code>as = "xts"</code> and <code>"ts"</code> raise an error when two periods share a start date (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/82" class="external-link">#82</a>).</li>
 <li>The RStudio addins <code><a href="../reference/rbcb_search.html">rbcb_search()</a></code> and <code><a href="../reference/rbcb_dataset.html">rbcb_dataset()</a></code> work again: dataset search uses the CKAN v3 API of dadosabertos.bcb.gov.br (Issue <a href="https://github.com/wilsonfreitas/rbcb/issues/68" class="external-link">#68</a>).</li>
 </ul></div>
     <div class="section level2">

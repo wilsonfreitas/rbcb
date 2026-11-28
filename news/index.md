@@ -19,6 +19,13 @@
   [\#64](https://github.com/wilsonfreitas/rbcb/issues/64)). The API
   limits daily series to 10-year windows, so longer periods are
   downloaded in 10-year windows and combined.
+- SGS series that return a period for each value (TR 226, TBF 253) keep
+  the end of the period in a new `enddate` column, in
+  [`rbcb_get()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_get.md)
+  and in `get_series(as = "tibble")` / `"data.frame"`. Before, the end
+  date was dropped. `as = "xts"` and `"ts"` raise an error when two
+  periods share a start date (Issue
+  [\#82](https://github.com/wilsonfreitas/rbcb/issues/82)).
 - The RStudio addins
   [`rbcb_search()`](https://wilsonfreitas.github.io/rbcb/reference/rbcb_search.md)
   and

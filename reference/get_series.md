@@ -54,6 +54,11 @@ get_series(
 set to `xts`, `data.frame`, `ts`, or `text` to return these other types.
 `text` returns the JSON data provided by the remote API.
 
+Series that return a period for each value (e.g. TR 226, TBF 253) have
+an extra `enddate` column in `tibble` and `data.frame` output. `xts` and
+`ts` are indexed by the start date only, and raise an error when two
+periods share a start date.
+
 ## Examples
 
 ``` r
