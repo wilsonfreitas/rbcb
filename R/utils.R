@@ -45,7 +45,9 @@ http_download <- function(method = c("get", "post"), ...) {
   method <- match.arg(method)
   cache <- getOption("rbcb_cache", default = TRUE)
   params <- list(...)
-  code <- digest(params)
+  # the date in the key makes cached files expire after one day: URLs like
+  # `ultimos/N` stay the same while their data changes
+  code <- digest(list(params, Sys.Date()))
   dest <- file.path(tempdir(), code)
 
   if (cache && file.exists(dest)) {
