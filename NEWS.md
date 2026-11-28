@@ -16,6 +16,10 @@
   into one JSON array, as in python-bcb (Issue #72).
 * SGS series are always returned oldest-first. With `last = N`, some series (e.g. Selic 1178)
   came newest-first, so `as = "ts"` had a wrong start and reversed values (Issue #73).
+* The currency list lookup (used by `get_currency()` and `list_currencies()`) goes back at most
+  10 days, and only when a day has no file (HTTP 404). Before, any error (for example no network)
+  made it go back one day at a time with no limit, until R stopped with "infinite recursion"
+  (Issue #74).
 * The RStudio addins `rbcb_search()` and `rbcb_dataset()` work again: dataset search uses the
   CKAN v3 API of dadosabertos.bcb.gov.br (Issue #68).
 
