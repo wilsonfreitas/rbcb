@@ -90,3 +90,12 @@ searching series.
 
 `legacy/` is gitignored scratch (old scripts, and credential files) —
 not part of the package; don’t read it or add it to the build.
+
+## Sibling project
+
+`python-bcb` (github.com/wilsonfreitas/python-bcb, local clone at
+`~/dev/python/python-bcb`) wraps the same BCB APIs in Python. When a BCB
+API changes behaviour (date formats, limits, new fields), check the
+other package too and cross-link the issues (“Mirrors
+wilsonfreitas/python-bcb#N”). Both repos use the same issue labels
+(`type: *`, `area: *`, `priority: *`).
