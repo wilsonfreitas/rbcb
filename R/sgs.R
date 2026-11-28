@@ -128,6 +128,9 @@ print.sgs <- function(x, ...) {
 #'
 #' To use the SGS API a `sgs` object should be passed.
 #'
+#' Series that return a period for each value (e.g. TR 226, TBF 253) have an
+#' extra `enddate` column with the end of the period.
+#'
 #' @rdname rbcb_get
 #' @examples
 #' \dontrun{
@@ -178,19 +181,16 @@ sgs_download_windows <- function(x, from, to) {
   files
 }
 
+# Period series (TR 226, TBF 253) also return `dataFim`; keep it as `enddate`.
 sgs_create_series <- function(x, json) {
   df_ <- fromJSON(json)
-
-  df_ <- within(df_, {
-    data <- as.Date(data, format = "%d/%m/%Y")
-    valor <- as.numeric(valor)
-  })
-
-  df_ <- df_[, c("data", "valor")]
-  df_[["name"]] <- x$name
-  names(df_) <- c("date", "value", "name")
-  df_ <- as_tibble(df_)
-  df_
+  out <- tibble(date = as.Date(df_$data, format = "%d/%m/%Y"))
+  if (!is.null(df_$dataFim)) {
+    out$enddate <- as.Date(df_$dataFim, format = "%d/%m/%Y")
+  }
+  out$value <- as.numeric(df_$valor)
+  out$name <- x$name
+  out
 }
 
 #' Convert tidy dataframe into a list
@@ -233,15 +233,23 @@ sgs_untidy <- function(x, tidydf, as = c("tibble", "xts", "ts")) {
 }
 
 .sgs_convert_split <- function(x, df, as) {
+  has_end <- "enddate" %in% names(df) && !all(is.na(df$enddate))
+  cols <- if (has_end) c("date", "enddate", "value") else c("date", "value")
+  if (has_end && as %in% c("xts", "ts") && anyDuplicated(df$date)) {
+    stop("Series ", x$name, " has periods that share a start date; ",
+      "use as = \"tibble\" or \"data.frame\" to keep the end date",
+      call. = FALSE
+    )
+  }
   switch(as,
     "tibble" = {
-      df <- df[, c("date", "value")]
-      names(df) <- c("date", x$name)
+      df <- df[, cols]
+      names(df) <- c(cols[-length(cols)], x$name)
       df
     },
     "data.frame" = {
-      df <- as.data.frame(df[, c("date", "value")])
-      names(df) <- c("date", x$name)
+      df <- as.data.frame(df[, cols])
+      names(df) <- c(cols[-length(cols)], x$name)
       df
     },
     "xts" = {

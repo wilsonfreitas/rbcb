@@ -22,7 +22,10 @@ rbcb_get(x, ...)
 
 \item{last}{last items of the series
 
-To use the SGS API a `sgs` object should be passed.}
+To use the SGS API a `sgs` object should be passed.
+
+Series that return a period for each value (e.g. TR 226, TBF 253) have an
+extra `enddate` column with the end of the period.}
 }
 \value{
 a dataset with the corresponding data (usually a `tibble`)
